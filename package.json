@@ -1,9 +1,9 @@
 {
-  "name": "go-poker-web",
+  "name": "poker-pocket-react-client",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "author": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "start": "craco start",
     "build": "craco build",
