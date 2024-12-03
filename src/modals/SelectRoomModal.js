@@ -39,7 +39,7 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
         const data = JSON.stringify({
           connectionId: connId,
           socketKey: socketKey,
-          key: 'getRooms',
+          key: 'getTables',
           playerName: playerNickname,
           roomId: -1,
           roomSortParam: roomSortParam,
@@ -58,7 +58,7 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
       const data = JSON.stringify({
         connectionId: connId,
         socketKey: socketKey,
-        key: 'selectRoom',
+        key: 'selectTable',
         roomId: room_id,
       });
       socket.send(data);
@@ -71,7 +71,7 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
         const data = JSON.stringify({
           connectionId: connId,
           socketKey: socketKey,
-          key: 'getSpectateRooms',
+          key: 'getSpectateTables',
           roomId: -1,
           roomSortParam: roomSortParam,
         });
@@ -89,7 +89,7 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
       const data = JSON.stringify({
         connectionId: connId,
         socketKey: socketKey,
-        key: 'selectSpectateRoom',
+        key: 'selectSpectateTable',
         roomId: room_id,
       });
       socket.send(data);
@@ -97,7 +97,7 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
       const data2 = JSON.stringify({
         connectionId: connId,
         socketKey: socketKey,
-        key: 'getRoomParams',
+        key: 'getTableParams',
         roomId: room_id,
       });
       socket.send(data2);
@@ -112,10 +112,9 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
   }, [socket]);
 
   const regGameHandler = (socket) => {
-    // Example: {"key":"getRooms","data":[{"roomId":0,"roomName":"Room 0","playerCount":0,"maxSeats":6},{"roomId":1,"roomName":"Room 1","playerCount":0,"maxSeats":6},{"roomId":2,"roomName":"Room 2","playerCount":0,"maxSeats":6}]}
-    socket.handle('getRooms', (jsonData) => parseRooms(jsonData.data));
+    socket.handle('getTables', (jsonData) => parseRooms(jsonData.data.tables));
 
-    socket.handle('getSpectateRooms', (jsonData) => parseRooms(jsonData.data));
+    socket.handle('getSpectateTables', (jsonData) => parseRooms(jsonData.data.tables));
   };
 
   const parseRooms = (rData) => {
@@ -143,11 +142,11 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
       return null;
     }
     return roomsData.map((rData) => {
-      const minBet = rData['roomMinBet'] ? rData.roomMinBet : 10;
+      const minBet = rData['tableMinBet'] ? rData.tableMinBet : 10;
       const desc = ' ➟ ' + rData.playerCount + '/' + rData.maxSeats + ' ➟ MB ' + minBet + '$';
       return (
         <button
-          key={rData.roomId}
+          key={rData.tableId}
           type="button"
           onClick={() => chooseRoom(rData)}
           className="list-group-item list-group-item-action"
@@ -157,7 +156,7 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
               <div className={!isSpect ? 'chipIcon' : 'spectateIcon'}></div>
             </div>
             <div className="p-2" style={{ marginLeft: '-10px' }}>
-              <b>{rData.roomName}</b>
+              <b>{rData.tableName}</b>
               {desc}
             </div>
           </div>
