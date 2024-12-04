@@ -36,7 +36,6 @@ const UserDashboardModal = ({ context, closeModal }) => {
 
   // Draw morris chart of player statistics
   function getPlayerChartDataResult(cData) {
-    // console.log(JSON.stringify(cData));
     // Init chart views
     playerMoneyChartRef.current.innerHTML = '';
     // playerMoneyChartRef.css('height', 200);
@@ -119,7 +118,6 @@ const UserDashboardModal = ({ context, closeModal }) => {
   }, [myDashboardData]);
 
   function parserloggedInUserStatisticsResults(uData) {
-    console.log('parserloggedInUserStatisticsResults', uData);
     let userStatsMedalsTitle = null;
     let xpLevel = Number(uData.xp);
     if (xpLevel >= 1000) {

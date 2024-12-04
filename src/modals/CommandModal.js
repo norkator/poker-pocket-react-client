@@ -26,7 +26,6 @@ const CommandModal = ({ context, closeModal }) => {
   function sendServerCommand() {
     if (socket) {
       var password = sha3_512(inputData.password);
-      console.log(password);
       const data = JSON.stringify({
         connectionId: connId,
         socketKey: socketKey,

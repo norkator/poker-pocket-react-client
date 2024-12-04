@@ -39,7 +39,6 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
 
   function loginResult(lData) {
     if (lData.result) {
-      console.log(JSON.stringify(lData));
       toast.success('You are now logged in for this instance.');
       // Need to get all room's again or exit all running game.
       // TODO: leave all table to login
@@ -62,7 +61,6 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
   function userLogin(username, password) {
     // SHA3-512
     var passwordSha3 = sha3_512(password);
-    console.log('Login hash: ' + passwordSha3);
     if (socket) {
       socket.send(
         JSON.stringify({
@@ -79,7 +77,6 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
   function createAccount(username, password, email) {
     // SHA3-512
     var passwordSha3 = sha3_512(password);
-    console.log('RegisterHash: ' + passwordSha3);
     if (socket) {
       socket.send(
         JSON.stringify({

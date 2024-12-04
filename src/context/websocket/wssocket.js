@@ -21,7 +21,7 @@ export const NewWsSocket = (url, onConnect, onClose) => {
         return;
       }
 
-      console.log('jsonData not handle', jsonData.key);
+      console.warn('jsonData no handler found', jsonData.key);
     };
     webSocket.onclose = () => {
       if (onClose) onClose(data);

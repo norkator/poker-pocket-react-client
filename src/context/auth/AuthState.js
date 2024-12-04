@@ -27,10 +27,7 @@ const AuthState = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log('useEffect', isLoggedIn);
     if (isLoggedIn) {
-      console.log('useEffect isLoggedIn');
-
       isLoggedInRef.current = true;
       setLoggedInUserParams(isLoggedIn);
     }
@@ -59,7 +56,6 @@ const AuthState = ({ children }) => {
           password: passwordHash,
         })
       );
-      console.log('Set logged in user prms for: ' + username);
     }
   }
 
@@ -74,7 +70,6 @@ const AuthState = ({ children }) => {
 
   function getLoggedInUserStatistics() {
     if (socket && isAuthed) {
-      console.log('isAuthed getLoggedInUserStatistics');
       const data = JSON.stringify({
         connectionId: connId,
         socketKey: socketKey,
@@ -94,7 +89,6 @@ const AuthState = ({ children }) => {
   }, [myDashboardRefresh]);
 
   function loggedInUserStatisticsResults(uData) {
-    console.log('isAuthed loggedInUserStatisticsResults', JSON.stringify(uData));
     setMyDashboardData(uData);
   }
 

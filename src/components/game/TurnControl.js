@@ -57,7 +57,6 @@ const TurnControl = () => {
   function getAutoPlayAction() {
     if (socket) {
       autoPlayCommandRequested.current = true;
-      console.log('# Requesting auto play action');
       const data = JSON.stringify({
         connectionId: connId,
         socketKey: socketKey,

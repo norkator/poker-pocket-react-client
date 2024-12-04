@@ -73,7 +73,6 @@ const SettingsBar = () => {
 
   const changeConnectMode = (state) => {
     localStorage.setItem(LS_MODE_TOGGLE_STATE, JSON.stringify(state));
-    console.log(JSON.stringify(state));
     reloadDelay();
   };
 
@@ -90,12 +89,16 @@ const SettingsBar = () => {
     window.location.reload(); // Reload site with new connection params
   }
 
+  const getCurrentYear = () => {
+    return new Date().getFullYear();
+  };
+
   return (
     <div className="row">
       <div className="col-4">
         <footer className="footer">
           <div style={{ color: '#FFFFFF' }}>♣ ♦ ♥ ♠</div>
-          <div style={{ color: '#FFFFFF' }}>&copy; Nitramite 2023</div>
+          <div style={{ color: '#FFFFFF' }}>&copy; Nitramite {getCurrentYear()}</div>
           <div style={{ color: '#FFFFFF' }}>Graphics Raphael Ciribelly</div>
         </footer>
       </div>

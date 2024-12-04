@@ -56,13 +56,10 @@ const WebSocketProvider = ({ children }) => {
 
   function cleanUp(reason) {
     if (socket) {
-      console.log('cleanUp found socket', reason);
       const webSocket = socket;
       setSocketDisconnected();
       setSocket(null);
       webSocket.close();
-    } else {
-      console.log('cleanUp not found', reason);
     }
   }
 

@@ -35,8 +35,6 @@ const RankingsModal = ({ context }) => {
   function getRankingsResult(jsonData) {
     const responseCode = jsonData.code;
     const rData = jsonData.data;
-
-    console.log(JSON.stringify(rData));
     if (Number(responseCode) === 200) {
       setRankingData(rData);
     } else {

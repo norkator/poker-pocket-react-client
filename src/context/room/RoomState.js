@@ -101,7 +101,6 @@ const RoomState = ({ children }) => {
 
   // init room data
   const roomParameters = (rData) => {
-    console.log('Room params: ', JSON.stringify(rData));
     setMyDashboardDataRefresh({}); // Added so refreshing xp needed counter updates automatically
 
     initBoard(roomRef.current.board);
