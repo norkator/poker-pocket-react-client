@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { toast } from 'react-toastify';
 import NavButton from '@/components/buttons/NavButton';
 import contentContext from '@/context/content/contentContext';
 import modalContext from '@/context/modal/modalContext';
@@ -127,7 +126,9 @@ const Navbar = () => {
             <NavButton onClick={toggleSounds}>
               {enableSounds ? t('SOUNDS_DISABLE') : t('SOUNDS_ENABLE')}
             </NavButton>
-            <NavButton onClick={() => toast.success('Wow so easy!')}>{t('NOTIFICATION')}</NavButton>
+            {
+              //<NavButton onClick={() => toast.success('Wow so easy!')}>{t('NOTIFICATION')}</NavButton>
+            }
           </ul>
           {isAuthed ? (
             <ul
