@@ -11,7 +11,7 @@ import OfflineProvider from './offline/OfflineProvider';
 import WebSocketProvider from './websocket/WebsocketProvider';
 import AuthState from './auth/AuthState';
 import GameState from './game/GameState';
-import RoomState from './room/RoomState';
+import TableState from '@/context/table/TableState';
 
 const Providers = ({ children }) => (
   <BrowserRouter>
@@ -24,9 +24,9 @@ const Providers = ({ children }) => (
               <WebSocketProvider>
                 <AuthState>
                   <GameState>
-                    <RoomState>
+                    <TableState>
                       {children}
-                    </RoomState>
+                    </TableState>
                   </GameState>
                 </AuthState>
               </WebSocketProvider>

@@ -7,7 +7,7 @@ const CommandModal = ({ context, closeModal }) => {
   const { t } = useContext(contentContext);
 
   const { socketCtx } = context;
-  const { socket, connId, socketKey } = socketCtx;
+  const { socket, connId } = socketCtx;
 
   useEffect(() => {
     if (socket) {
@@ -28,7 +28,6 @@ const CommandModal = ({ context, closeModal }) => {
       var password = sha3_512(inputData.password);
       const data = JSON.stringify({
         connectionId: connId,
-        socketKey: socketKey,
         key: 'serverCommand',
         lineOne: inputData.lineOne,
         lineTwo: inputData.lineTwo,

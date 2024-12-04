@@ -7,7 +7,7 @@ const UserDashboardModal = ({ context, closeModal }) => {
   const { t } = useContext(contentContext);
 
   const { socketCtx, authCtx } = context;
-  const { socket, connId, socketKey } = socketCtx;
+  const { socket, connId } = socketCtx;
   const { myDashboardData, setMyDashboardDataRefresh, setXpNeededForNextMedal } = authCtx;
 
   useEffect(() => {
@@ -24,7 +24,6 @@ const UserDashboardModal = ({ context, closeModal }) => {
     if (socket) {
       const data = JSON.stringify({
         connectionId: connId,
-        socketKey: socketKey,
         key: 'getPlayerChartData',
       });
       socket.send(data);

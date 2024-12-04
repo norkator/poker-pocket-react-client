@@ -3,10 +3,10 @@ import { toast } from 'react-toastify';
 
 const playerNickname = 'Anon' + Math.floor(Math.random() * 1000);
 
-const SelectRoomModal = ({ mode, context, closeModal }) => {
-  const { socketCtx, roomCtx } = context;
-  const { roomId, setRoomId } = roomCtx;
-  const { socket, connId, socketKey } = socketCtx;
+const SelectTableModal = ({ mode, context, closeModal }) => {
+  const { socketCtx, tableCtx } = context;
+  const { tableId, setTableId } = tableCtx;
+  const { socket, connId } = socketCtx;
 
   const [isSpect, setIsSpect] = useState(mode !== 'all');
 
@@ -33,16 +33,15 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSpect, filter]);
 
-  const getRooms = (socket, roomSortParam) => {
+  const getRooms = (socket, tableSortParam) => {
     if (socket) {
-      if (roomId === -1) {
+      if (tableId === -1) {
         const data = JSON.stringify({
           connectionId: connId,
-          socketKey: socketKey,
           key: 'getTables',
           playerName: playerNickname,
-          roomId: -1,
-          roomSortParam: roomSortParam,
+          tableId: -1,
+          tableSortParam: tableSortParam,
         });
         socket.send(data);
       } else {
@@ -53,27 +52,25 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
     }
   };
 
-  function selectRoom(room_id) {
+  function selectRoom(table_id) {
     if (socket) {
       const data = JSON.stringify({
         connectionId: connId,
-        socketKey: socketKey,
         key: 'selectTable',
-        roomId: room_id,
+        tableId: table_id,
       });
       socket.send(data);
     }
   }
 
-  function getSpectateRooms(socket, roomSortParam) {
+  function getSpectateRooms(socket, tableSortParam) {
     if (socket) {
-      if (roomId === -1) {
+      if (tableId === -1) {
         const data = JSON.stringify({
           connectionId: connId,
-          socketKey: socketKey,
           key: 'getSpectateTables',
-          roomId: -1,
-          roomSortParam: roomSortParam,
+          tableId: -1,
+          tableSortParam: tableSortParam,
         });
         socket.send(data);
       } else {
@@ -84,21 +81,19 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
     }
   }
 
-  function selectSpectateRoom(room_id) {
+  function selectSpectateRoom(table_id) {
     if (socket) {
       const data = JSON.stringify({
         connectionId: connId,
-        socketKey: socketKey,
         key: 'selectSpectateTable',
-        roomId: room_id,
+        tableId: table_id,
       });
       socket.send(data);
 
       const data2 = JSON.stringify({
         connectionId: connId,
-        socketKey: socketKey,
         key: 'getTableParams',
-        roomId: room_id,
+        tableId: table_id,
       });
       socket.send(data2);
     }
@@ -122,10 +117,10 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
   };
 
   const chooseRoom = (rData) => {
-    const room_id = Number(rData.roomId);
-    if (room_id !== -1) {
-      setRoomId(room_id);
-      isSpect ? selectSpectateRoom(room_id) : selectRoom(room_id);
+    const table_id = Number(rData.tableId);
+    if (table_id !== -1) {
+      setTableId(table_id);
+      isSpect ? selectSpectateRoom(table_id) : selectRoom(table_id);
       closeModal();
     }
   };
@@ -215,4 +210,4 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
   );
 };
 
-export default SelectRoomModal;
+export default SelectTableModal;

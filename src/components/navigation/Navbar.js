@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import NavButton from '@/components/buttons/NavButton';
 import contentContext from '@/context/content/contentContext';
 import modalContext from '@/context/modal/modalContext';
-import SelectRoomModal from '@/modals/SelectRoomModal';
+import SelectTableModal from '@/modals/SelectTableModal';
 import RankingsModal from '@/modals/RankingsModal';
 import GameInfoModal from '@/modals/GameInfoModal';
 import CommandModal from '@/modals/CommandModal';
@@ -11,7 +11,7 @@ import UserDashboardModal from '@/modals/UserDashboardModal';
 import SignInOnModal from '@/modals/SignInOnModal';
 import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
-import roomContext from '@/context/room/roomContext';
+import tableContext from '@/context/table/tableContext';
 
 const LS_ENABLE_SOUNDS_STATE = 'LS_ENABLE_SOUNDS_STATE';
 
@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const socketCtx = useContext(socketContext);
   const authCtx = useContext(authContext);
-  const roomCtx = useContext(roomContext);
+  const tableCtx = useContext(tableContext);
 
   const [enableSounds, setEnableSounds] = useState(true);
 
@@ -55,7 +55,7 @@ const Navbar = () => {
     if (socket) {
       openModal(
         () => (
-          <SelectRoomModal mode={mode} context={{ socketCtx, roomCtx }} closeModal={closeModal} />
+          <SelectTableModal mode={mode} context={{ socketCtx, tableCtx }} closeModal={closeModal} />
         ),
         t('SELECT_ROOM'),
         t('CLOSE')

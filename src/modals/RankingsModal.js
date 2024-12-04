@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const RankingsModal = ({ context }) => {
   const { socketCtx } = context;
-  const { socket, connId, socketKey } = socketCtx;
+  const { socket, connId } = socketCtx;
 
   useEffect(() => {
     if (socket) {
@@ -24,7 +24,6 @@ const RankingsModal = ({ context }) => {
     if (socket) {
       const data = JSON.stringify({
         connectionId: connId,
-        socketKey: socketKey,
         key: 'getRankings',
       });
       socket.send(data);

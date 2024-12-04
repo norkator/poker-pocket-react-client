@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import RoomContext from './roomContext';
+import RoomContext from './tableContext';
 import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
 import NewRoom, {
@@ -25,7 +25,7 @@ import { setupSeats } from '@/components/game/domains/Seat';
 // let autoPlay = false; // Set true makes logged in player play automatically
 let tempPlayers = [];
 
-const RoomState = ({ children }) => {
+const TableState = ({ children }) => {
   const { socket, connId, socketDisconnected } = useContext(socketContext);
   const { setMyDashboardDataRefresh } = useContext(authContext);
 
@@ -35,7 +35,7 @@ const RoomState = ({ children }) => {
   // Set true makes logged in player play automatically
   const [autoPlay, setAutoPlay] = useState(false);
 
-  const [roomId, setRoomId] = useState(-1); // ROOM_ID = -1;
+  const [tableId, setTableId] = useState(-1); // ROOM_ID = -1;
   const [players, setPlayers] = useState(null);
   const [heroTurn, setHeroTurn] = useState({ data: null });
 
@@ -71,7 +71,7 @@ const RoomState = ({ children }) => {
 
   function regRoomHandler(socket) {
     // Example: {"playerCount":3,"roomMinBet":10,"middleCards":["Q♠","6♦","9♠","4♠"],"playersData":[{"playerId":0,"playerName":"Bot362","playerMoney":6462.5,"isDealer":false},{"playerId":1,"playerName":"Bot265","playerMoney":9902.5,"isDealer":false},{"playerId":2,"playerName":"Bot966","playerMoney":13500,"isDealer":true}]}
-    socket.handle('roomParams', (jsonData) => roomParameters(jsonData.data));
+    socket.handle('tableParams', (jsonData) => tableParameters(jsonData.data));
 
     // Hole Cards  ({"players":[{"playerId":0,"cards":["3♠","4♥"]}]})
     socket.handle('holeCards', (jsonData) => holeCards(jsonData.data));
@@ -100,7 +100,7 @@ const RoomState = ({ children }) => {
   }
 
   // init room data
-  const roomParameters = (rData) => {
+  const tableParameters = (rData) => {
     setMyDashboardDataRefresh({}); // Added so refreshing xp needed counter updates automatically
 
     initBoard(roomRef.current.board);
@@ -476,8 +476,8 @@ const RoomState = ({ children }) => {
   return (
     <RoomContext.Provider
       value={{
-        roomId,
-        setRoomId,
+        tableId,
+        setTableId,
         players,
         setPlayers,
         heroTurn,
@@ -505,4 +505,4 @@ const RoomState = ({ children }) => {
   );
 };
 
-export default RoomState;
+export default TableState;

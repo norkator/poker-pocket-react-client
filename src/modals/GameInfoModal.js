@@ -5,7 +5,7 @@ const GameInfoModal = ({ context }) => {
   const { t } = useContext(contentContext);
 
   const { socketCtx } = context;
-  const { socket, connId, socketKey } = socketCtx;
+  const { socket, connId } = socketCtx;
 
   useEffect(() => {
     if (socket) {
@@ -25,7 +25,6 @@ const GameInfoModal = ({ context }) => {
     if (socket) {
       const data = JSON.stringify({
         connectionId: connId,
-        socketKey: socketKey,
         key: 'getGameInformation',
       });
       socket.send(data);
