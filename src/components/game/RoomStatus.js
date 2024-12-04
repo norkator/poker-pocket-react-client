@@ -23,8 +23,8 @@ const RoomStatus = () => {
             <div className="container">
               <div className="row">
                 <div className="col-sm">
-                  <div id="roomName" style={{ color: '#FFFFFF', fontSize: '14px' }}>
-                    {current.getRoomName()}
+                  <div id="tableName" style={{ color: '#FFFFFF', fontSize: '14px' }}>
+                    {current.getTableName()}
                   </div>
                 </div>
                 <div className="col-sm">
