@@ -4,7 +4,7 @@ import AuthContext from './authContext';
 import socketContext from '@/context/websocket/socketContext';
 
 const AuthState = ({ children }) => {
-  const { socket, connId } = useContext(socketContext);
+  const { socket, playerId } = useContext(socketContext);
 
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [isAuthed, setIsAuthed] = useState(false);
@@ -49,7 +49,6 @@ const AuthState = ({ children }) => {
     if (socket) {
       socket.send(
         JSON.stringify({
-          connectionId: connId,
           key: 'loggedInUserParams',
           name: username,
           password: passwordHash,
@@ -70,7 +69,6 @@ const AuthState = ({ children }) => {
   function getLoggedInUserStatistics() {
     if (socket && isAuthed) {
       const data = JSON.stringify({
-        connectionId: connId,
         key: 'loggedInUserStatistics',
       });
       socket.send(data);

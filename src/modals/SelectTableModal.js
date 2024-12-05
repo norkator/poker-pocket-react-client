@@ -6,7 +6,7 @@ const playerNickname = 'Anon' + Math.floor(Math.random() * 1000);
 const SelectTableModal = ({ mode, context, closeModal }) => {
   const { socketCtx, tableCtx } = context;
   const { tableId, setTableId } = tableCtx;
-  const { socket, connId } = socketCtx;
+  const { socket, playerId } = socketCtx;
 
   const [isSpect, setIsSpect] = useState(mode !== 'all');
 
@@ -37,7 +37,6 @@ const SelectTableModal = ({ mode, context, closeModal }) => {
     if (socket) {
       if (tableId === -1) {
         const data = JSON.stringify({
-          connectionId: connId,
           key: 'getTables',
           playerName: playerNickname,
           tableId: -1,
@@ -54,7 +53,6 @@ const SelectTableModal = ({ mode, context, closeModal }) => {
   function selectRoom(table_id) {
     if (socket) {
       const data = JSON.stringify({
-        connectionId: connId,
         key: 'selectTable',
         tableId: table_id,
       });
@@ -66,7 +64,6 @@ const SelectTableModal = ({ mode, context, closeModal }) => {
     if (socket) {
       if (tableId === -1) {
         const data = JSON.stringify({
-          connectionId: connId,
           key: 'getSpectateTables',
           tableId: -1,
           tableSortParam: tableSortParam,
@@ -82,14 +79,12 @@ const SelectTableModal = ({ mode, context, closeModal }) => {
   function selectSpectateRoom(table_id) {
     if (socket) {
       const data = JSON.stringify({
-        connectionId: connId,
         key: 'selectSpectateTable',
         tableId: table_id,
       });
       socket.send(data);
 
       const data2 = JSON.stringify({
-        connectionId: connId,
         key: 'getTableParams',
         tableId: table_id,
       });

@@ -25,7 +25,7 @@ const StyledActBtn = ({ className, onClick, label }) => {
 };
 
 const TurnControl = () => {
-  const { socket, connId } = useContext(socketContext);
+  const { socket, playerId } = useContext(socketContext);
   const { tableId, ctrl, players, heroTurn, autoCheck, autoPlay } = useContext(tableContext);
 
   useEffect(() => {
@@ -58,7 +58,6 @@ const TurnControl = () => {
     if (socket) {
       autoPlayCommandRequested.current = true;
       const data = JSON.stringify({
-        connectionId: connId,
         key: 'autoPlayAction',
       });
       socket.send(data);
@@ -97,7 +96,6 @@ const TurnControl = () => {
   function setFold() {
     if (socket) {
       const data = JSON.stringify({
-        connectionId: connId,
         key: 'setFold',
         tableId: tableId,
       });
@@ -108,7 +106,6 @@ const TurnControl = () => {
   function setCheck() {
     if (socket) {
       const data = JSON.stringify({
-        connectionId: connId,
         key: 'setCheck',
         tableId: tableId,
       });
@@ -119,7 +116,6 @@ const TurnControl = () => {
   function setRaise(amount) {
     if (socket && amount > 0) {
       const data = JSON.stringify({
-        connectionId: connId,
         key: 'setRaise',
         tableId: tableId,
         amount: amount,
@@ -131,7 +127,7 @@ const TurnControl = () => {
   function raiseHelper(amount, allIn) {
     for (let i = 0; i < players.length; i++) {
       const player = players[i];
-      if (player.playerId === connId && player.isPlayerTurn && Number(player.playerMoney) > 0) {
+      if (player.playerId === playerId && player.isPlayerTurn && Number(player.playerMoney) > 0) {
         if (!allIn) {
           if (player.playerMoney + player.tempBet > 0) {
             const playerTotalBet = player.playerTotalBet + amount;
@@ -158,31 +154,31 @@ const TurnControl = () => {
   }
 
   function betTenClick() {
-    if (connId) {
+    if (playerId) {
       raiseHelper(10, false);
     }
   }
 
   function betTwentyFiveClick() {
-    if (connId) {
+    if (playerId) {
       raiseHelper(25, false);
     }
   }
 
   function betOneHundredClick() {
-    if (connId) {
+    if (playerId) {
       raiseHelper(100, false);
     }
   }
 
   function betFiveHundredClick() {
-    if (connId) {
+    if (playerId) {
       raiseHelper(500, false);
     }
   }
 
   function betAllInClick() {
-    if (connId) {
+    if (playerId) {
       raiseHelper(0, true);
     }
   }

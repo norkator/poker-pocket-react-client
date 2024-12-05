@@ -26,7 +26,7 @@ import { setupSeats } from '@/components/game/domains/Seat';
 let tempPlayers = [];
 
 const TableState = ({ children }) => {
-  const { socket, connId, socketDisconnected } = useContext(socketContext);
+  const { socket, playerId, socketDisconnected } = useContext(socketContext);
   const { setMyDashboardDataRefresh } = useContext(authContext);
 
   const [enableSounds, setEnableSounds] = useState(true);
@@ -55,7 +55,7 @@ const TableState = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socketDisconnected]);
 
-  const connIdRef = useRef(-1);
+  const playerIdRef = useRef(-1);
 
   useEffect(() => {
     if (socket) {
@@ -65,9 +65,9 @@ const TableState = ({ children }) => {
   }, [socket]);
 
   useEffect(() => {
-    connIdRef.current = connId;
+    playerIdRef.current = playerId;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [connId]);
+  }, [playerId]);
 
   function regRoomHandler(socket) {
     // Example: {"playerCount":3,"roomMinBet":10,"middleCards":["Q♠","6♦","9♠","4♠"],"playersData":[{"playerId":0,"playerName":"Bot362","playerMoney":6462.5,"isDealer":false},{"playerId":1,"playerName":"Bot265","playerMoney":9902.5,"isDealer":false},{"playerId":2,"playerName":"Bot966","playerMoney":13500,"isDealer":true}]}
@@ -258,7 +258,7 @@ const TableState = ({ children }) => {
       }
 
       player.setTimeBar(pTimeLeft);
-      if (Number(pId) === Number(connIdRef.current) && player.tempBet > 0) {
+      if (Number(pId) === Number(playerIdRef.current) && player.tempBet > 0) {
         // Hero Do nothing
       } else {
         player.setPlayerMoney(pMoney);
@@ -275,7 +275,7 @@ const TableState = ({ children }) => {
         }
       }
 
-      if (Number(pId) === Number(connIdRef.current)) {
+      if (Number(pId) === Number(playerIdRef.current)) {
         // Hero
         player.setPlayerTurn(pTurn, sData.isCallSituation);
         roomRef.current.ctrl.actionBtnVisibility(pTurn, false);
@@ -299,7 +299,7 @@ const TableState = ({ children }) => {
 
         player.tempBet = 0;
         player.setPlayerTotalBet(0);
-        if (player.playerId !== connIdRef.current) {
+        if (player.playerId !== playerIdRef.current) {
           // villain
           if (!player.isFold) {
             player.setPlayerCards();

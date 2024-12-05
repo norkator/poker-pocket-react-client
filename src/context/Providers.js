@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalState from './global/GlobalState';
@@ -24,9 +23,7 @@ const Providers = ({ children }) => (
               <WebSocketProvider>
                 <AuthState>
                   <GameState>
-                    <TableState>
-                      {children}
-                    </TableState>
+                    <TableState>{children}</TableState>
                   </GameState>
                 </AuthState>
               </WebSocketProvider>

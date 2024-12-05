@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import config from '@/clientConfig';
 import SocketContext from './socketContext';
@@ -10,6 +10,11 @@ const WebSocketProvider = ({ children }) => {
   // for listening connection hook
   const [socketConnected, setSocketConnected] = useState(null);
   const [socketDisconnected, setSocketDisconnected] = useState(null);
+
+  const playerIdRef = useRef(-1); // CONNECTION_ID = -1;
+  const setPlayerId = (val) => {
+    playerIdRef.current = val;
+  };
 
   // ----------------------------------------------------
   // From server commands a.k.a. messages
@@ -25,6 +30,7 @@ const WebSocketProvider = ({ children }) => {
 
   function connectedResult(jsonData) {
     setSocketConnected({});
+    setPlayerId(Number(jsonData.data.playerId));
   }
 
   // Notify front end of gaining more xp
@@ -90,6 +96,8 @@ const WebSocketProvider = ({ children }) => {
         socket,
         socketConnected,
         socketDisconnected,
+        playerId: playerIdRef.current,
+        setPlayerId,
         reconnect,
         cleanUp,
       }}

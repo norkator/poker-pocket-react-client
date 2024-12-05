@@ -8,7 +8,7 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
   const [state, setState] = useState(mode);
 
   const { socketCtx, authCtx } = context;
-  const { socket, connId } = socketCtx;
+  const { socket, playerId } = socketCtx;
   const { setIsLoggedIn } = authCtx;
 
   const regAuthHandler = (socket) => {
@@ -64,7 +64,6 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
     if (socket) {
       socket.send(
         JSON.stringify({
-          connectionId: connId,
           key: 'userLogin',
           name: username,
           password: passwordSha3,
@@ -79,7 +78,6 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
     if (socket) {
       socket.send(
         JSON.stringify({
-          connectionId: connId,
           key: 'createAccount',
           name: username,
           password: passwordSha3,
