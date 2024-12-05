@@ -46,8 +46,7 @@ const SelectTableModal = ({ mode, context, closeModal }) => {
         socket.send(data);
       } else {
         toast.warn('reload when already in a room');
-        // TODO:
-        // window.location.reload();
+        window.location.reload(); // Todo, implement differently
       }
     }
   };
@@ -75,8 +74,7 @@ const SelectTableModal = ({ mode, context, closeModal }) => {
         socket.send(data);
       } else {
         toast.warn('reload when already in a room');
-        // TODO:
-        // window.location.reload();
+        window.location.reload(); // Todo, implement differently
       }
     }
   }
