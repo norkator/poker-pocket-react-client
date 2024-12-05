@@ -158,23 +158,33 @@ const TurnControl = () => {
   }
 
   function betTenClick() {
-    raiseHelper(10, false);
+    if (connId) {
+      raiseHelper(10, false);
+    }
   }
 
   function betTwentyFiveClick() {
-    raiseHelper(25, false);
+    if (connId) {
+      raiseHelper(25, false);
+    }
   }
 
   function betOneHundredClick() {
-    raiseHelper(100, false);
+    if (connId) {
+      raiseHelper(100, false);
+    }
   }
 
   function betFiveHundredClick() {
-    raiseHelper(500, false);
+    if (connId) {
+      raiseHelper(500, false);
+    }
   }
 
   function betAllInClick() {
-    raiseHelper(0, true);
+    if (connId) {
+      raiseHelper(0, true);
+    }
   }
 
   function myRaiseHelper() {
