@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useMemo, useRef } from 'react';
 import { toast } from 'react-toastify';
 import socketContext from '@/context/websocket/socketContext';
-import roomContext from '@/context/room/roomContext';
+import tableContext from '@/context/table/tableContext';
 
 const StyledBetBtn = ({ onClick, label }) => {
   return (
@@ -25,8 +25,8 @@ const StyledActBtn = ({ className, onClick, label }) => {
 };
 
 const TurnControl = () => {
-  const { socket, connId, socketKey } = useContext(socketContext);
-  const { roomId, ctrl, players, heroTurn, autoCheck, autoPlay } = useContext(roomContext);
+  const { socket, playerId } = useContext(socketContext);
+  const { tableId, ctrl, players, heroTurn, autoCheck, autoPlay } = useContext(tableContext);
 
   useEffect(() => {
     if (socket) {
@@ -57,10 +57,7 @@ const TurnControl = () => {
   function getAutoPlayAction() {
     if (socket) {
       autoPlayCommandRequested.current = true;
-      console.log('# Requesting auto play action');
       const data = JSON.stringify({
-        connectionId: connId,
-        socketKey: socketKey,
         key: 'autoPlayAction',
       });
       socket.send(data);
@@ -99,10 +96,8 @@ const TurnControl = () => {
   function setFold() {
     if (socket) {
       const data = JSON.stringify({
-        connectionId: connId,
-        socketKey: socketKey,
         key: 'setFold',
-        roomId: roomId,
+        tableId: tableId,
       });
       socket.send(data);
     }
@@ -111,10 +106,8 @@ const TurnControl = () => {
   function setCheck() {
     if (socket) {
       const data = JSON.stringify({
-        connectionId: connId,
-        socketKey: socketKey,
         key: 'setCheck',
-        roomId: roomId,
+        tableId: tableId,
       });
       socket.send(data);
     }
@@ -123,10 +116,8 @@ const TurnControl = () => {
   function setRaise(amount) {
     if (socket && amount > 0) {
       const data = JSON.stringify({
-        connectionId: connId,
-        socketKey: socketKey,
         key: 'setRaise',
-        roomId: roomId,
+        tableId: tableId,
         amount: amount,
       });
       socket.send(data);
@@ -136,7 +127,7 @@ const TurnControl = () => {
   function raiseHelper(amount, allIn) {
     for (let i = 0; i < players.length; i++) {
       const player = players[i];
-      if (player.playerId === connId && player.isPlayerTurn && Number(player.playerMoney) > 0) {
+      if (player.playerId === playerId && player.isPlayerTurn && Number(player.playerMoney) > 0) {
         if (!allIn) {
           if (player.playerMoney + player.tempBet > 0) {
             const playerTotalBet = player.playerTotalBet + amount;
@@ -163,23 +154,33 @@ const TurnControl = () => {
   }
 
   function betTenClick() {
-    raiseHelper(10, false);
+    if (playerId) {
+      raiseHelper(10, false);
+    }
   }
 
   function betTwentyFiveClick() {
-    raiseHelper(25, false);
+    if (playerId) {
+      raiseHelper(25, false);
+    }
   }
 
   function betOneHundredClick() {
-    raiseHelper(100, false);
+    if (playerId) {
+      raiseHelper(100, false);
+    }
   }
 
   function betFiveHundredClick() {
-    raiseHelper(500, false);
+    if (playerId) {
+      raiseHelper(500, false);
+    }
   }
 
   function betAllInClick() {
-    raiseHelper(0, true);
+    if (playerId) {
+      raiseHelper(0, true);
+    }
   }
 
   function myRaiseHelper() {

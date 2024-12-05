@@ -3,10 +3,10 @@ import { toast } from 'react-toastify';
 
 const playerNickname = 'Anon' + Math.floor(Math.random() * 1000);
 
-const SelectRoomModal = ({ mode, context, closeModal }) => {
-  const { socketCtx, roomCtx } = context;
-  const { roomId, setRoomId } = roomCtx;
-  const { socket, connId, socketKey } = socketCtx;
+const SelectTableModal = ({ mode, context, closeModal }) => {
+  const { socketCtx, tableCtx } = context;
+  const { tableId, setTableId } = tableCtx;
+  const { socket, playerId } = socketCtx;
 
   const [isSpect, setIsSpect] = useState(mode !== 'all');
 
@@ -33,72 +33,60 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSpect, filter]);
 
-  const getRooms = (socket, roomSortParam) => {
+  const getRooms = (socket, tableSortParam) => {
     if (socket) {
-      if (roomId === -1) {
+      if (tableId === -1) {
         const data = JSON.stringify({
-          connectionId: connId,
-          socketKey: socketKey,
-          key: 'getRooms',
+          key: 'getTables',
           playerName: playerNickname,
-          roomId: -1,
-          roomSortParam: roomSortParam,
+          tableId: -1,
+          tableSortParam: tableSortParam,
         });
         socket.send(data);
       } else {
         toast.warn('reload when already in a room');
-        // TODO:
-        // window.location.reload();
+        window.location.reload(); // Todo, implement differently
       }
     }
   };
 
-  function selectRoom(room_id) {
+  function selectRoom(table_id) {
     if (socket) {
       const data = JSON.stringify({
-        connectionId: connId,
-        socketKey: socketKey,
-        key: 'selectRoom',
-        roomId: room_id,
+        key: 'selectTable',
+        tableId: table_id,
       });
       socket.send(data);
     }
   }
 
-  function getSpectateRooms(socket, roomSortParam) {
+  function getSpectateRooms(socket, tableSortParam) {
     if (socket) {
-      if (roomId === -1) {
+      if (tableId === -1) {
         const data = JSON.stringify({
-          connectionId: connId,
-          socketKey: socketKey,
-          key: 'getSpectateRooms',
-          roomId: -1,
-          roomSortParam: roomSortParam,
+          key: 'getSpectateTables',
+          tableId: -1,
+          tableSortParam: tableSortParam,
         });
         socket.send(data);
       } else {
         toast.warn('reload when already in a room');
-        // TODO:
-        // window.location.reload();
+        window.location.reload(); // Todo, implement differently
       }
     }
   }
 
-  function selectSpectateRoom(room_id) {
+  function selectSpectateRoom(table_id) {
     if (socket) {
       const data = JSON.stringify({
-        connectionId: connId,
-        socketKey: socketKey,
-        key: 'selectSpectateRoom',
-        roomId: room_id,
+        key: 'selectSpectateTable',
+        tableId: table_id,
       });
       socket.send(data);
 
       const data2 = JSON.stringify({
-        connectionId: connId,
-        socketKey: socketKey,
-        key: 'getRoomParams',
-        roomId: room_id,
+        key: 'getTableParams',
+        tableId: table_id,
       });
       socket.send(data2);
     }
@@ -112,10 +100,9 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
   }, [socket]);
 
   const regGameHandler = (socket) => {
-    // Example: {"key":"getRooms","data":[{"roomId":0,"roomName":"Room 0","playerCount":0,"maxSeats":6},{"roomId":1,"roomName":"Room 1","playerCount":0,"maxSeats":6},{"roomId":2,"roomName":"Room 2","playerCount":0,"maxSeats":6}]}
-    socket.handle('getRooms', (jsonData) => parseRooms(jsonData.data));
+    socket.handle('getTables', (jsonData) => parseRooms(jsonData.data.tables));
 
-    socket.handle('getSpectateRooms', (jsonData) => parseRooms(jsonData.data));
+    socket.handle('getSpectateTables', (jsonData) => parseRooms(jsonData.data.tables));
   };
 
   const parseRooms = (rData) => {
@@ -123,10 +110,10 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
   };
 
   const chooseRoom = (rData) => {
-    const room_id = Number(rData.roomId);
-    if (room_id !== -1) {
-      setRoomId(room_id);
-      isSpect ? selectSpectateRoom(room_id) : selectRoom(room_id);
+    const table_id = Number(rData.tableId);
+    if (table_id !== -1) {
+      setTableId(table_id);
+      isSpect ? selectSpectateRoom(table_id) : selectRoom(table_id);
       closeModal();
     }
   };
@@ -143,11 +130,11 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
       return null;
     }
     return roomsData.map((rData) => {
-      const minBet = rData['roomMinBet'] ? rData.roomMinBet : 10;
+      const minBet = rData['tableMinBet'] ? rData.tableMinBet : 10;
       const desc = ' ➟ ' + rData.playerCount + '/' + rData.maxSeats + ' ➟ MB ' + minBet + '$';
       return (
         <button
-          key={rData.roomId}
+          key={rData.tableId}
           type="button"
           onClick={() => chooseRoom(rData)}
           className="list-group-item list-group-item-action"
@@ -157,7 +144,7 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
               <div className={!isSpect ? 'chipIcon' : 'spectateIcon'}></div>
             </div>
             <div className="p-2" style={{ marginLeft: '-10px' }}>
-              <b>{rData.roomName}</b>
+              <b>{rData.tableName}</b>
               {desc}
             </div>
           </div>
@@ -216,4 +203,4 @@ const SelectRoomModal = ({ mode, context, closeModal }) => {
   );
 };
 
-export default SelectRoomModal;
+export default SelectTableModal;

@@ -7,7 +7,7 @@ const UserDashboardModal = ({ context, closeModal }) => {
   const { t } = useContext(contentContext);
 
   const { socketCtx, authCtx } = context;
-  const { socket, connId, socketKey } = socketCtx;
+  const { socket, playerId } = socketCtx;
   const { myDashboardData, setMyDashboardDataRefresh, setXpNeededForNextMedal } = authCtx;
 
   useEffect(() => {
@@ -23,8 +23,6 @@ const UserDashboardModal = ({ context, closeModal }) => {
   function getPlayerChartData() {
     if (socket) {
       const data = JSON.stringify({
-        connectionId: connId,
-        socketKey: socketKey,
         key: 'getPlayerChartData',
       });
       socket.send(data);
@@ -36,7 +34,6 @@ const UserDashboardModal = ({ context, closeModal }) => {
 
   // Draw morris chart of player statistics
   function getPlayerChartDataResult(cData) {
-    // console.log(JSON.stringify(cData));
     // Init chart views
     playerMoneyChartRef.current.innerHTML = '';
     // playerMoneyChartRef.css('height', 200);
@@ -119,7 +116,6 @@ const UserDashboardModal = ({ context, closeModal }) => {
   }, [myDashboardData]);
 
   function parserloggedInUserStatisticsResults(uData) {
-    console.log('parserloggedInUserStatisticsResults', uData);
     let userStatsMedalsTitle = null;
     let xpLevel = Number(uData.xp);
     if (xpLevel >= 1000) {

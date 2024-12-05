@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalState from './global/GlobalState';
@@ -11,7 +10,7 @@ import OfflineProvider from './offline/OfflineProvider';
 import WebSocketProvider from './websocket/WebsocketProvider';
 import AuthState from './auth/AuthState';
 import GameState from './game/GameState';
-import RoomState from './room/RoomState';
+import TableState from '@/context/table/TableState';
 
 const Providers = ({ children }) => (
   <BrowserRouter>
@@ -24,9 +23,7 @@ const Providers = ({ children }) => (
               <WebSocketProvider>
                 <AuthState>
                   <GameState>
-                    <RoomState>
-                      {children}
-                    </RoomState>
+                    <TableState>{children}</TableState>
                   </GameState>
                 </AuthState>
               </WebSocketProvider>

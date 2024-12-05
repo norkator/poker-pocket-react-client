@@ -13,15 +13,13 @@ export const NewWsSocket = (url, onConnect, onClose) => {
     };
     webSocket.onmessage = (event) => {
       const jsonData = JSON.parse(event.data);
-      // console.log('jsonData ', jsonData.key);
-
-      // console.log(JSON.stringify(jsonData));
+      // console.debug(JSON.stringify(jsonData));
       if (jsonData.key in handler) {
         handler[jsonData.key](jsonData);
         return;
       }
 
-      console.log('jsonData not handle', jsonData.key);
+      console.warn('jsonData no handler found', jsonData.key);
     };
     webSocket.onclose = () => {
       if (onClose) onClose(data);

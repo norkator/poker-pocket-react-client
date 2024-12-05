@@ -4,7 +4,7 @@ import AuthContext from './authContext';
 import socketContext from '@/context/websocket/socketContext';
 
 const AuthState = ({ children }) => {
-  const { socket, connId, socketKey } = useContext(socketContext);
+  const { socket, playerId } = useContext(socketContext);
 
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [isAuthed, setIsAuthed] = useState(false);
@@ -27,10 +27,7 @@ const AuthState = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log('useEffect', isLoggedIn);
     if (isLoggedIn) {
-      console.log('useEffect isLoggedIn');
-
       isLoggedInRef.current = true;
       setLoggedInUserParams(isLoggedIn);
     }
@@ -52,14 +49,11 @@ const AuthState = ({ children }) => {
     if (socket) {
       socket.send(
         JSON.stringify({
-          connectionId: connId,
-          socketKey: socketKey,
           key: 'loggedInUserParams',
           name: username,
           password: passwordHash,
         })
       );
-      console.log('Set logged in user prms for: ' + username);
     }
   }
 
@@ -74,10 +68,7 @@ const AuthState = ({ children }) => {
 
   function getLoggedInUserStatistics() {
     if (socket && isAuthed) {
-      console.log('isAuthed getLoggedInUserStatistics');
       const data = JSON.stringify({
-        connectionId: connId,
-        socketKey: socketKey,
         key: 'loggedInUserStatistics',
       });
       socket.send(data);
@@ -94,7 +85,6 @@ const AuthState = ({ children }) => {
   }, [myDashboardRefresh]);
 
   function loggedInUserStatisticsResults(uData) {
-    console.log('isAuthed loggedInUserStatisticsResults', JSON.stringify(uData));
     setMyDashboardData(uData);
   }
 

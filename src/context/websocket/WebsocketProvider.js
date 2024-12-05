@@ -11,24 +11,15 @@ const WebSocketProvider = ({ children }) => {
   const [socketConnected, setSocketConnected] = useState(null);
   const [socketDisconnected, setSocketDisconnected] = useState(null);
 
-  const [socketId, setSocketId] = useState(null);
-
-  // const [connId, setConnId] = useState(-1); // CONNECTION_ID = -1;
-  const connIdRef = useRef(-1); // CONNECTION_ID = -1;
-  const setConnId = (val) => {
-    connIdRef.current = val;
-  };
-
-  // const [socketKey, setSocketKey] = useState(null); // SOCKET_KEY = null;
-  const socketKeyRef = useRef(null); // SOCKET_KEY = null;
-  const setSocketKey = (val) => {
-    socketKeyRef.current = val;
+  const playerIdRef = useRef(-1); // CONNECTION_ID = -1;
+  const setPlayerId = (val) => {
+    playerIdRef.current = val;
   };
 
   // ----------------------------------------------------
   // From server commands a.k.a. messages
   const onMessageHandler = (socket) => {
-    socket.handle('connectionId', connectionIdResult);
+    socket.handle('connected', connectedResult);
     socket.handle('onXPGained', (jsonData) => {
       onXPGained(jsonData.code, jsonData.data);
     });
@@ -37,13 +28,9 @@ const WebSocketProvider = ({ children }) => {
     });
   };
 
-  function connectionIdResult(jsonData) {
-    const CONNECTION_ID = Number(jsonData.connectionId);
-    setConnId(CONNECTION_ID);
-    const SOCKET_KEY = jsonData.socketKey;
-    setSocketKey(SOCKET_KEY);
-
+  function connectedResult(jsonData) {
     setSocketConnected({});
+    setPlayerId(Number(jsonData.data.playerId));
   }
 
   // Notify front end of gaining more xp
@@ -75,18 +62,10 @@ const WebSocketProvider = ({ children }) => {
 
   function cleanUp(reason) {
     if (socket) {
-      console.log('cleanUp found socket', reason);
-
       const webSocket = socket;
-
       setSocketDisconnected();
       setSocket(null);
-      setSocketId(null);
-
-      // window.socket.emit(DISCONNECT);
       webSocket.close();
-    } else {
-      console.log('cleanUp not found', reason);
     }
   }
 
@@ -115,12 +94,10 @@ const WebSocketProvider = ({ children }) => {
     <SocketContext.Provider
       value={{
         socket,
-        socketId,
         socketConnected,
         socketDisconnected,
-        connId: connIdRef.current,
-        setConnId,
-        socketKey: socketKeyRef.current,
+        playerId: playerIdRef.current,
+        setPlayerId,
         reconnect,
         cleanUp,
       }}

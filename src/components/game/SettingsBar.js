@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import globalContext from '@/context/global/globalContext';
 import contentContext from '@/context/content/contentContext';
-import roomContext from '@/context/room/roomContext';
+import tableContext from '@/context/table/tableContext';
 import SwitchButton from '@/components/buttons/SwitchButton';
 import { parserCardStyle } from '@/utils/CardRes';
 
@@ -41,7 +41,7 @@ const SettingsBar = () => {
   const { setCardStyle } = useContext(globalContext);
   const { t } = useContext(contentContext);
 
-  const { setAutoCheck, setAutoPlay } = useContext(roomContext);
+  const { setAutoCheck, setAutoPlay } = useContext(tableContext);
 
   const [tablePurpleBg, setTablePurpleBg] = useState(purpleBgVal());
   const [blackCards] = useState(blackCardVal());
@@ -73,7 +73,6 @@ const SettingsBar = () => {
 
   const changeConnectMode = (state) => {
     localStorage.setItem(LS_MODE_TOGGLE_STATE, JSON.stringify(state));
-    console.log(JSON.stringify(state));
     reloadDelay();
   };
 
@@ -90,12 +89,16 @@ const SettingsBar = () => {
     window.location.reload(); // Reload site with new connection params
   }
 
+  const getCurrentYear = () => {
+    return new Date().getFullYear();
+  };
+
   return (
     <div className="row">
       <div className="col-4">
         <footer className="footer">
           <div style={{ color: '#FFFFFF' }}>♣ ♦ ♥ ♠</div>
-          <div style={{ color: '#FFFFFF' }}>&copy; Nitramite 2023</div>
+          <div style={{ color: '#FFFFFF' }}>&copy; Nitramite {getCurrentYear()}</div>
           <div style={{ color: '#FFFFFF' }}>Graphics Raphael Ciribelly</div>
         </footer>
       </div>

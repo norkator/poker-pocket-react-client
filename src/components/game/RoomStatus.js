@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import styled from 'styled-components';
-import roomContext from '@/context/room/roomContext';
+import tableContext from '@/context/table/tableContext';
 
 const StyledCard = styled.div`
   background-color: #434343;
@@ -10,7 +10,7 @@ const StyledCard = styled.div`
 `;
 
 const RoomStatus = () => {
-  const { roomInfo } = useContext(roomContext);
+  const { roomInfo } = useContext(tableContext);
 
   const view = useMemo(() => {
     const current = roomInfo.data;
@@ -23,8 +23,8 @@ const RoomStatus = () => {
             <div className="container">
               <div className="row">
                 <div className="col-sm">
-                  <div id="roomName" style={{ color: '#FFFFFF', fontSize: '14px' }}>
-                    {current.getRoomName()}
+                  <div id="tableName" style={{ color: '#FFFFFF', fontSize: '14px' }}>
+                    {current.getTableName()}
                   </div>
                 </div>
                 <div className="col-sm">

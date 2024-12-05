@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import RoomContext from './roomContext';
+import RoomContext from './tableContext';
 import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
 import NewRoom, {
@@ -25,8 +25,8 @@ import { setupSeats } from '@/components/game/domains/Seat';
 // let autoPlay = false; // Set true makes logged in player play automatically
 let tempPlayers = [];
 
-const RoomState = ({ children }) => {
-  const { socket, connId, socketDisconnected } = useContext(socketContext);
+const TableState = ({ children }) => {
+  const { socket, playerId, socketDisconnected } = useContext(socketContext);
   const { setMyDashboardDataRefresh } = useContext(authContext);
 
   const [enableSounds, setEnableSounds] = useState(true);
@@ -35,7 +35,7 @@ const RoomState = ({ children }) => {
   // Set true makes logged in player play automatically
   const [autoPlay, setAutoPlay] = useState(false);
 
-  const [roomId, setRoomId] = useState(-1); // ROOM_ID = -1;
+  const [tableId, setTableId] = useState(-1); // ROOM_ID = -1;
   const [players, setPlayers] = useState(null);
   const [heroTurn, setHeroTurn] = useState({ data: null });
 
@@ -55,7 +55,7 @@ const RoomState = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socketDisconnected]);
 
-  const connIdRef = useRef(-1);
+  const playerIdRef = useRef(-1);
 
   useEffect(() => {
     if (socket) {
@@ -65,13 +65,13 @@ const RoomState = ({ children }) => {
   }, [socket]);
 
   useEffect(() => {
-    connIdRef.current = connId;
+    playerIdRef.current = playerId;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [connId]);
+  }, [playerId]);
 
   function regRoomHandler(socket) {
     // Example: {"playerCount":3,"roomMinBet":10,"middleCards":["Q♠","6♦","9♠","4♠"],"playersData":[{"playerId":0,"playerName":"Bot362","playerMoney":6462.5,"isDealer":false},{"playerId":1,"playerName":"Bot265","playerMoney":9902.5,"isDealer":false},{"playerId":2,"playerName":"Bot966","playerMoney":13500,"isDealer":true}]}
-    socket.handle('roomParams', (jsonData) => roomParameters(jsonData.data));
+    socket.handle('tableParams', (jsonData) => tableParameters(jsonData.data));
 
     // Hole Cards  ({"players":[{"playerId":0,"cards":["3♠","4♥"]}]})
     socket.handle('holeCards', (jsonData) => holeCards(jsonData.data));
@@ -100,8 +100,7 @@ const RoomState = ({ children }) => {
   }
 
   // init room data
-  const roomParameters = (rData) => {
-    console.log('Room params: ', JSON.stringify(rData));
+  const tableParameters = (rData) => {
     setMyDashboardDataRefresh({}); // Added so refreshing xp needed counter updates automatically
 
     initBoard(roomRef.current.board);
@@ -259,7 +258,7 @@ const RoomState = ({ children }) => {
       }
 
       player.setTimeBar(pTimeLeft);
-      if (Number(pId) === Number(connIdRef.current) && player.tempBet > 0) {
+      if (Number(pId) === Number(playerIdRef.current) && player.tempBet > 0) {
         // Hero Do nothing
       } else {
         player.setPlayerMoney(pMoney);
@@ -276,7 +275,7 @@ const RoomState = ({ children }) => {
         }
       }
 
-      if (Number(pId) === Number(connIdRef.current)) {
+      if (Number(pId) === Number(playerIdRef.current)) {
         // Hero
         player.setPlayerTurn(pTurn, sData.isCallSituation);
         roomRef.current.ctrl.actionBtnVisibility(pTurn, false);
@@ -300,7 +299,7 @@ const RoomState = ({ children }) => {
 
         player.tempBet = 0;
         player.setPlayerTotalBet(0);
-        if (player.playerId !== connIdRef.current) {
+        if (player.playerId !== playerIdRef.current) {
           // villain
           if (!player.isFold) {
             player.setPlayerCards();
@@ -477,8 +476,8 @@ const RoomState = ({ children }) => {
   return (
     <RoomContext.Provider
       value={{
-        roomId,
-        setRoomId,
+        tableId,
+        setTableId,
         players,
         setPlayers,
         heroTurn,
@@ -506,4 +505,4 @@ const RoomState = ({ children }) => {
   );
 };
 
-export default RoomState;
+export default TableState;

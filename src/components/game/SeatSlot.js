@@ -4,7 +4,7 @@ import globalContext from '@/context/global/globalContext';
 import { formatMoney } from '@/utils/Money';
 import { getCardResource } from '@/utils/CardRes';
 
-const SeatSlot = ({ pos, className, connId, seat, betLeft, betRight }) => {
+const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
   const { cardStyle } = useContext(globalContext);
 
   const actionView = useMemo(() => {
@@ -26,7 +26,7 @@ const SeatSlot = ({ pos, className, connId, seat, betLeft, betRight }) => {
     let path0 = null;
     let path1 = null;
 
-    if (seat.playerId === connId || seat.seatShowCards) {
+    if (seat.playerId === playerId || seat.seatShowCards) {
       // show cards
       if (seat.seatCard0) {
         path0 = getCardResource(seat.seatCard0, cardStyle);

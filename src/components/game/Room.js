@@ -7,7 +7,6 @@ import TurnControl from '@/components/game/TurnControl';
 const Room = () => {
   return (
     <>
-      {console.log('RE-RENDER Room')}
       <RoomStatus />
       {/* <!-- Poker table --> */}
       <RoomTable>

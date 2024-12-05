@@ -70,7 +70,7 @@ export const initBoard = (board) => {
 };
 
 export const NewRoomInfo = () => {
-  let roomName = '♦ Default room';
+  let tableName = '♦ Default table';
   let spectatorsCount = '♦ Spectating: 0';
   let waitingPlayersCount = '♦ Waiting: 0';
   let deckStatus = '♦ Deck: -';
@@ -94,12 +94,12 @@ export const NewRoomInfo = () => {
     return roomTurnText;
   };
 
-  const setRoomName = (val) => {
-    roomName = '♦ ' + val;
+  const setTableName = (val) => {
+    tableName = '♦ ' + val;
   };
 
-  const getRoomName = () => {
-    return roomName;
+  const getTableName = () => {
+    return tableName;
   };
 
   const setRoomSpectatorCount = (val) => {
@@ -137,14 +137,14 @@ export const NewRoomInfo = () => {
   return {
     getRoomStatusText,
     getRoomTurnText,
-    getRoomName,
+    getTableName,
     getRoomSpectatorCount,
     getRoomWaitingPlayersCount,
     getRoomDeckStatus,
     getRoomDeckBurnedCount,
     setRoomStatusText,
     setRoomTurnText,
-    setRoomName,
+    setTableName,
     setRoomSpectatorCount,
     setRoomWaitingPlayersCount,
     setRoomDeckStatus,
@@ -211,7 +211,7 @@ export const roomUpdate = (sData, room) => {
   const roomInfo = room.roomInfo;
   roomInfo.setRoomStatusText(sData.currentStatus);
   roomInfo.setRoomTurnText(sData.currentTurnText);
-  roomInfo.setRoomName(sData.roomName);
+  roomInfo.setTableName(sData.tableName);
   roomInfo.setRoomSpectatorCount(sData.spectatorsCount);
   roomInfo.setRoomWaitingPlayersCount(sData.appendPlayersCount);
   roomInfo.setRoomDeckStatus(sData.deckStatus);
