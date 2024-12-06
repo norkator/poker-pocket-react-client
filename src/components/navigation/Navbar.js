@@ -4,8 +4,6 @@ import contentContext from '@/context/content/contentContext';
 import modalContext from '@/context/modal/modalContext';
 import SelectTableModal from '@/modals/SelectTableModal';
 import RankingsModal from '@/modals/RankingsModal';
-import GameInfoModal from '@/modals/GameInfoModal';
-import CommandModal from '@/modals/CommandModal';
 import UserDashboardModal from '@/modals/UserDashboardModal';
 import SignInOnModal from '@/modals/SignInOnModal';
 import socketContext from '@/context/websocket/socketContext';
@@ -65,11 +63,11 @@ const Navbar = () => {
   const openRankingsModal = () =>
     openModal(() => <RankingsModal context={{ socketCtx }} />, t('RANKINGS'), t('CLOSE'));
 
-  const openGameInfoModal = () =>
-    openModal(() => <GameInfoModal context={{ socketCtx }} />, t('SERVER_INFORMATION'), t('CLOSE'));
+  // const openGameInfoModal = () =>
+  //   openModal(() => <GameInfoModal context={{ socketCtx }} />, t('SERVER_INFORMATION'), t('CLOSE'));
 
-  const openCmdModal = () =>
-    openView(() => <CommandModal context={{ socketCtx }} closeModal={closeModal} />);
+  // const openCmdModal = () =>
+  //   openView(() => <CommandModal context={{ socketCtx }} closeModal={closeModal} />);
 
   const openUserModal = () =>
     openView(() => <UserDashboardModal context={{ socketCtx, authCtx }} closeModal={closeModal} />);
@@ -121,8 +119,12 @@ const Navbar = () => {
             <NavButton onClick={() => openRoomModal('all')}>{t('GET_ROOMS')}</NavButton>
             <NavButton onClick={() => openRoomModal('spec')}>{t('SPECTATE')}</NavButton>
             <NavButton onClick={() => openRankingsModal()}>{t('RANKINGS')}</NavButton>
-            <NavButton onClick={() => openGameInfoModal()}>{t('SERVER')}</NavButton>
-            <NavButton onClick={openCmdModal}>{t('COMMAND')}</NavButton>
+            {
+              // <NavButton onClick={() => openGameInfoModal()}>{t('SERVER')}</NavButton>
+            }
+            {
+              // <NavButton onClick={openCmdModal}>{t('COMMAND')}</NavButton>
+            }
             <NavButton onClick={toggleSounds}>
               {enableSounds ? t('SOUNDS_DISABLE') : t('SOUNDS_ENABLE')}
             </NavButton>
