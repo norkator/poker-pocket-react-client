@@ -13,9 +13,7 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
     return (
       <div className="container player-action-pos">
         {seatLastAction ? (
-          <div className="lastActionTexts magicTimeAction puffIn action-animation">
-            {seatLastAction}
-          </div>
+          <div className="lastActionTexts magictime puffIn action-animation">{seatLastAction}</div>
         ) : null}
       </div>
     );

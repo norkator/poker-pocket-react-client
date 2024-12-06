@@ -1,7 +1,8 @@
-import React, { useEffect, useContext, useMemo, useRef } from 'react';
+import React, { useEffect, useContext, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import socketContext from '@/context/websocket/socketContext';
 import tableContext from '@/context/table/tableContext';
+import { playCardPlaceChipsOne } from '@/components/audio';
 
 const StyledBetBtn = ({ onClick, label }) => {
   return (
@@ -27,6 +28,8 @@ const StyledActBtn = ({ className, onClick, label }) => {
 const TurnControl = () => {
   const { socket, playerId } = useContext(socketContext);
   const { tableId, ctrl, players, heroTurn, autoCheck, autoPlay } = useContext(tableContext);
+
+  const [enableSounds] = useState(true);
 
   useEffect(() => {
     if (socket) {
@@ -146,9 +149,9 @@ const TurnControl = () => {
           player.setPlayerMoney(playerMoney);
           player.setPlayerTotalBet(playerTotalBet);
         }
-        // if (enableSounds) {
-        //   playCardPlaceChipsOne.play();
-        // }
+        if (enableSounds) {
+          playCardPlaceChipsOne.play();
+        }
       }
     }
   }

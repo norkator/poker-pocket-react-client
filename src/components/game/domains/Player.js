@@ -65,6 +65,10 @@ Player.prototype.setPlayerFold = function () {
   this.playerSeat.clearCards();
 };
 
+Player.prototype.setPlayerCard = function (index) {
+  this.playerSeat.setCard(index, this.playerCards[index]);
+};
+
 Player.prototype.setPlayerCards = function () {
   this.playerSeat.setCards(this.playerCards[0], this.playerCards[1]);
 };

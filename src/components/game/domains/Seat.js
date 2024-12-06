@@ -77,6 +77,14 @@ Seat.prototype.clearCards = function () {
   this.seatCard1 = null;
 };
 
+Seat.prototype.setCard = function (index, cardStr) {
+  if (index === 0) {
+    this.seatCard0 = cardStr;
+  } else if (index === 1) {
+    this.seatCard1 = cardStr;
+  }
+};
+
 Seat.prototype.setCards = function (cardStr0, cardStr1) {
   this.seatCard0 = cardStr0;
   this.seatCard1 = cardStr1;
@@ -136,10 +144,8 @@ Seat.prototype.setDealerChipVisibility = function (bool) {
 
 Seat.prototype.seatCollectChipsToPot = function () {
   this.seatCollectChips = true;
-  var _this = this;
-  setTimeout(function () {
-    _this.seatCollectChips = false;
-    _this.setBetFrameVisibility(false);
-    // TODO: trigger render
+  setTimeout(() => {
+    this.seatCollectChips = false;
+    this.setBetFrameVisibility(false);
   }, 500);
 };

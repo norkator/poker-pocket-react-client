@@ -361,22 +361,19 @@ const TableState = ({ children }) => {
     holeCardsAsync(players);
   };
 
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
   async function holeCardsAsync(players) {
-    let isPlaySound = false;
     for (let c = 0; c < 2; c++) {
       for (let i = 0; i < players.length; i++) {
         const player = players[i];
         if (!player.isFold) {
-          // await sleep(300);
-          player.setPlayerCards();
+          await sleep(300);
+          player.setPlayerCard(c);
           player.setShowCards(false);
-          isPlaySound = true;
+          playCardSlideSix.play();
         }
       }
-    }
-
-    if (isPlaySound) {
-      playCardSlideSix.play();
     }
   }
 
