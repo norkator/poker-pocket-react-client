@@ -370,7 +370,7 @@ const TableState = ({ children }) => {
         if (!player.isFold) {
           await sleep(300);
           player.setPlayerCard(c);
-          player.setShowCards(false);
+          // player.setShowCards(false);
           playCardSlideSix.play();
         }
       }

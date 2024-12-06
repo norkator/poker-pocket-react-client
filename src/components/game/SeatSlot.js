@@ -46,7 +46,9 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
       <div className="row">
         <div className="col" style={{ marginLeft: '22px' }}>
           <div
-            className={`cardOne magictime puffIn ${seat.seatWinningGlowCard0 ? 'card-glow' : ''}`}
+            className={`cardOne ${seat.seatCard0PuffInAnimation ? 'magictime puffIn' : ''} ${
+              seat.seatWinningGlowCard0 ? 'card-glow' : ''
+            }`}
             style={{
               backgroundImage: seat.seatCard0 ? `url(${path0})` : seat.seatIsFold ? 'url()' : '',
             }}
@@ -54,7 +56,9 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
         </div>
         <div className="col" style={{ marginLeft: '-20px' }}>
           <div
-            className={`cardTwo magictime puffIn ${seat.seatWinningGlowCard1 ? 'card-glow' : ''}`}
+            className={`cardTwo ${seat.seatCard1PuffInAnimation ? 'magictime puffIn' : ''} ${
+              seat.seatWinningGlowCard1 ? 'card-glow' : ''
+            }`}
             style={{
               backgroundImage: seat.seatCard1 ? `url(${path1})` : seat.seatIsFold ? 'url()' : '',
             }}
