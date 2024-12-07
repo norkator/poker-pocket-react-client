@@ -22,14 +22,10 @@ export default function Seat(seatId, elemCardView, seatName) {
   this.id = seatId;
   this.refreshLastAction = null;
   this.seatFrame = true;
-  // null: no card; '': hide cards
-  this.seatCard0 = '';
-  this.seatCard1 = '';
-  this.seatCard0PuffInAnimation = false;
-  this.seatCard1PuffInAnimation = false;
+  this.seatCard0 = null;
+  this.seatCard1 = null;
   this.seatIsFold = false;
   this.seatShowCards = false;
-  this.seatCardView = document.getElementById(elemCardView);
   this.seatName = seatName;
   this.seatMoney = 10000;
   this.seatTurn = false;
@@ -61,8 +57,6 @@ Seat.prototype.initSeat = function () {
   this.setLastAction(null);
   this.setDealerChipVisibility(false);
   this.cardAnimation = false;
-  this.seatWinningGlowCard0 = false;
-  this.seatWinningGlowCard1 = false;
 };
 
 Seat.prototype.setSeatFrameVisibility = function (bool) {
@@ -82,10 +76,8 @@ Seat.prototype.clearCards = function () {
 Seat.prototype.setCard = function (index, cardStr) {
   if (index === 0) {
     this.seatCard0 = cardStr;
-    this.seatCard0PuffInAnimation = true;
   } else if (index === 1) {
     this.seatCard1 = cardStr;
-    this.seatCard1PuffInAnimation = true;
   }
 };
 

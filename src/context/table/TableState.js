@@ -256,7 +256,7 @@ const TableState = ({ children }) => {
       let player = players[i];
       if (player == null) {
         // problem occure
-        // console.log('player null', i);
+        // console.error('player null', i);
       }
 
       player.setTimeBar(pTimeLeft);
@@ -313,8 +313,6 @@ const TableState = ({ children }) => {
           if (Number(sData.roundWinnerPlayerIds[w]) === Number(player.playerId)) {
             player.startWinnerGlowAnimation();
             if (sData.roundWinnerPlayerCards) {
-              console.log(sData.roundWinnerPlayerCards);
-              console.log(roomRef.current.board);
               let cl = sData.roundWinnerPlayerCards.length;
               for (let c = 0; c < cl; c++) {
                 player.startWinnerGlowCardsAnimation(
@@ -327,7 +325,7 @@ const TableState = ({ children }) => {
         }
       }
 
-      if (isPlaySound) {
+      if (isPlaySound && enableSounds) {
         playCardSlideSix.play();
       }
     }
@@ -336,8 +334,6 @@ const TableState = ({ children }) => {
   };
 
   const statusUpdate = (sData) => {
-    // console.log('statusUpdate ', sData);
-
     roomUpdate(sData, roomRef.current);
     setRoomInfo({ data: roomRef.current.roomInfo });
     setCtrl({ data: roomRef.current.ctrl });
@@ -372,7 +368,11 @@ const TableState = ({ children }) => {
         if (!player.isFold) {
           await sleep(cardSetDelayMillis);
           player.setPlayerCard(c);
-          playCardSlideSix.play();
+          player.cardsPuffIn[c] = true;
+          setSeats({ data: seats.data });
+          if (enableSounds) {
+            playCardSlideSix.play();
+          }
         }
       }
     }
@@ -405,7 +405,9 @@ const TableState = ({ children }) => {
       board.middleCards[i] = fData.middleCards[i];
       board.middleCardsPuffIn[i] = true;
       setBoard({ data: { ...board } });
-      playCardSlideSix.play();
+      if (enableSounds) {
+        playCardSlideSix.play();
+      }
       await new Promise((resolve) => setTimeout(resolve, cardSetDelayMillis));
     }
   }
@@ -423,7 +425,9 @@ const TableState = ({ children }) => {
     board.middleCards[4] = rData.middleCards[4];
     board.middleCardsPuffIn[4] = true;
     setBoard({ data: { ...board } });
-    playCardSlideSix.play();
+    if (enableSounds) {
+      playCardSlideSix.play();
+    }
   }
 
   // Backend want's to run collect chips to pot animation

@@ -4,11 +4,6 @@ import tableContext from '@/context/table/tableContext';
 import { getCardResource } from '@/utils/CardRes';
 import { formatMoney } from '@/utils/Money';
 
-// Sleep promise
-// function sleep(ms) {
-//   return new Promise((resolve) => setTimeout(resolve, ms));
-// }
-
 const BoardCards = () => {
   const { cardStyle } = useContext(globalContext);
   const { board } = useContext(tableContext);

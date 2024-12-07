@@ -11,18 +11,18 @@ export default function Player(playerSeat_, playerId_, playerName_, playerMoney_
   this.isFold = false;
   this.isDealer = false;
   this.isCallSituation = false;
+  this.cardsPuffIn = [false, false];
 }
 
-// ???
 Player.prototype.initPlayer = function (isMiddleOfTheGame) {
   this.setPlayerSeatVisibility();
   this.setPlayerName();
   this.setPlayerMoney();
   if (isMiddleOfTheGame) {
-    // TODO: why knows cards ?
     this.setPlayerCards();
     this.setShowCards(false);
   }
+  this.cardsPuffIn = [false, false];
 };
 
 Player.prototype.setPlayerSeatVisibility = function () {

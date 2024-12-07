@@ -32,34 +32,35 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
       if (seat.seatCard1) {
         path1 = getCardResource(seat.seatCard1, cardStyle);
       }
-    } else {
-      // hide cards
-      if (seat.seatCard0) {
-        path0 = getCardResource('', cardStyle);
-      }
-      if (seat.seatCard1) {
-        path1 = getCardResource('', cardStyle);
-      }
+    }
+
+    if (seat.seatCard0 === undefined) {
+      path0 = '';
+    }
+    if (seat.seatCard1 === undefined) {
+      path1 = '';
     }
 
     return (
       <div className="row">
         <div className="col" style={{ marginLeft: '22px' }}>
           <div
-            className={`cardOne ${seat.seatCard0PuffInAnimation ? 'magictime puffIn' : ''} ${
+            className={`cardOne ${path0 !== null ? 'magicFast puffIn' : ''} ${
               seat.seatWinningGlowCard0 ? 'card-glow' : ''
             }`}
             style={{
+              visibility: path0 === null ? 'hidden' : 'visible',
               backgroundImage: seat.seatCard0 ? `url(${path0})` : seat.seatIsFold ? 'url()' : '',
             }}
           ></div>
         </div>
         <div className="col" style={{ marginLeft: '-20px' }}>
           <div
-            className={`cardTwo ${seat.seatCard1PuffInAnimation ? 'magictime puffIn' : ''} ${
+            className={`cardTwo ${path1 !== null ? 'magicFast puffIn' : ''} ${
               seat.seatWinningGlowCard1 ? 'card-glow' : ''
             }`}
             style={{
+              visibility: path1 === null ? 'hidden' : 'visible',
               backgroundImage: seat.seatCard1 ? `url(${path1})` : seat.seatIsFold ? 'url()' : '',
             }}
           ></div>
