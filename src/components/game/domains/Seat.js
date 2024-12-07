@@ -57,6 +57,8 @@ Seat.prototype.initSeat = function () {
   this.setLastAction(null);
   this.setDealerChipVisibility(false);
   this.cardAnimation = false;
+  this.seatWinningGlowCard0 = false;
+  this.seatWinningGlowCard1 = false;
 };
 
 Seat.prototype.setSeatFrameVisibility = function (bool) {
