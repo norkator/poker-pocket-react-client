@@ -18,7 +18,6 @@ const BoardCards = () => {
 
     return current ? (
       <div className="container">
-        {/* {console.log('RE-RENDER board')} */}
         <div className="row justify-center" style={{ justifyContent: 'center' }}>
           {current.middleCards
             ? current.middleCards.map((card, index) => {
@@ -28,8 +27,8 @@ const BoardCards = () => {
                 }
                 return (
                   <div
-                    className={`middleCard magictime puffIn ${
-                      current.middleCardsSlideUp[index] ? 'card-glow' : ''
+                    className={`middleCard ${
+                      current.middleCardsPuffIn[index] ? 'magicFast puffIn' : ''
                     }`}
                     key={'MC' + index}
                     style={{

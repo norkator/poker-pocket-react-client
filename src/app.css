@@ -142,6 +142,13 @@ body {
     animation: winnerPulse 0.5s infinite alternate;
 }
 
+.magicFast {
+    -webkit-animation-duration: 0.2s;
+    -moz-animation-duration: 0.2s;
+    -o-animation-duration: 0.2s;
+    animation-duration: 0.2s;
+}
+
 /* adjust modal style */
 .modal-content {
     width: 500px;

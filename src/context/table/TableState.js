@@ -69,6 +69,8 @@ const TableState = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerId]);
 
+  const cardSetDelayMillis = 300;
+
   function regRoomHandler(socket) {
     // Example: {"playerCount":3,"roomMinBet":10,"middleCards":["Q♠","6♦","9♠","4♠"],"playersData":[{"playerId":0,"playerName":"Bot362","playerMoney":6462.5,"isDealer":false},{"playerId":1,"playerName":"Bot265","playerMoney":9902.5,"isDealer":false},{"playerId":2,"playerName":"Bot966","playerMoney":13500,"isDealer":true}]}
     socket.handle('tableParams', (jsonData) => tableParameters(jsonData.data));
@@ -368,9 +370,8 @@ const TableState = ({ children }) => {
       for (let i = 0; i < players.length; i++) {
         const player = players[i];
         if (!player.isFold) {
-          await sleep(300);
+          await sleep(cardSetDelayMillis);
           player.setPlayerCard(c);
-          // player.setShowCards(false);
           playCardSlideSix.play();
         }
       }
@@ -398,22 +399,31 @@ const TableState = ({ children }) => {
 
   async function theFlop(fData) {
     const board = roomRef.current.board;
-    board.middleCards[0] = fData.middleCards[0];
-    board.middleCards[1] = fData.middleCards[1];
-    board.middleCards[2] = fData.middleCards[2];
-    setBoard({ data: board });
+    board.middleCardsPuffIn = [false, false, false, false, false];
+    setBoard({ data: { ...board } });
+    for (let i = 0; i < 3; i++) {
+      board.middleCards[i] = fData.middleCards[i];
+      board.middleCardsPuffIn[i] = true;
+      setBoard({ data: { ...board } });
+      playCardSlideSix.play();
+      await new Promise((resolve) => setTimeout(resolve, cardSetDelayMillis));
+    }
   }
 
   async function theTurn(tData) {
     const board = roomRef.current.board;
     board.middleCards[3] = tData.middleCards[3];
-    setBoard({ data: board });
+    board.middleCardsPuffIn[3] = true;
+    setBoard({ data: { ...board } });
+    playCardSlideSix.play();
   }
 
   function theRiver(rData) {
     const board = roomRef.current.board;
     board.middleCards[4] = rData.middleCards[4];
-    setBoard({ data: board });
+    board.middleCardsPuffIn[4] = true;
+    setBoard({ data: { ...board } });
+    playCardSlideSix.play();
   }
 
   // Backend want's to run collect chips to pot animation
