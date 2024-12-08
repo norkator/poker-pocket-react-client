@@ -21,5 +21,6 @@ module.exports = {
     'react/jsx-uses-vars': 'error',
     "react/prop-types": 0,
     "react/no-unknown-property": ["error", { ignore: ["jsx"] }],
+    "no-unused-vars": "off"
   }
 };

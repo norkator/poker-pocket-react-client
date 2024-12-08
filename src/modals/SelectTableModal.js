@@ -30,7 +30,6 @@ const SelectTableModal = ({ mode, context, closeModal }) => {
     } else {
       getSpectateRooms(socket, filter.params);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSpect, filter]);
 
   const getRooms = (socket, tableSortParam) => {
@@ -96,7 +95,6 @@ const SelectTableModal = ({ mode, context, closeModal }) => {
     if (socket) {
       regGameHandler(socket);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   const regGameHandler = (socket) => {
@@ -151,7 +149,6 @@ const SelectTableModal = ({ mode, context, closeModal }) => {
         </button>
       );
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roomsData, isSpect]);
 
   return (

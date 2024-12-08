@@ -1,7 +1,8 @@
-import React, { useEffect, useContext, useMemo, useRef } from 'react';
+import React, { useEffect, useContext, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import socketContext from '@/context/websocket/socketContext';
 import tableContext from '@/context/table/tableContext';
+import { playCardPlaceChipsOne } from '@/components/audio';
 
 const StyledBetBtn = ({ onClick, label }) => {
   return (
@@ -28,20 +29,20 @@ const TurnControl = () => {
   const { socket, playerId } = useContext(socketContext);
   const { tableId, ctrl, players, heroTurn, autoCheck, autoPlay } = useContext(tableContext);
 
+  const [enableSounds] = useState(true);
+
   useEffect(() => {
     if (socket) {
       socket.handle('autoPlayActionResult', (jsonData) => autoPlayActionResult(jsonData.data));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket]);
+  }, [autoPlayActionResult, socket, tableId]);
 
   useEffect(() => {
     const hero = heroTurn.data;
     if (autoCheck && hero && hero.isPlayerTurn) {
       checkBtnClick(hero);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoCheck, heroTurn]);
+  }, [autoCheck, checkBtnClick, heroTurn]);
 
   const autoPlayCommandRequested = useRef(null);
 
@@ -50,8 +51,7 @@ const TurnControl = () => {
     if (autoPlay && hero && hero.isPlayerTurn && !autoPlayCommandRequested.current) {
       getAutoPlayAction();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoPlay, heroTurn]);
+  }, [autoPlay, getAutoPlayAction, heroTurn]);
 
   // If auto play enabled, request action via this function
   function getAutoPlayAction() {
@@ -146,9 +146,9 @@ const TurnControl = () => {
           player.setPlayerMoney(playerMoney);
           player.setPlayerTotalBet(playerTotalBet);
         }
-        // if (enableSounds) {
-        //   playCardPlaceChipsOne.play();
-        // }
+        if (enableSounds) {
+          playCardPlaceChipsOne.play();
+        }
       }
     }
   }
@@ -266,7 +266,6 @@ const TurnControl = () => {
         </div>
       </div>
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrl, heroTurn, autoCheck, autoPlay]);
 
   return view;

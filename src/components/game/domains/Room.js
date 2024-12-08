@@ -50,9 +50,12 @@ export const NewBoard = (enableSounds) => {
     return minBet;
   };
 
+  const middleCardsPuffIn = [false, false, false, false, false];
+
   return {
     middleCards,
     middleCardsSlideUp,
+    middleCardsPuffIn,
     setTotalPot,
     getTotalPot,
     setMinBet,

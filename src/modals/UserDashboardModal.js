@@ -17,7 +17,6 @@ const UserDashboardModal = ({ context, closeModal }) => {
         getPlayerChartDataResult(jsonData.data)
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   function getPlayerChartData() {
@@ -94,7 +93,6 @@ const UserDashboardModal = ({ context, closeModal }) => {
 
   useEffect(() => {
     setMyDashboardDataRefresh({});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initMyData = {
@@ -112,7 +110,6 @@ const UserDashboardModal = ({ context, closeModal }) => {
     } else {
       setMyData(initMyData);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myDashboardData]);
 
   function parserloggedInUserStatisticsResults(uData) {
