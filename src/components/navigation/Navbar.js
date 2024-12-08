@@ -28,20 +28,16 @@ const Navbar = () => {
   useEffect(() => {
     const sounds = localStorage.getItem(LS_ENABLE_SOUNDS_STATE);
     setEnableSounds(sounds);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     localStorage.setItem(LS_ENABLE_SOUNDS_STATE, enableSounds ? 'true' : 'false');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enableSounds]);
 
   useEffect(() => {
     if (isAuthed) {
       openRoomModal('all');
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socketConnected]);
 
   function toggleSounds() {

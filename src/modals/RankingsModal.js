@@ -10,12 +10,10 @@ const RankingsModal = ({ context }) => {
     if (socket) {
       socket.handle('getRankingsResult', getRankingsResult);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   useEffect(() => {
     getRankings();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [rankingData, setRankingData] = useState(null);
@@ -91,7 +89,6 @@ const RankingsModal = ({ context }) => {
         </button>
       );
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rankingData]);
 
   return (

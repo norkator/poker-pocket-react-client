@@ -35,7 +35,7 @@ const TableState = ({ children }) => {
   // Set true makes logged in player play automatically
   const [autoPlay, setAutoPlay] = useState(false);
 
-  const [tableId, setTableId] = useState(-1); // ROOM_ID = -1;
+  const [tableId, setTableId] = useState(-1);
   const [players, setPlayers] = useState(null);
   const [heroTurn, setHeroTurn] = useState({ data: null });
 
@@ -52,7 +52,6 @@ const TableState = ({ children }) => {
 
   useEffect(() => {
     setPlayers(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socketDisconnected]);
 
   const playerIdRef = useRef(-1);
@@ -61,12 +60,10 @@ const TableState = ({ children }) => {
     if (socket) {
       regRoomHandler(socket);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   useEffect(() => {
     playerIdRef.current = playerId;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerId]);
 
   const cardSetDelayMillis = 300;

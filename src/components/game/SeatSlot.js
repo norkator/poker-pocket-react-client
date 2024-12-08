@@ -17,7 +17,6 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
         ) : null}
       </div>
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seat, seat.refreshLastAction]);
 
   const cardsView = useMemo(() => {
@@ -68,7 +67,6 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
         <div className="col"></div>
       </div>
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     cardStyle,
     seat.seatCard0,

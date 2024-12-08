@@ -11,12 +11,12 @@ const GameInfoModal = ({ context }) => {
     if (socket) {
       socket.handle('getGameInformation', gameInformation);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [socket]);
 
   useEffect(() => {
     getGameInformation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   const [infoData, setInfoData] = useState(null);
