@@ -35,16 +35,14 @@ const TurnControl = () => {
     if (socket) {
       socket.handle('autoPlayActionResult', (jsonData) => autoPlayActionResult(jsonData.data));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket]);
+  }, [autoPlayActionResult, socket, tableId]);
 
   useEffect(() => {
     const hero = heroTurn.data;
     if (autoCheck && hero && hero.isPlayerTurn) {
       checkBtnClick(hero);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoCheck, heroTurn]);
+  }, [autoCheck, checkBtnClick, heroTurn]);
 
   const autoPlayCommandRequested = useRef(null);
 
@@ -53,8 +51,7 @@ const TurnControl = () => {
     if (autoPlay && hero && hero.isPlayerTurn && !autoPlayCommandRequested.current) {
       getAutoPlayAction();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoPlay, heroTurn]);
+  }, [autoPlay, getAutoPlayAction, heroTurn]);
 
   // If auto play enabled, request action via this function
   function getAutoPlayAction() {
@@ -269,7 +266,6 @@ const TurnControl = () => {
         </div>
       </div>
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrl, heroTurn, autoCheck, autoPlay]);
 
   return view;
