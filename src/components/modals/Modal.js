@@ -81,11 +81,6 @@ Modal.propTypes = {
   onBtnClicked: PropTypes.func.isRequired,
 };
 
-Modal.defaultProps = {
-  headingText: 'Modal',
-  btnText: 'Call to Action',
-};
-
 const initialModalData = {
   children: () => (
     <div>
