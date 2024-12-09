@@ -15,7 +15,6 @@ const AuthState = ({ children }) => {
     if (socket) {
       regAuthHandler(socket);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   const regAuthHandler = (socket) => {
@@ -31,14 +30,12 @@ const AuthState = ({ children }) => {
       isLoggedInRef.current = true;
       setLoggedInUserParams(isLoggedIn);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
   useEffect(() => {
     if (isAuthed) {
       getLoggedInUserStatistics();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthed]);
 
   // Login related functions
@@ -81,7 +78,6 @@ const AuthState = ({ children }) => {
 
   useEffect(() => {
     getLoggedInUserStatistics();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myDashboardRefresh]);
 
   function loggedInUserStatisticsResults(uData) {

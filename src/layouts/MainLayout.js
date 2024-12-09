@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import Navbar from '@/components/navigation/Navbar';
 import socketContext from '@/context/websocket/socketContext';
 
-const StyledNoSocketWarn = styled.div`
+const StyledNoSocketWarn = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isWsConnected',
+})`
   background-color: #d9534f;
   text-align: center;
   color: white;

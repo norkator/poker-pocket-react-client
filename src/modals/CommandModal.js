@@ -13,7 +13,6 @@ const CommandModal = ({ context, closeModal }) => {
     if (socket) {
       socket.handle('serverCommandResult', commandRunResult);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   const [inputData, setInputData] = useState({

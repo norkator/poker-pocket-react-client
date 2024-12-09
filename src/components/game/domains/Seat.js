@@ -22,12 +22,10 @@ export default function Seat(seatId, elemCardView, seatName) {
   this.id = seatId;
   this.refreshLastAction = null;
   this.seatFrame = true;
-  // null: no card; '': hide cards
-  this.seatCard0 = '';
-  this.seatCard1 = '';
+  this.seatCard0 = null;
+  this.seatCard1 = null;
   this.seatIsFold = false;
   this.seatShowCards = false;
-  this.seatCardView = document.getElementById(elemCardView);
   this.seatName = seatName;
   this.seatMoney = 10000;
   this.seatTurn = false;
@@ -41,6 +39,7 @@ export default function Seat(seatId, elemCardView, seatName) {
   this.seatCollectChips = true;
   this.seatWinningGlowCard0 = false;
   this.seatWinningGlowCard1 = false;
+  this.puffInFastEnabled = false;
 }
 
 Seat.prototype.initSeat = function () {
@@ -61,6 +60,7 @@ Seat.prototype.initSeat = function () {
   this.cardAnimation = false;
   this.seatWinningGlowCard0 = false;
   this.seatWinningGlowCard1 = false;
+  this.puffInFastEnabled = false;
 };
 
 Seat.prototype.setSeatFrameVisibility = function (bool) {
@@ -75,6 +75,14 @@ Seat.prototype.resetCards = function () {
 Seat.prototype.clearCards = function () {
   this.seatCard0 = null;
   this.seatCard1 = null;
+};
+
+Seat.prototype.setCard = function (index, cardStr) {
+  if (index === 0) {
+    this.seatCard0 = cardStr;
+  } else if (index === 1) {
+    this.seatCard1 = cardStr;
+  }
 };
 
 Seat.prototype.setCards = function (cardStr0, cardStr1) {
@@ -136,10 +144,8 @@ Seat.prototype.setDealerChipVisibility = function (bool) {
 
 Seat.prototype.seatCollectChipsToPot = function () {
   this.seatCollectChips = true;
-  var _this = this;
-  setTimeout(function () {
-    _this.seatCollectChips = false;
-    _this.setBetFrameVisibility(false);
-    // TODO: trigger render
+  setTimeout(() => {
+    this.seatCollectChips = false;
+    this.setBetFrameVisibility(false);
   }, 500);
 };

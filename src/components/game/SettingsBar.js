@@ -12,8 +12,8 @@ const StyledItem = styled.div`
 
 const LS_USE_PURPLE_TABLE = 'LS_USE_PURPLE_TABLE';
 const LS_USE_BLACK_CARDS = 'LS_USE_BLACK_CARDS';
-
-// UI settings
+const LS_AUTO_CHECK_ENABLED = 'LS_AUTO_CHECK_ENABLED';
+const LS_AUTO_PLAY_ENABLED = 'LS_AUTO_PLAY_ENABLED';
 const LS_MODE_TOGGLE_STATE = 'LS_MODE_TOGGLE_STATE';
 
 // Sleep promise
@@ -37,6 +37,22 @@ const blackCardVal = () => {
   return blackCardVal === 'true';
 };
 
+const autoCheckEnabledVal = () => {
+  const autoCheckEnabled = localStorage.getItem(LS_AUTO_CHECK_ENABLED);
+  if (autoCheckEnabled === null || autoCheckEnabled === 'undefined') {
+    return false;
+  }
+  return autoCheckEnabled === 'true';
+};
+
+const autoPlayEnabledVal = () => {
+  const autoPlayEnabled = localStorage.getItem(LS_AUTO_PLAY_ENABLED);
+  if (autoPlayEnabled === null || autoPlayEnabled === 'undefined') {
+    return false;
+  }
+  return autoPlayEnabled === 'true';
+};
+
 const SettingsBar = () => {
   const { setCardStyle } = useContext(globalContext);
   const { t } = useContext(contentContext);
@@ -45,11 +61,15 @@ const SettingsBar = () => {
 
   const [tablePurpleBg, setTablePurpleBg] = useState(purpleBgVal());
   const [blackCards] = useState(blackCardVal());
+  const [autoCheckEnabled] = useState(autoCheckEnabledVal());
+  const [autoPlayEnabled] = useState(autoPlayEnabledVal());
 
   useEffect(() => {
     applyTableColor(tablePurpleBg);
-    // applyBlackCards(blackCards);
-  }, [tablePurpleBg]);
+    changeBlackCards(blackCards);
+    changeAutoCheck(autoCheckEnabled);
+    changeAutoPlay(autoPlayEnabled);
+  }, [tablePurpleBg, blackCards, autoCheckEnabled, autoPlayEnabled]);
 
   const applyTableColor = (state) => {
     var pokerTable = document.getElementById('pokerTable');
@@ -78,10 +98,12 @@ const SettingsBar = () => {
 
   const changeAutoCheck = (state) => {
     setAutoCheck(state);
+    localStorage.setItem(LS_AUTO_CHECK_ENABLED, String(state));
   };
 
   const changeAutoPlay = (state) => {
     setAutoPlay(state);
+    localStorage.setItem(LS_AUTO_PLAY_ENABLED, String(state));
   };
 
   async function reloadDelay() {
@@ -125,6 +147,7 @@ const SettingsBar = () => {
           label={t('AUTO_CHECK')}
           onText="On"
           offText="Off"
+          value={autoCheckEnabled}
           onChange={(checked) => changeAutoCheck(checked)}
         />
       </StyledItem>
@@ -133,6 +156,7 @@ const SettingsBar = () => {
           label={t('AUTO_PLAY')}
           onText="On"
           offText="Off"
+          value={autoPlayEnabled}
           onChange={(checked) => changeAutoPlay(checked)}
         />
       </StyledItem>

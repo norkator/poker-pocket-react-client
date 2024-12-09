@@ -57,7 +57,6 @@ const WebSocketProvider = ({ children }) => {
 
       cleanUp('callback');
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function cleanUp(reason) {

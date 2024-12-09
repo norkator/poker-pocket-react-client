@@ -129,21 +129,6 @@ body {
     background-position: center;
 }
 
-.magictime {
-    -webkit-animation-duration: 0.2s;
-    -moz-animation-duration: 0.2s;
-    -o-animation-duration: 0.2s;
-    animation-duration: 0.2s;
-}
-
-
-.magicTimeAction {
-    -webkit-animation-duration: 1.0s;
-    -moz-animation-duration: 1.0s;
-    -o-animation-duration: 1.0s;
-    animation-duration: 1.0s;
-}
-
 .action-animation {
     opacity: 0;
     animation: fadenum 1.5s;
@@ -155,6 +140,13 @@ body {
 
 .card-animation {
     animation: winnerPulse 0.5s infinite alternate;
+}
+
+.magicFast {
+    -webkit-animation-duration: 0.2s;
+    -moz-animation-duration: 0.2s;
+    -o-animation-duration: 0.2s;
+    animation-duration: 0.2s;
 }
 
 /* adjust modal style */

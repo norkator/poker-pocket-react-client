@@ -13,13 +13,10 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
     return (
       <div className="container player-action-pos">
         {seatLastAction ? (
-          <div className="lastActionTexts magicTimeAction puffIn action-animation">
-            {seatLastAction}
-          </div>
+          <div className="lastActionTexts magictime puffIn action-animation">{seatLastAction}</div>
         ) : null}
       </div>
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seat, seat.refreshLastAction]);
 
   const cardsView = useMemo(() => {
@@ -34,30 +31,35 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
       if (seat.seatCard1) {
         path1 = getCardResource(seat.seatCard1, cardStyle);
       }
-    } else {
-      // hide cards
-      if (seat.seatCard0) {
-        path0 = getCardResource('', cardStyle);
-      }
-      if (seat.seatCard1) {
-        path1 = getCardResource('', cardStyle);
-      }
+    }
+
+    if (seat.seatCard0 === undefined) {
+      path0 = '';
+    }
+    if (seat.seatCard1 === undefined) {
+      path1 = '';
     }
 
     return (
       <div className="row">
         <div className="col" style={{ marginLeft: '22px' }}>
           <div
-            className={`cardOne magictime puffIn ${seat.seatWinningGlowCard0 ? 'card-glow' : ''}`}
+            className={`cardOne ${
+              path0 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
+            } ${seat.seatWinningGlowCard0 ? 'card-glow' : ''}`}
             style={{
+              visibility: path0 === null ? 'hidden' : 'visible',
               backgroundImage: seat.seatCard0 ? `url(${path0})` : seat.seatIsFold ? 'url()' : '',
             }}
           ></div>
         </div>
         <div className="col" style={{ marginLeft: '-20px' }}>
           <div
-            className={`cardTwo magictime puffIn ${seat.seatWinningGlowCard1 ? 'card-glow' : ''}`}
+            className={`cardTwo ${
+              path1 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
+            } ${seat.seatWinningGlowCard1 ? 'card-glow' : ''}`}
             style={{
+              visibility: path1 === null ? 'hidden' : 'visible',
               backgroundImage: seat.seatCard1 ? `url(${path1})` : seat.seatIsFold ? 'url()' : '',
             }}
           ></div>
@@ -65,13 +67,13 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
         <div className="col"></div>
       </div>
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     cardStyle,
     seat.seatCard0,
     seat.seatCard1,
     seat.seatWinningGlowCard0,
     seat.seatWinningGlowCard1,
+    seat.puffInFastEnabled,
   ]);
 
   return (

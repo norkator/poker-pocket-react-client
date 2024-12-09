@@ -21,7 +21,6 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
     if (socket) {
       regAuthHandler(socket);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   function accountCreated(aData) {

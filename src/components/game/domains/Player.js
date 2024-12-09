@@ -13,13 +13,11 @@ export default function Player(playerSeat_, playerId_, playerName_, playerMoney_
   this.isCallSituation = false;
 }
 
-// ???
 Player.prototype.initPlayer = function (isMiddleOfTheGame) {
   this.setPlayerSeatVisibility();
   this.setPlayerName();
   this.setPlayerMoney();
   if (isMiddleOfTheGame) {
-    // TODO: why knows cards ?
     this.setPlayerCards();
     this.setShowCards(false);
   }
@@ -63,6 +61,10 @@ Player.prototype.setPlayerFold = function () {
   this.playerSeat.setTurn(false);
   this.playerSeat.setTimeBar(0);
   this.playerSeat.clearCards();
+};
+
+Player.prototype.setPlayerCard = function (index) {
+  this.playerSeat.setCard(index, this.playerCards[index]);
 };
 
 Player.prototype.setPlayerCards = function () {
@@ -118,4 +120,8 @@ Player.prototype.startWinnerGlowCardsAnimation = function (winningCards, winning
       }
     }
   }
+};
+
+Player.prototype.setPuffInFastEnabled = function (enabled) {
+  this.playerSeat.puffInFastEnabled = enabled;
 };

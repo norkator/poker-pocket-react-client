@@ -35,7 +35,7 @@ const TableState = ({ children }) => {
   // Set true makes logged in player play automatically
   const [autoPlay, setAutoPlay] = useState(false);
 
-  const [tableId, setTableId] = useState(-1); // ROOM_ID = -1;
+  const [tableId, setTableId] = useState(-1);
   const [players, setPlayers] = useState(null);
   const [heroTurn, setHeroTurn] = useState({ data: null });
 
@@ -52,7 +52,6 @@ const TableState = ({ children }) => {
 
   useEffect(() => {
     setPlayers(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socketDisconnected]);
 
   const playerIdRef = useRef(-1);
@@ -61,13 +60,13 @@ const TableState = ({ children }) => {
     if (socket) {
       regRoomHandler(socket);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   useEffect(() => {
     playerIdRef.current = playerId;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerId]);
+
+  const cardSetDelayMillis = 300;
 
   function regRoomHandler(socket) {
     // Example: {"playerCount":3,"roomMinBet":10,"middleCards":["Q♠","6♦","9♠","4♠"],"playersData":[{"playerId":0,"playerName":"Bot362","playerMoney":6462.5,"isDealer":false},{"playerId":1,"playerName":"Bot265","playerMoney":9902.5,"isDealer":false},{"playerId":2,"playerName":"Bot966","playerMoney":13500,"isDealer":true}]}
@@ -254,7 +253,7 @@ const TableState = ({ children }) => {
       let player = players[i];
       if (player == null) {
         // problem occure
-        // console.log('player null', i);
+        // console.error('player null', i);
       }
 
       player.setTimeBar(pTimeLeft);
@@ -311,8 +310,6 @@ const TableState = ({ children }) => {
           if (Number(sData.roundWinnerPlayerIds[w]) === Number(player.playerId)) {
             player.startWinnerGlowAnimation();
             if (sData.roundWinnerPlayerCards) {
-              console.log(sData.roundWinnerPlayerCards);
-              console.log(roomRef.current.board);
               let cl = sData.roundWinnerPlayerCards.length;
               for (let c = 0; c < cl; c++) {
                 player.startWinnerGlowCardsAnimation(
@@ -325,7 +322,7 @@ const TableState = ({ children }) => {
         }
       }
 
-      if (isPlaySound) {
+      if (isPlaySound && enableSounds) {
         playCardSlideSix.play();
       }
     }
@@ -334,8 +331,6 @@ const TableState = ({ children }) => {
   };
 
   const statusUpdate = (sData) => {
-    // console.log('statusUpdate ', sData);
-
     roomUpdate(sData, roomRef.current);
     setRoomInfo({ data: roomRef.current.roomInfo });
     setCtrl({ data: roomRef.current.ctrl });
@@ -355,28 +350,28 @@ const TableState = ({ children }) => {
         if (Number(player.playerId) === Number(playerRaw.playerId)) {
           player.playerCards.push(playerRaw.cards[0]);
           player.playerCards.push(playerRaw.cards[1]);
+          player.setPuffInFastEnabled(true);
         }
       }
     }
     holeCardsAsync(players);
   };
 
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
   async function holeCardsAsync(players) {
-    let isPlaySound = false;
     for (let c = 0; c < 2; c++) {
       for (let i = 0; i < players.length; i++) {
         const player = players[i];
         if (!player.isFold) {
-          // await sleep(300);
-          player.setPlayerCards();
-          player.setShowCards(false);
-          isPlaySound = true;
+          await sleep(cardSetDelayMillis);
+          player.setPlayerCard(c);
+          setSeats({ data: seats.data });
+          if (enableSounds) {
+            playCardSlideSix.play();
+          }
         }
       }
-    }
-
-    if (isPlaySound) {
-      playCardSlideSix.play();
     }
   }
 
@@ -400,23 +395,40 @@ const TableState = ({ children }) => {
   }
 
   async function theFlop(fData) {
+    const players = tempPlayers;
+    for (let i = 0; i < players.length; i++) {
+      players[i].setPuffInFastEnabled(false);
+    }
     const board = roomRef.current.board;
-    board.middleCards[0] = fData.middleCards[0];
-    board.middleCards[1] = fData.middleCards[1];
-    board.middleCards[2] = fData.middleCards[2];
-    setBoard({ data: board });
+    board.middleCardsPuffIn = [false, false, false, false, false];
+    setBoard({ data: { ...board } });
+    for (let i = 0; i < 3; i++) {
+      board.middleCards[i] = fData.middleCards[i];
+      board.middleCardsPuffIn[i] = true;
+      setBoard({ data: { ...board } });
+      if (enableSounds) {
+        playCardSlideSix.play();
+      }
+      await new Promise((resolve) => setTimeout(resolve, cardSetDelayMillis));
+    }
   }
 
   async function theTurn(tData) {
     const board = roomRef.current.board;
     board.middleCards[3] = tData.middleCards[3];
-    setBoard({ data: board });
+    board.middleCardsPuffIn[3] = true;
+    setBoard({ data: { ...board } });
+    playCardSlideSix.play();
   }
 
   function theRiver(rData) {
     const board = roomRef.current.board;
     board.middleCards[4] = rData.middleCards[4];
-    setBoard({ data: board });
+    board.middleCardsPuffIn[4] = true;
+    setBoard({ data: { ...board } });
+    if (enableSounds) {
+      playCardSlideSix.play();
+    }
   }
 
   // Backend want's to run collect chips to pot animation
