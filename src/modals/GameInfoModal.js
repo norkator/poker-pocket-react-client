@@ -11,12 +11,10 @@ const GameInfoModal = ({ context }) => {
     if (socket) {
       socket.handle('getGameInformation', gameInformation);
     }
-    
   }, [socket]);
 
   useEffect(() => {
     getGameInformation();
-    
   }, []);
 
   const [infoData, setInfoData] = useState(null);

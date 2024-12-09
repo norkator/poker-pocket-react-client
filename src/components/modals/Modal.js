@@ -16,7 +16,13 @@ const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const Modal = ({ children, headingText, btnText, onClose, onBtnClicked }) => {
+const Modal = ({
+  children,
+  headingText = 'Modal',
+  btnText = 'Call to Action',
+  onClose,
+  onBtnClicked,
+}) => {
   return ReactDOM.createPortal(
     <ModalWrapper
       id="wrapper"
@@ -26,7 +32,6 @@ const Modal = ({ children, headingText, btnText, onClose, onBtnClicked }) => {
         }
       }}
     >
-      {/* <div id="wrapper" className="modal fade" tabIndex="-1" role="dialog" aria-hidden="true"> */}
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
@@ -64,7 +69,6 @@ const Modal = ({ children, headingText, btnText, onClose, onBtnClicked }) => {
           </div>
         </div>
       </div>
-      {/* </div> */}
     </ModalWrapper>,
     document.getElementById('modal')
   );
