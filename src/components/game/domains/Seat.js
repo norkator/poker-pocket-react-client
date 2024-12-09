@@ -39,7 +39,7 @@ export default function Seat(seatId, elemCardView, seatName) {
   this.seatCollectChips = true;
   this.seatWinningGlowCard0 = false;
   this.seatWinningGlowCard1 = false;
-  this.puffInFastEnabled = true;
+  this.puffInFastEnabled = false;
 }
 
 Seat.prototype.initSeat = function () {
@@ -60,7 +60,7 @@ Seat.prototype.initSeat = function () {
   this.cardAnimation = false;
   this.seatWinningGlowCard0 = false;
   this.seatWinningGlowCard1 = false;
-  this.puffInFastEnabled = true;
+  this.puffInFastEnabled = false;
 };
 
 Seat.prototype.setSeatFrameVisibility = function (bool) {
