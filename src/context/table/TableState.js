@@ -350,6 +350,7 @@ const TableState = ({ children }) => {
         if (Number(player.playerId) === Number(playerRaw.playerId)) {
           player.playerCards.push(playerRaw.cards[0]);
           player.playerCards.push(playerRaw.cards[1]);
+          player.setPuffInFastEnabled(true);
         }
       }
     }
@@ -365,7 +366,6 @@ const TableState = ({ children }) => {
         if (!player.isFold) {
           await sleep(cardSetDelayMillis);
           player.setPlayerCard(c);
-          player.cardsPuffIn[c] = true;
           setSeats({ data: seats.data });
           if (enableSounds) {
             playCardSlideSix.play();
@@ -395,6 +395,10 @@ const TableState = ({ children }) => {
   }
 
   async function theFlop(fData) {
+    const players = tempPlayers;
+    for (let i = 0; i < players.length; i++) {
+      players[i].setPuffInFastEnabled(false);
+    }
     const board = roomRef.current.board;
     board.middleCardsPuffIn = [false, false, false, false, false];
     setBoard({ data: { ...board } });

@@ -11,7 +11,6 @@ export default function Player(playerSeat_, playerId_, playerName_, playerMoney_
   this.isFold = false;
   this.isDealer = false;
   this.isCallSituation = false;
-  this.cardsPuffIn = [false, false];
 }
 
 Player.prototype.initPlayer = function (isMiddleOfTheGame) {
@@ -22,7 +21,6 @@ Player.prototype.initPlayer = function (isMiddleOfTheGame) {
     this.setPlayerCards();
     this.setShowCards(false);
   }
-  this.cardsPuffIn = [false, false];
 };
 
 Player.prototype.setPlayerSeatVisibility = function () {
@@ -122,4 +120,8 @@ Player.prototype.startWinnerGlowCardsAnimation = function (winningCards, winning
       }
     }
   }
+};
+
+Player.prototype.setPuffInFastEnabled = function (enabled) {
+  this.playerSeat.puffInFastEnabled = enabled;
 };
