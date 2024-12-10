@@ -76,6 +76,28 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
     seat.puffInFastEnabled,
   ]);
 
+  const betFrameView = useMemo(() => {
+    return seat.seatBetFrame ? (
+      <div
+        id="BetFrame"
+        className={`container ${seat.seatDoBet ? 'magictime puffIn' : ''} bet-pos ${
+          betLeft ? 'bet-left' : ''
+        } ${betRight ? 'bet-right' : ''}
+            `}
+        style={{
+          animation: seat.seatCollectChips ? pos + 'ChipsToPot 0.5s alternate forwards' : '',
+        }}
+      >
+        <div className="moneyView"></div>
+        <div id="TotalBet" className="betTexts">
+          {seat.seatTotalBet}
+        </div>
+      </div>
+    ) : (
+      ''
+    );
+  }, [seat.seatBetFrame, seat.seatDoBet, seat.seatCollectChips, seat.seatTotalBet]);
+
   return (
     <div className={styles.root}>
       <div id={'S-' + seat.id} className={`SeatFrame ${className}`}>
@@ -110,25 +132,7 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
             </div>
           </div>
         </div>
-        {seat.seatBetFrame ? (
-          <div
-            id="BetFrame"
-            className={`container ${seat.seatDoBet ? 'magictime puffIn' : ''} bet-pos ${
-              betLeft ? 'bet-left' : ''
-            } ${betRight ? 'bet-right' : ''}
-            `}
-            style={{
-              animation: seat.seatCollectChips ? pos + 'ChipsToPot 0.5s alternate' : '',
-            }}
-          >
-            <div className="moneyView"></div>
-            <div id="TotalBet" className="betTexts">
-              {seat.seatTotalBet}
-            </div>
-          </div>
-        ) : (
-          ''
-        )}
+        {betFrameView}
         {seat.seatDealerChip ? <div id="DealerChip" className="dealerChipView"></div> : ''}
       </div>
     </div>

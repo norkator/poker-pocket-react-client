@@ -127,7 +127,7 @@ const TableState = ({ children }) => {
     const gameStarted = rData.gameStarted;
     const playerCount = rData.playerCount;
 
-    var playerIds = [],
+    const playerIds = [],
       playerNames = [],
       playerMoneys = [],
       playerIsDealer = [];
@@ -439,6 +439,7 @@ const TableState = ({ children }) => {
       const player = players[i];
       if (player.playerTotalBet > 0) {
         player.playerSeat.seatCollectChipsToPot();
+        setSeats({ data: seats.data });
       }
     }
   }

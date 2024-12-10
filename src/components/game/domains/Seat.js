@@ -36,10 +36,10 @@ export default function Seat(seatId, elemCardView, seatName) {
   this.seatLastAction = 'Check';
   this.cardAnimation = false;
   this.seatDealerChip = true;
-  this.seatCollectChips = true;
   this.seatWinningGlowCard0 = false;
   this.seatWinningGlowCard1 = false;
   this.puffInFastEnabled = false;
+  this.seatCollectChips = true;
 }
 
 Seat.prototype.initSeat = function () {
@@ -148,4 +148,8 @@ Seat.prototype.seatCollectChipsToPot = function () {
     this.seatCollectChips = false;
     this.setBetFrameVisibility(false);
   }, 500);
+};
+
+Seat.prototype.setSeatCollectChips = function (bool) {
+  this.seatCollectChips = bool;
 };
