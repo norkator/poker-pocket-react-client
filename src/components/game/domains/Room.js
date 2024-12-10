@@ -1,4 +1,5 @@
 import { playCardTakeOutFromPackageOne, playCardSlideSix } from '@/components/audio';
+import { formatMoney } from '@/utils/Money';
 
 export const NewBoard = (enableSounds) => {
   let totalPot = 240;
@@ -40,16 +41,6 @@ export const NewBoard = (enableSounds) => {
     return totalPot;
   };
 
-  const setMinBet = (money) => {
-    if (money > 0) {
-      minBet = money;
-    }
-  };
-
-  const getMinBet = () => {
-    return minBet;
-  };
-
   const middleCardsPuffIn = [false, false, false, false, false];
 
   return {
@@ -58,8 +49,6 @@ export const NewBoard = (enableSounds) => {
     middleCardsPuffIn,
     setTotalPot,
     getTotalPot,
-    setMinBet,
-    getMinBet,
     resetMiddleCards,
     setMiddleCard,
     startWinnerCardGlowAnimation,
@@ -68,7 +57,6 @@ export const NewBoard = (enableSounds) => {
 
 export const initBoard = (board) => {
   board.setTotalPot(0);
-  board.setMinBet(0);
   board.resetMiddleCards();
 };
 
@@ -78,6 +66,7 @@ export const NewRoomInfo = () => {
   let waitingPlayersCount = '♦ Waiting: 0';
   let deckStatus = '♦ Deck: -';
   let deckCardsBurned = '♦ Burned: -';
+  let minBet = '♦ Min bet: -';
   let roomStatusText = 'Wait for parameters...';
   let roomTurnText = 'No Turn...';
 
@@ -137,6 +126,14 @@ export const NewRoomInfo = () => {
     return deckCardsBurned;
   };
 
+  const setMinBet = (money) => {
+    minBet = money;
+  };
+
+  const getMinBet = () => {
+    return `♦ Min bet: ${formatMoney(minBet)}$`;
+  };
+
   return {
     getRoomStatusText,
     getRoomTurnText,
@@ -145,6 +142,7 @@ export const NewRoomInfo = () => {
     getRoomWaitingPlayersCount,
     getRoomDeckStatus,
     getRoomDeckBurnedCount,
+    getMinBet,
     setRoomStatusText,
     setRoomTurnText,
     setTableName,
@@ -152,6 +150,7 @@ export const NewRoomInfo = () => {
     setRoomWaitingPlayersCount,
     setRoomDeckStatus,
     setRoomDeckBurnedCount,
+    setMinBet,
   };
 };
 
@@ -219,6 +218,7 @@ export const roomUpdate = (sData, room) => {
   roomInfo.setRoomWaitingPlayersCount(sData.appendPlayersCount);
   roomInfo.setRoomDeckStatus(sData.deckStatus);
   roomInfo.setRoomDeckBurnedCount(sData.deckCardsBurned);
+  roomInfo.setMinBet(sData.tableMinBet);
 
   const board = room.board;
   board.setTotalPot(sData.totalPot);

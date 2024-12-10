@@ -58,6 +58,11 @@ body {
     color: #FFFFFF;
     font-size: 30px;
     margin-top: -10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .minBetText {

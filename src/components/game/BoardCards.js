@@ -35,10 +35,8 @@ const BoardCards = () => {
             : ''}
         </div>
         <div id="totalPot" className="totalPotText">
-          {current.getTotalPot() > 0 ? formatMoney(current.getTotalPot()) + '$' : ''}
-        </div>
-        <div id="minBet" className="minBetText">
-          {current.getMinBet() > 0 ? 'MB ' + formatMoney(current.getMinBet()) + '$' : ''}
+          {current.getTotalPot() > 0 ? <div className="moneyView"></div> : ''}
+          <div>{current.getTotalPot() > 0 ? formatMoney(current.getTotalPot()) + '$' : ''}</div>
         </div>
       </div>
     ) : (
