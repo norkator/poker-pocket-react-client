@@ -28,6 +28,11 @@ const RoomStatus = () => {
                   </div>
                 </div>
                 <div className="col-sm">
+                  <div id="minBet" style={{ color: '#FFFFFF', fontSize: '12px' }}>
+                    {current.getMinBet()}
+                  </div>
+                </div>
+                <div className="col-sm">
                   <div id="spectatorsCount" style={{ color: '#FFFFFF', fontSize: '12px' }}>
                     {current.getRoomSpectatorCount()}
                   </div>
@@ -53,10 +58,22 @@ const RoomStatus = () => {
           <div className="col-8">
             <div className="container">
               <div className="row">
-                <div className="col-sm">
-                  <div id="roomStatusText" style={{ color: 'white', textAlign: 'left' }}>
-                    <span style={{ marginRight: '30px' }}>{current.getRoomStatusText()}</span>
-                    <span style={{ marginRight: '30px' }}>{current.getRoomTurnText()}</span>
+                <div className="col-sm-auto">
+                  <div
+                    id="roomStatusText"
+                    style={{ color: 'white', fontSize: '12px', textAlign: 'left' }}
+                  >
+                    <span style={{ marginRight: '30px' }}>
+                      ♣ Table status: {current.getRoomStatusText()}
+                    </span>
+                  </div>
+                </div>
+                <div className="col-sm-auto">
+                  <div
+                    id="roomTurnText"
+                    style={{ color: 'white', fontSize: '12px', textAlign: 'left' }}
+                  >
+                    <span style={{ marginRight: '30px' }}>♠ Turn: {current.getRoomTurnText()}</span>
                   </div>
                 </div>
               </div>

@@ -115,8 +115,6 @@ const TableState = ({ children }) => {
   };
 
   const boardParser = (rData, board) => {
-    board.setMinBet(rData.roomMinBet);
-
     const gameStarted = rData.gameStarted;
     if (rData.middleCards?.length > 0) {
       for (let m = 0; m < rData.middleCards.length; m++) {
@@ -432,8 +430,7 @@ const TableState = ({ children }) => {
   }
 
   // Backend want's to run collect chips to pot animation
-  const collectChipsToPotAction = () => {
-    //toastr["info"]("Collect chips action call");
+  async function collectChipsToPotAction() {
     if (enableSounds) {
       playCollectChipsToPot.play();
     }
@@ -444,7 +441,7 @@ const TableState = ({ children }) => {
         player.playerSeat.seatCollectChipsToPot();
       }
     }
-  };
+  }
 
   // Receive all players cards before results for showing them
   function allPlayersCards(cData) {
