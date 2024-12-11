@@ -51,6 +51,7 @@ const Games = () => {
         tableId: table_id,
       });
       socket.send(data2);
+      setTableId(table_id);
       navigate('/'); // todo, later navigate based on which game
     }
   };
