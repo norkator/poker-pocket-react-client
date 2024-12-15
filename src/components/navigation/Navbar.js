@@ -9,11 +9,13 @@ import SignInOnModal from '@/modals/SignInOnModal';
 import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
 import tableContext from '@/context/table/tableContext';
+import { useNavigate } from 'react-router-dom';
 
 const LS_ENABLE_SOUNDS_STATE = 'LS_ENABLE_SOUNDS_STATE';
 
 const Navbar = () => {
   const { t } = useContext(contentContext);
+  const navigate = useNavigate();
   const { openView, openModal, closeModal } = useContext(modalContext);
 
   const { socket, socketConnected } = useContext(socketContext);
@@ -84,6 +86,10 @@ const Navbar = () => {
     setIsTogglerShow(!isTogglerShow);
   };
 
+  const navigateGames = () => {
+    navigate('/games');
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -112,21 +118,13 @@ const Navbar = () => {
           id="navbarSupportedContent"
         >
           <ul className="navbar-nav mr-auto mt-1 mt-md-0">
+            <NavButton onClick={() => navigateGames()}>{t('GAMES')}</NavButton>
             <NavButton onClick={() => openRoomModal('all')}>{t('GET_ROOMS')}</NavButton>
             <NavButton onClick={() => openRoomModal('spec')}>{t('SPECTATE')}</NavButton>
             <NavButton onClick={() => openRankingsModal()}>{t('RANKINGS')}</NavButton>
-            {
-              // <NavButton onClick={() => openGameInfoModal()}>{t('SERVER')}</NavButton>
-            }
-            {
-              // <NavButton onClick={openCmdModal}>{t('COMMAND')}</NavButton>
-            }
             <NavButton onClick={toggleSounds}>
               {enableSounds ? t('SOUNDS_DISABLE') : t('SOUNDS_ENABLE')}
             </NavButton>
-            {
-              //<NavButton onClick={() => toast.success('Wow so easy!')}>{t('NOTIFICATION')}</NavButton>
-            }
           </ul>
           {isAuthed ? (
             <ul
