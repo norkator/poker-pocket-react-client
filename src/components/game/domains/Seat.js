@@ -24,6 +24,9 @@ export default function Seat(seatId, elemCardView, seatName) {
   this.seatFrame = true;
   this.seatCard0 = null;
   this.seatCard1 = null;
+  this.seatCard2 = null;
+  this.seatCard3 = null;
+  this.seatCard4 = null;
   this.seatIsFold = false;
   this.seatShowCards = false;
   this.seatName = seatName;
