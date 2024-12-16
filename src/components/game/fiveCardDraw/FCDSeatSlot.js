@@ -17,11 +17,14 @@ const FCDSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
         ) : null}
       </div>
     );
-  }, [seat, seat.refreshLastAction]);
+  }, [seat]);
 
   const cardsView = useMemo(() => {
     let path0 = null;
     let path1 = null;
+    let path2 = null;
+    let path3 = null;
+    let path4 = null;
 
     if (seat.playerId === playerId || seat.seatShowCards) {
       // show cards
@@ -31,6 +34,15 @@ const FCDSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
       if (seat.seatCard1) {
         path1 = getCardResource(seat.seatCard1, cardStyle);
       }
+      if (seat.seatCard2) {
+        path2 = getCardResource(seat.seatCard2, cardStyle);
+      }
+      if (seat.seatCard3) {
+        path3 = getCardResource(seat.seatCard3, cardStyle);
+      }
+      if (seat.seatCard4) {
+        path4 = getCardResource(seat.seatCard4, cardStyle);
+      }
     }
 
     if (seat.seatCard0 === undefined) {
@@ -39,41 +51,84 @@ const FCDSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
     if (seat.seatCard1 === undefined) {
       path1 = '';
     }
+    if (seat.seatCard2 === undefined) {
+      path2 = '';
+    }
+    if (seat.seatCard3 === undefined) {
+      path3 = '';
+    }
+    if (seat.seatCard4 === undefined) {
+      path4 = '';
+    }
 
     return (
       <div className="row">
-        <div className="col" style={{ marginLeft: '22px' }}>
-          <div
-            className={`cardOne ${
-              path0 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
-            } ${seat.seatWinningGlowCard0 ? 'card-glow' : ''}`}
-            style={{
-              visibility: path0 === null ? 'visible' : 'visible',
-              backgroundImage: seat.seatCard0 ? `url(${path0})` : seat.seatIsFold ? 'url()' : '',
-            }}
-          ></div>
-        </div>
-        <div className="col" style={{ marginLeft: '-20px' }}>
-          <div
-            className={`cardTwo ${
-              path1 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
-            } ${seat.seatWinningGlowCard1 ? 'card-glow' : ''}`}
-            style={{
-              visibility: path1 === null ? 'visible' : 'visible',
-              backgroundImage: seat.seatCard1 ? `url(${path1})` : seat.seatIsFold ? 'url()' : '',
-            }}
-          ></div>
-        </div>
-        <div className="col"></div>
+        <div
+          className={`pokerCard ${
+            path0 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
+          } ${seat.seatWinningGlowCard0 ? 'card-glow' : ''}`}
+          style={{
+            visibility: path0 === null ? 'visible' : 'visible',
+            backgroundImage: seat.seatCard0 ? `url(${path0})` : seat.seatIsFold ? 'url()' : '',
+            marginLeft: '-5px',
+          }}
+        ></div>
+        <div
+          className={`pokerCard ${
+            path1 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
+          } ${seat.seatWinningGlowCard1 ? 'card-glow' : ''}`}
+          style={{
+            visibility: path1 === null ? 'visible' : 'visible',
+            backgroundImage: seat.seatCard1 ? `url(${path1})` : seat.seatIsFold ? 'url()' : '',
+            marginLeft: '-5px',
+          }}
+        ></div>
+        <div
+          className={`pokerCard ${
+            path2 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
+          } ${seat.seatWinningGlowCard1 ? 'card-glow' : ''}`}
+          style={{
+            visibility: path2 === null ? 'visible' : 'visible',
+            backgroundImage: seat.seatCard2 ? `url(${path1})` : seat.seatIsFold ? 'url()' : '',
+            marginLeft: '-5px',
+          }}
+        ></div>
+        <div
+          className={`pokerCard ${
+            path3 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
+          } ${seat.seatWinningGlowCard1 ? 'card-glow' : ''}`}
+          style={{
+            visibility: path3 === null ? 'visible' : 'visible',
+            backgroundImage: seat.seatCard3 ? `url(${path1})` : seat.seatIsFold ? 'url()' : '',
+            marginLeft: '-5px',
+          }}
+        ></div>
+        <div
+          className={`pokerCard ${
+            path4 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
+          } ${seat.seatWinningGlowCard1 ? 'card-glow' : ''}`}
+          style={{
+            visibility: path4 === null ? 'visible' : 'visible',
+            backgroundImage: seat.seatCard4 ? `url(${path1})` : seat.seatIsFold ? 'url()' : '',
+            marginLeft: '-5px',
+          }}
+        ></div>
       </div>
     );
   }, [
-    cardStyle,
+    seat.playerId,
+    seat.seatShowCards,
     seat.seatCard0,
     seat.seatCard1,
-    seat.seatWinningGlowCard0,
-    seat.seatWinningGlowCard1,
+    seat.seatCard2,
+    seat.seatCard3,
+    seat.seatCard4,
     seat.puffInFastEnabled,
+    seat.seatWinningGlowCard0,
+    seat.seatIsFold,
+    seat.seatWinningGlowCard1,
+    playerId,
+    cardStyle,
   ]);
 
   const betFrameView = useMemo(() => {
@@ -102,7 +157,7 @@ const FCDSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
     <div className={styles.root}>
       <div id={'S-' + seat.id} className={`SeatFrame ${className}`}>
         {actionView}
-        <div className="container" style={{ width: '200px' }}>
+        <div className="container" style={{ width: '200px', marginLeft: '10px' }}>
           {cardsView}
         </div>
         <div className="container" style={{ width: '200px', marginTop: '-20px' }}>
