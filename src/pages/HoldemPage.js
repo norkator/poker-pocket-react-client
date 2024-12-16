@@ -9,7 +9,7 @@ const StyledContainer = styled.div`
   margin-top: 5px;
 `;
 
-const GamePage = () => {
+const HoldemPage = () => {
   return (
     <>
       <StyledContainer className="container">
@@ -20,4 +20,4 @@ const GamePage = () => {
   );
 };
 
-export default GamePage;
+export default HoldemPage;
