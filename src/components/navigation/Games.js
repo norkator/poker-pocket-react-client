@@ -38,7 +38,7 @@ const Games = () => {
     setTablesData(data);
   };
 
-  const selectTable = (table_id) => {
+  const selectTable = (table_id, game) => {
     if (socket) {
       const data = JSON.stringify({
         key: 'selectTable',
@@ -52,11 +52,11 @@ const Games = () => {
       });
       socket.send(data2);
       setTableId(table_id);
-      navigate('/'); // todo, later navigate based on which game
+      handleNavigation(game);
     }
   };
 
-  const selectSpectateTable = (table_id) => {
+  const selectSpectateTable = (table_id, game) => {
     if (socket) {
       const data = JSON.stringify({
         key: 'selectSpectateTable',
@@ -69,7 +69,21 @@ const Games = () => {
         tableId: table_id,
       });
       socket.send(data2);
-      navigate('/'); // todo, later navigate based on which game
+      handleNavigation(game);
+    }
+  };
+
+  const handleNavigation = (game) => {
+    switch (game) {
+      case 'HOLDEM':
+        navigate('/holdem');
+        break;
+      case 'FIVE_CARD_DRAW':
+        navigate('/fivecarddraw');
+        break;
+      default:
+        navigate('/games');
+        break;
     }
   };
 
@@ -89,10 +103,15 @@ const Games = () => {
           </td>
           <td>{formatMoney(tableMinBet)}$</td>
           <td>
-            <button className="btn btn-sm btn-primary mr-2" onClick={() => selectTable(tableId)}>
+            <button
+              className="btn btn-sm btn-primary mr-2"
+              onClick={() => selectTable(tableId, game)}
+            >
               {t('JOIN')}
             </button>
-            <NavButton onClick={() => selectSpectateTable(tableId)}>{t('SPECTATE')}</NavButton>
+            <NavButton onClick={() => selectSpectateTable(tableId, game)}>
+              {t('SPECTATE')}
+            </NavButton>
           </td>
         </tr>
       );
