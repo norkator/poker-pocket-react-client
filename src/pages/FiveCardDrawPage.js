@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Room from '@/components/game/Room';
 import Footer from '@/components/navigation/Footer';
+import FiveCardDrawRoom from '@/components/game/fiveCardDraw/FiveCardDrawRoom';
 
 const StyledContainer = styled.div`
   min-width: 850px;
@@ -13,7 +13,7 @@ const FiveCardDrawPage = () => {
   return (
     <>
       <StyledContainer className="container">
-        <Room />
+        <FiveCardDrawRoom />
         <Footer />
       </StyledContainer>
     </>

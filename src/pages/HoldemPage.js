@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Room from '@/components/game/Room';
+import HoldemRoom from '@/components/game/holdem/HoldemRoom';
 import Footer from '@/components/navigation/Footer';
 
 const StyledContainer = styled.div`
@@ -13,7 +13,7 @@ const HoldemPage = () => {
   return (
     <>
       <StyledContainer className="container">
-        <Room />
+        <HoldemRoom />
         <Footer />
       </StyledContainer>
     </>
