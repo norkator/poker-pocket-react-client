@@ -95,6 +95,10 @@ const TableState = ({ children }) => {
     socket.handle('allPlayersCards', (jsonData) => allPlayersCards(jsonData.data));
 
     socket.handle('audioCommand', (jsonData) => audioCommand(jsonData.data));
+
+    socket.handle('dealHoleCards', (jsonData) => dealHoleCards(jsonData.data)); // five card draw
+
+    socket.handle('discardAndDraw', (jsonData) => discardAndDraw(jsonData.data)); // five card draw
   }
 
   // init room data
@@ -481,7 +485,43 @@ const TableState = ({ children }) => {
     }
   }
 
-  // eslint-disable-next-line prettier/prettier
+  // ----------------------------------------------------
+
+  async function dealHoleCards(pData) {
+    const players = tempPlayers;
+    for (let p = 0; p < pData.players.length; p++) {
+      for (let i = 0; i < players.length; i++) {
+        const playerRaw = pData.players[p];
+
+        const player = players[i];
+        if (Number(player.playerId) === Number(playerRaw.playerId)) {
+          player.playerCards.push(playerRaw.cards[0]);
+          player.playerCards.push(playerRaw.cards[1]);
+          player.setPuffInFastEnabled(true);
+        }
+      }
+    }
+    for (let c = 0; c < 2; c++) {
+      for (let i = 0; i < players.length; i++) {
+        const player = players[i];
+        if (!player.isFold) {
+          await sleep(cardSetDelayMillis);
+          player.setPlayerCard(c);
+          setSeats({ data: seats.data });
+          if (enableSounds) {
+            playCardSlideSix.play();
+          }
+        }
+      }
+    }
+  }
+
+  const discardAndDraw = (ddData) => {
+    console.log(ddData);
+  };
+
+  // ----------------------------------------------------
+
   return (
     <TableContext.Provider
       value={{
