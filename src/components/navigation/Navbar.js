@@ -8,7 +8,7 @@ import UserDashboardModal from '@/modals/UserDashboardModal';
 import SignInOnModal from '@/modals/SignInOnModal';
 import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
-import tableContext from '@/context/table/tableContext';
+import holdemTableContext from '@/context/table/holdemTableContext';
 import { useNavigate } from 'react-router-dom';
 
 const LS_ENABLE_SOUNDS_STATE = 'LS_ENABLE_SOUNDS_STATE';
@@ -23,7 +23,7 @@ const Navbar = () => {
 
   const socketCtx = useContext(socketContext);
   const authCtx = useContext(authContext);
-  const tableCtx = useContext(tableContext);
+  const tableCtx = useContext(holdemTableContext);
 
   const [enableSounds, setEnableSounds] = useState(true);
 

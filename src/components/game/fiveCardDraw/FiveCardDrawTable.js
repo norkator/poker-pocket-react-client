@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import tableContext from '@/context/table/tableContext';
+import holdemTableContext from '@/context/table/holdemTableContext';
 import FCDSeatSlot from '@/components/game/fiveCardDraw/FCDSeatSlot';
 
 const FiveCardDrawTable = ({ children }) => {
-  const { seats } = useContext(tableContext);
+  const { seats } = useContext(holdemTableContext);
 
   const current = seats.data;
   return (

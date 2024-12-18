@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import globalContext from '@/context/global/globalContext';
 import contentContext from '@/context/content/contentContext';
-import tableContext from '@/context/table/tableContext';
+import holdemTableContext from '@/context/table/holdemTableContext';
 import SwitchButton from '@/components/buttons/SwitchButton';
 import { parserCardStyle } from '@/utils/CardRes';
 
@@ -57,7 +57,7 @@ const SettingsBar = () => {
   const { setCardStyle } = useContext(globalContext);
   const { t } = useContext(contentContext);
 
-  const { setAutoCheck, setAutoPlay } = useContext(tableContext);
+  const { setAutoCheck, setAutoPlay } = useContext(holdemTableContext);
 
   const [tablePurpleBg, setTablePurpleBg] = useState(purpleBgVal());
   const [blackCards] = useState(blackCardVal());
