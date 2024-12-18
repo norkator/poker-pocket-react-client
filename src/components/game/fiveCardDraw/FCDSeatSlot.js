@@ -151,7 +151,15 @@ const FCDSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
     ) : (
       ''
     );
-  }, [seat.seatBetFrame, seat.seatDoBet, seat.seatCollectChips, seat.seatTotalBet]);
+  }, [
+    seat.seatBetFrame,
+    seat.seatDoBet,
+    seat.seatCollectChips,
+    seat.seatTotalBet,
+    betLeft,
+    betRight,
+    pos,
+  ]);
 
   return (
     <div className={styles.root}>
