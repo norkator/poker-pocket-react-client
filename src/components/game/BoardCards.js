@@ -1,12 +1,12 @@
 import React, { useContext, useMemo } from 'react';
 import globalContext from '@/context/global/globalContext';
-import tableContext from '@/context/table/tableContext';
+import holdemTableContext from '@/context/table/holdemTableContext';
 import { getCardResource } from '@/utils/CardRes';
 import { formatMoney } from '@/utils/Money';
 
 const BoardCards = () => {
   const { cardStyle } = useContext(globalContext);
-  const { board } = useContext(tableContext);
+  const { board } = useContext(holdemTableContext);
 
   const view = useMemo(() => {
     const current = board.data;

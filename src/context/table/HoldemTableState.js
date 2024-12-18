@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import RoomContext from './tableContext';
+import RoomContext from './holdemTableContext';
 import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
 import NewRoom, {
@@ -25,7 +25,7 @@ import { setupSeats } from '@/components/game/domains/Seat';
 // let autoPlay = false; // Set true makes logged in player play automatically
 let tempPlayers = [];
 
-const TableState = ({ children }) => {
+const HoldemTableState = ({ children }) => {
   const { socket, playerId, socketDisconnected } = useContext(socketContext);
   const { setMyDashboardDataRefresh } = useContext(authContext);
 
@@ -515,4 +515,4 @@ const TableState = ({ children }) => {
   );
 };
 
-export default TableState;
+export default HoldemTableState;

@@ -1,14 +1,14 @@
-import React from 'react';
-import GameContext from './gameContext';
+import React, { createContext, useContext, useState } from 'react';
+
+const GameContext = createContext();
+
+export const useGameState = () => useContext(GameContext);
 
 const GameState = ({ children }) => {
-  // eslint-disable-next-line prettier/prettier
+  const [currentGame, setCurrentGame] = useState('Holdem');
+
   return (
-    <GameContext.Provider
-      value={{}}
-    >
-      {children}
-    </GameContext.Provider>
+    <GameContext.Provider value={{ currentGame, setCurrentGame }}>{children}</GameContext.Provider>
   );
 };
 
