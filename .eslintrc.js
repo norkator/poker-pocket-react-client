@@ -9,8 +9,6 @@ module.exports = {
     ecmaVersion: 2021
   },
   extends: [
-    'react-app',
-    'react-app/jest',
     'eslint:recommended',
     'plugin:react/jsx-runtime',
     'plugin:react/recommended',
