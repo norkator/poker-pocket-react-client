@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import styled from 'styled-components';
-import holdemTableContext from '@/context/table/holdemTableContext';
+import tableContext from '@/context/table/tableContext';
 
 const StyledCard = styled.div`
   background-color: #434343;
@@ -10,7 +10,7 @@ const StyledCard = styled.div`
 `;
 
 const RoomStatus = () => {
-  const { roomInfo } = useContext(holdemTableContext);
+  const { roomInfo } = useContext(tableContext);
 
   const view = useMemo(() => {
     const current = roomInfo.data;

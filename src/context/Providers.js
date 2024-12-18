@@ -9,22 +9,8 @@ import ModalProvider from './modal/ModalProvider';
 import OfflineProvider from './offline/OfflineProvider';
 import WebSocketProvider from './websocket/WebsocketProvider';
 import AuthState from './auth/AuthState';
-import GameState, { useGameState } from './game/GameState';
-import HoldemTableState from '@/context/table/HoldemTableState';
-import FCDTableState from '@/context/table/FCDTableState';
-
-const GameStateSelector = ({ children }) => {
-  const { currentGame } = useGameState();
-
-  switch (currentGame) {
-    case 'Holdem':
-      return <HoldemTableState>{children}</HoldemTableState>;
-    case 'FiveCardDraw':
-      return <FCDTableState>{children}</FCDTableState>;
-    default:
-      return <div>No game selected</div>;
-  }
-};
+import GameState from './game/GameState';
+import TableState from '@/context/table/TableState';
 
 const Providers = ({ children }) => (
   <BrowserRouter>
@@ -37,7 +23,7 @@ const Providers = ({ children }) => (
               <WebSocketProvider>
                 <AuthState>
                   <GameState>
-                    <GameStateSelector>{children}</GameStateSelector>
+                    <TableState>{children}</TableState>
                   </GameState>
                 </AuthState>
               </WebSocketProvider>
