@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import HoldemSeatSlot from './HoldemSeatSlot';
-import holdemTableContext from '@/context/table/holdemTableContext';
+import tableContext from '@/context/table/tableContext';
 
 const HoldemTable = ({ children }) => {
-  const { seats } = useContext(holdemTableContext);
+  const { seats } = useContext(tableContext);
 
   const current = seats.data;
   return (

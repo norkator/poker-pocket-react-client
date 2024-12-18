@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import socketContext from '@/context/websocket/socketContext';
-import holdemTableContext from '@/context/table/holdemTableContext';
+import tableContext from '@/context/table/tableContext';
 import contentContext from '@/context/content/contentContext';
 import { formatMoney } from '@/utils/Money';
 import NavButton from '@/components/buttons/NavButton';
@@ -9,7 +9,7 @@ import NavButton from '@/components/buttons/NavButton';
 const Games = () => {
   const { t } = useContext(contentContext);
   const socketCtx = useContext(socketContext);
-  const tableCtx = useContext(holdemTableContext);
+  const tableCtx = useContext(tableContext);
   const { socket, socketConnected } = useContext(socketContext);
   const { tableId, setTableId } = tableCtx;
 

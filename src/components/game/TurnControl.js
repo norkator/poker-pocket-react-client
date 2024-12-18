@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import socketContext from '@/context/websocket/socketContext';
-import holdemTableContext from '@/context/table/holdemTableContext';
+import tableContext from '@/context/table/tableContext';
 import { playCardPlaceChipsOne } from '@/components/audio';
 
 const StyledBetBtn = ({ onClick, label }) => {
@@ -27,7 +27,7 @@ const StyledActBtn = ({ className, onClick, label }) => {
 
 const TurnControl = () => {
   const { socket, playerId } = useContext(socketContext);
-  const { tableId, ctrl, players, heroTurn, autoCheck, autoPlay } = useContext(holdemTableContext);
+  const { tableId, ctrl, players, heroTurn, autoCheck, autoPlay } = useContext(tableContext);
 
   const [enableSounds] = useState(true);
 
