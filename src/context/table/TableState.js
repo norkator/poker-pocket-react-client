@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import RoomContext from './tableContext';
+import TableContext from './tableContext';
 import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
 import NewRoom, {
@@ -22,7 +22,6 @@ import {
 } from '@/components/audio';
 import { setupSeats } from '@/components/game/domains/Seat';
 
-// let autoPlay = false; // Set true makes logged in player play automatically
 let tempPlayers = [];
 
 const TableState = ({ children }) => {
@@ -484,7 +483,7 @@ const TableState = ({ children }) => {
 
   // eslint-disable-next-line prettier/prettier
   return (
-    <RoomContext.Provider
+    <TableContext.Provider
       value={{
         tableId,
         setTableId,
@@ -511,7 +510,7 @@ const TableState = ({ children }) => {
       }}
     >
       {children}
-    </RoomContext.Provider>
+    </TableContext.Provider>
   );
 };
 
