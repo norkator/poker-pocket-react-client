@@ -21,12 +21,15 @@ const StyledSwitch = styled.div`
     z-index: 0;
     user-select: none;
     vertical-align: middle;
-    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition:
+      border-color ease-in-out 0.15s,
+      box-shadow ease-in-out 0.15s;
   }
 
-  .switch-vision::focus {
+  .switch-vision:focus {
     border: 2px solid #66afe9;
   }
+
   .switch-checkbox {
     position: absolute;
     top: 0;
@@ -40,6 +43,7 @@ const StyledSwitch = styled.div`
     border-radius: 4px;
     transform: translate3d(0, 0, 0);
   }
+
   .switch-container.swtich-animate {
     transition: margin-left 0.5s;
   }
@@ -59,6 +63,7 @@ const StyledSwitch = styled.div`
     font-size: 14px;
     line-height: 20px;
   }
+
   .switch-text-sep {
     text-align: center;
     margin-top: -1px;
@@ -69,10 +74,12 @@ const StyledSwitch = styled.div`
     color: #333;
     background: #444;
   }
+
   .text-color {
     color: #ffffff;
     background: #d9534f;
   }
+
   .switch-container.switch-right {
     margin-left: 0px;
   }
@@ -80,20 +87,25 @@ const StyledSwitch = styled.div`
   .switch-vision.sm {
     width: 62px;
   }
+
   .switch-vision.sm .switch-container {
     width: 100px;
   }
+
   .switch-vision.sm .switch-text-left,
   .switch-vision.sm .switch-text-right {
     width: 38px;
     height: 30px;
   }
+
   .switch-vision.sm .switch-text-sep {
     width: 20px;
   }
+
   .switch-vision.sm .switch-container.switch-on {
     margin-left: -37.9px;
   }
+
   .switch-vision.sm .switch-text-left,
   .switch-vision.sm .switch-text-right,
   .switch-vision.sm .switch-text-sep {
