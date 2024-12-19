@@ -1,101 +1,64 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { toast } from 'react-toastify';
+import React, { useMemo, useContext, useState } from 'react';
+import { getCardResource } from '@/utils/CardRes';
+import globalContext from '@/context/global/globalContext';
+import contentContext from '@/context/content/contentContext';
 
-const FCDPickCardsModal = ({ context }) => {
-  const { socketCtx } = context;
-  const { socket, playerId } = socketCtx;
+const FCDPickCardsModal = ({ context, cards }) => {
+  const { t } = useContext(contentContext);
+  const { cardStyle } = useContext(globalContext);
+  const [selectedCards, setSelectedCards] = useState([]);
 
-  useEffect(() => {
-    if (socket) {
-      // socket.handle('getRankingsResult', getRankingsResult);
-    }
-  }, [socket]);
+  const toggleCardSelection = (card) => {
+    setSelectedCards((prevSelected) => {
+      if (prevSelected.includes(card)) {
+        return prevSelected.filter((c) => c !== card);
+      } else {
+        return [...prevSelected, card];
+      }
+    });
+  };
 
-  useEffect(() => {
-    // getRankings();
-  }, []);
+  const handleAnimationEnd = (e) => {
+    // e.target.classList.add('stayAtTop');
+  };
 
-  const [rankingData, setRankingData] = useState(null);
-
-  function getRankings() {
-    // if (socket) {
-    //   const data = JSON.stringify({
-    //     key: 'getRankings',
-    //   });
-    //   socket.send(data);
-    // }
-  }
-
-  // eslint-disable-next-line no-unused-vars
-  function getRankingsResult(jsonData) {
-    const responseCode = jsonData.code;
-    const rData = jsonData.data;
-    if (Number(responseCode) === 200) {
-      setRankingData(rData);
-    } else {
-      toast.info('Unspecified error while retrieving rankings');
-    }
-  }
-
-  function loadMedalImage(iconName) {
-    return './assets/images/' + iconName + '.png';
-  }
-
-  const RankingView = useMemo(() => {
-    if (!rankingData) {
+  const CardsView = useMemo(() => {
+    if (!cards) {
       return null;
     }
 
-    return rankingData.map((rData) => {
-      return (
-        <button key={rData.name} className="list-group-item list-group-item-action">
-          <div className="d-flex flex-row">
-            <div className="p-2" style={{ marginLeft: '-10px' }}>
-              <img
-                src={loadMedalImage(rData.icon)}
-                alt=""
-                style={{ width: '25px', height: '50px' }}
-              />
-            </div>
-            <div className="p-2" style={{ marginLeft: '-10px', width: '150px' }}>
-              <div className="grid" style={{ marginLeft: '30px' }}>
-                <div className="row">
-                  <b>{rData.name}</b>
-                </div>
-                <div className="row">
-                  <label>{rData.xp + ' xp'}</label>
-                </div>
-              </div>
-            </div>
-            <div className="p-2">
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-8">
-                    <h6>
-                      Wins
-                      <span className="badge badge-secondary">{rData.win_count}</span>
-                    </h6>
-                  </div>
-                  <div className="col-md-8">
-                    <h6>
-                      Losses <span className="badge badge-secondary">{rData.lose_count}</span>
-                    </h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </button>
-      );
-    });
-  }, [rankingData]);
+    return (
+      <div className="row">
+        {cards.cards.map((card, index) => {
+          const path = getCardResource(card, cardStyle);
+          const isSelected = selectedCards.includes(card);
+
+          return (
+            <div
+              key={index}
+              className={`pokerCardForPicker ${isSelected ? 'magictime slideUpCustom' : ''}`}
+              style={{
+                backgroundImage: `url(${path})`,
+                cursor: 'pointer',
+              }}
+              onClick={() => toggleCardSelection(card)}
+              onAnimationEnd={isSelected ? handleAnimationEnd : null}
+            ></div>
+          );
+        })}
+      </div>
+    );
+  }, [cards, cardStyle, selectedCards]);
 
   return (
     <>
-      <div style={{ width: '100%', textAlign: 'center' }}>Starts from best players</div>
-      <ul id="rankingListGroup" className="list-group" style={{ marginTop: '10px' }}>
-        {RankingView}
-      </ul>
+      <div className="selectedCards">
+        <small>{t('CARDS_TO_DISCARD')}:</small>
+        <p>{selectedCards.join(', ')}</p>
+      </div>
+      <div className="container" style={{ margin: '10px', marginTop: '40px' }}>
+        {CardsView}
+      </div>
     </>
   );
 };

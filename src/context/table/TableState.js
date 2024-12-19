@@ -21,12 +21,16 @@ import {
   playCardSlideSix,
 } from '@/components/audio';
 import { setupSeats } from '@/components/game/domains/Seat';
+import modalContext from '@/context/modal/modalContext';
+import FCDPickCardsModal from '@/modals/FCDPickCardsModal';
 
 let tempPlayers = [];
 
 const TableState = ({ children }) => {
-  const { socket, playerId, socketDisconnected } = useContext(socketContext);
+  const socketCtx = useContext(socketContext);
+  const { socket, playerId, socketDisconnected } = socketCtx;
   const { setMyDashboardDataRefresh } = useContext(authContext);
+  const { openView, openModal, closeModal } = useContext(modalContext);
 
   const [enableSounds, setEnableSounds] = useState(true);
   const [autoCheck, setAutoCheck] = useState(false);
@@ -521,7 +525,12 @@ const TableState = ({ children }) => {
   }
 
   const discardAndDraw = (ddData) => {
-    console.log(ddData);
+    console.info(ddData);
+    // openModal(
+    //   () => <FCDPickCardsModal context={{ socketCtx }} cards={{ ddData }} />,
+    //   'Test',
+    //   'Close'
+    // );
   };
 
   // ----------------------------------------------------

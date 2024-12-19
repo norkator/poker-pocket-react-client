@@ -27,5 +27,8 @@
   "PLAYERS": "Players",
   "MIN_BET": "Min Bet",
   "ACTION": "Action",
-  "JOIN": "Join"
+  "JOIN": "Join",
+  "CHOOSE_CARDS_TO_CHANGE": "Choose cards to discard",
+  "CARDS_TO_DISCARD": "Cards to discard",
+  "CONTINUE": "Continue"
 }
