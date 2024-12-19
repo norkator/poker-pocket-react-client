@@ -41,6 +41,9 @@ export default function Seat(seatId, elemCardView, seatName) {
   this.seatDealerChip = true;
   this.seatWinningGlowCard0 = false;
   this.seatWinningGlowCard1 = false;
+  this.seatWinningGlowCard2 = false;
+  this.seatWinningGlowCard3 = false;
+  this.seatWinningGlowCard4 = false;
   this.puffInFastEnabled = false;
   this.seatCollectChips = true;
 }
@@ -63,6 +66,9 @@ Seat.prototype.initSeat = function () {
   this.cardAnimation = false;
   this.seatWinningGlowCard0 = false;
   this.seatWinningGlowCard1 = false;
+  this.seatWinningGlowCard2 = false;
+  this.seatWinningGlowCard3 = false;
+  this.seatWinningGlowCard4 = false;
   this.puffInFastEnabled = false;
 };
 
@@ -73,6 +79,9 @@ Seat.prototype.setSeatFrameVisibility = function (bool) {
 Seat.prototype.resetCards = function () {
   this.seatCard0 = '';
   this.seatCard1 = '';
+  this.seatCard2 = '';
+  this.seatCard3 = '';
+  this.seatCard4 = '';
 };
 
 Seat.prototype.clearCards = function () {
@@ -81,16 +90,13 @@ Seat.prototype.clearCards = function () {
 };
 
 Seat.prototype.setCard = function (index, cardStr) {
-  if (index === 0) {
-    this.seatCard0 = cardStr;
-  } else if (index === 1) {
-    this.seatCard1 = cardStr;
-  }
+  this[`seatCard${index}`] = cardStr;
 };
 
-Seat.prototype.setCards = function (cardStr0, cardStr1) {
-  this.seatCard0 = cardStr0;
-  this.seatCard1 = cardStr1;
+Seat.prototype.setCards = function (cards) {
+  for (let i = 0; i < cards.length; i++) {
+    this[`seatCard${i}`] = cards[i];
+  }
 };
 
 Seat.prototype.setShowCards = function (bool) {
@@ -134,7 +140,7 @@ Seat.prototype.seatStartWinningGlowAnimation = function () {
 };
 
 Seat.prototype.seatStartWinningGlowCardAnimation = function (cardNumber) {
-  cardNumber === 0 ? (this.seatWinningGlowCard0 = true) : (this.seatWinningGlowCard1 = true);
+  this[`seatWinningGlowCard${cardNumber}`] = true;
 };
 
 Seat.prototype.setLastAction = function (actionStr) {

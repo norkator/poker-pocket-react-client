@@ -457,8 +457,9 @@ const TableState = ({ children }) => {
 
         if (Number(player.playerId) === Number(playRaw.playerId)) {
           player.playerCards = []; // clear first
-          player.playerCards.push(playRaw.cards[0]);
-          player.playerCards.push(playRaw.cards[1]);
+          for (let card of playRaw.cards) {
+            player.playerCards.push(card);
+          }
         }
       }
     }
@@ -497,11 +498,14 @@ const TableState = ({ children }) => {
         if (Number(player.playerId) === Number(playerRaw.playerId)) {
           player.playerCards.push(playerRaw.cards[0]);
           player.playerCards.push(playerRaw.cards[1]);
+          player.playerCards.push(playerRaw.cards[2]);
+          player.playerCards.push(playerRaw.cards[3]);
+          player.playerCards.push(playerRaw.cards[4]);
           player.setPuffInFastEnabled(true);
         }
       }
     }
-    for (let c = 0; c < 2; c++) {
+    for (let c = 0; c < 5; c++) {
       for (let i = 0; i < players.length; i++) {
         const player = players[i];
         if (!player.isFold) {
