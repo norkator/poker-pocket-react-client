@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Room from '@/components/game/Room';
+import HoldemRoom from '@/components/game/holdem/HoldemRoom';
 import Footer from '@/components/navigation/Footer';
 
 const StyledContainer = styled.div`
@@ -9,15 +9,15 @@ const StyledContainer = styled.div`
   margin-top: 5px;
 `;
 
-const GamePage = () => {
+const HoldemPage = () => {
   return (
     <>
       <StyledContainer className="container">
-        <Room />
+        <HoldemRoom />
         <Footer />
       </StyledContainer>
     </>
   );
 };
 
-export default GamePage;
+export default HoldemPage;

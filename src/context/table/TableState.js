@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import RoomContext from './tableContext';
+import TableContext from './tableContext';
 import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
 import NewRoom, {
@@ -22,7 +22,6 @@ import {
 } from '@/components/audio';
 import { setupSeats } from '@/components/game/domains/Seat';
 
-// let autoPlay = false; // Set true makes logged in player play automatically
 let tempPlayers = [];
 
 const TableState = ({ children }) => {
@@ -96,6 +95,10 @@ const TableState = ({ children }) => {
     socket.handle('allPlayersCards', (jsonData) => allPlayersCards(jsonData.data));
 
     socket.handle('audioCommand', (jsonData) => audioCommand(jsonData.data));
+
+    socket.handle('dealHoleCards', (jsonData) => dealHoleCards(jsonData.data)); // five card draw
+
+    socket.handle('discardAndDraw', (jsonData) => discardAndDraw(jsonData.data)); // five card draw
   }
 
   // init room data
@@ -454,8 +457,9 @@ const TableState = ({ children }) => {
 
         if (Number(player.playerId) === Number(playRaw.playerId)) {
           player.playerCards = []; // clear first
-          player.playerCards.push(playRaw.cards[0]);
-          player.playerCards.push(playRaw.cards[1]);
+          for (let card of playRaw.cards) {
+            player.playerCards.push(card);
+          }
         }
       }
     }
@@ -482,9 +486,48 @@ const TableState = ({ children }) => {
     }
   }
 
-  // eslint-disable-next-line prettier/prettier
+  // ----------------------------------------------------
+
+  async function dealHoleCards(pData) {
+    const players = tempPlayers;
+    for (let p = 0; p < pData.players.length; p++) {
+      for (let i = 0; i < players.length; i++) {
+        const playerRaw = pData.players[p];
+
+        const player = players[i];
+        if (Number(player.playerId) === Number(playerRaw.playerId)) {
+          player.playerCards.push(playerRaw.cards[0]);
+          player.playerCards.push(playerRaw.cards[1]);
+          player.playerCards.push(playerRaw.cards[2]);
+          player.playerCards.push(playerRaw.cards[3]);
+          player.playerCards.push(playerRaw.cards[4]);
+          player.setPuffInFastEnabled(true);
+        }
+      }
+    }
+    for (let c = 0; c < 5; c++) {
+      for (let i = 0; i < players.length; i++) {
+        const player = players[i];
+        if (!player.isFold) {
+          await sleep(cardSetDelayMillis);
+          player.setPlayerCard(c);
+          setSeats({ data: seats.data });
+          if (enableSounds) {
+            playCardSlideSix.play();
+          }
+        }
+      }
+    }
+  }
+
+  const discardAndDraw = (ddData) => {
+    console.log(ddData);
+  };
+
+  // ----------------------------------------------------
+
   return (
-    <RoomContext.Provider
+    <TableContext.Provider
       value={{
         tableId,
         setTableId,
@@ -511,7 +554,7 @@ const TableState = ({ children }) => {
       }}
     >
       {children}
-    </RoomContext.Provider>
+    </TableContext.Provider>
   );
 };
 

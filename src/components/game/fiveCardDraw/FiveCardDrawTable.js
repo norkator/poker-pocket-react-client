@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import SeatSlot from './SeatSlot';
 import tableContext from '@/context/table/tableContext';
+import FCDSeatSlot from '@/components/game/fiveCardDraw/FCDSeatSlot';
 
-const RoomTable = ({ children }) => {
+const FiveCardDrawTable = ({ children }) => {
   const { seats } = useContext(tableContext);
 
   const current = seats.data;
@@ -13,7 +13,7 @@ const RoomTable = ({ children }) => {
         <div className="col">
           {/* <!-- Seat layout --> */}
           {current[2] && current[2].seatFrame ? (
-            <SeatSlot pos="s3" className="float-right" seat={current[2]} betRight />
+            <FCDSeatSlot pos="s3" className="float-right" seat={current[2]} betRight />
           ) : (
             ''
           )}
@@ -23,7 +23,7 @@ const RoomTable = ({ children }) => {
         <div className="col">
           {/* <!-- Seat layout --> */}
           {current[3] && current[3].seatFrame ? (
-            <SeatSlot pos="s4" className="float-left" seat={current[3]} betLeft />
+            <FCDSeatSlot pos="s4" className="float-left" seat={current[3]} betLeft />
           ) : (
             ''
           )}
@@ -36,7 +36,7 @@ const RoomTable = ({ children }) => {
         <div className="col">
           {/* <!-- Seat layout --> */}
           {current[1] && current[1].seatFrame ? (
-            <SeatSlot pos="s2" seat={current[1]} betRight />
+            <FCDSeatSlot pos="s2" seat={current[1]} betRight />
           ) : (
             ''
           )}
@@ -50,7 +50,7 @@ const RoomTable = ({ children }) => {
         <div className="col">
           {/* <!-- Seat layout --> */}
           {current[4] && current[4].seatFrame ? (
-            <SeatSlot pos="s5" seat={current[4]} betLeft />
+            <FCDSeatSlot pos="s5" seat={current[4]} betLeft />
           ) : (
             ''
           )}
@@ -61,7 +61,7 @@ const RoomTable = ({ children }) => {
       <div className="row" style={{ height: '140px' }}>
         <div className="col">
           {current[0] && current[0].seatFrame ? (
-            <SeatSlot pos="s1" className="float-right" seat={current[0]} betRight />
+            <FCDSeatSlot pos="s1" className="float-right" seat={current[0]} betRight />
           ) : (
             ''
           )}
@@ -70,7 +70,7 @@ const RoomTable = ({ children }) => {
         <div className="col">
           {/* <!-- Seat layout --> */}
           {current[5] && current[5].seatFrame ? (
-            <SeatSlot pos="s6" className="float-left" seat={current[5]} betLeft />
+            <FCDSeatSlot pos="s6" className="float-left" seat={current[5]} betLeft />
           ) : (
             ''
           )}
@@ -80,4 +80,4 @@ const RoomTable = ({ children }) => {
   );
 };
 
-export default RoomTable;
+export default FiveCardDrawTable;

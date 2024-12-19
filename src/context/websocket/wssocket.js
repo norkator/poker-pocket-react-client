@@ -13,7 +13,7 @@ export const NewWsSocket = (url, onConnect, onClose) => {
     };
     webSocket.onmessage = (event) => {
       const jsonData = JSON.parse(event.data);
-      // console.debug(JSON.stringify(jsonData));
+      console.debug(jsonData.key, JSON.stringify(jsonData));
       if (jsonData.key in handler) {
         handler[jsonData.key](jsonData);
         return;

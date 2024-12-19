@@ -1,10 +1,10 @@
 import React, { useContext, useMemo } from 'react';
-import styles from './SeatSlot.module.css';
+import styles from '../SeatSlot.module.css';
 import globalContext from '@/context/global/globalContext';
 import { formatMoney } from '@/utils/Money';
 import { getCardResource } from '@/utils/CardRes';
 
-const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
+const HoldemSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
   const { cardStyle } = useContext(globalContext);
 
   const actionView = useMemo(() => {
@@ -139,4 +139,4 @@ const SeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
   );
 };
 
-export default SeatSlot;
+export default HoldemSeatSlot;

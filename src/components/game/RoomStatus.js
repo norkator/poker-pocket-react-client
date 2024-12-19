@@ -73,7 +73,9 @@ const RoomStatus = () => {
                     id="roomTurnText"
                     style={{ color: 'white', fontSize: '12px', textAlign: 'left' }}
                   >
-                    <span style={{ marginRight: '30px' }}>♠ Turn: {current.getRoomTurnText()}</span>
+                    <span style={{ marginRight: '30px' }}>
+                      ♠ Turn: {current.getRoomTurnText()}
+                    </span>
                   </div>
                 </div>
               </div>

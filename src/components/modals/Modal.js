@@ -22,30 +22,36 @@ const Modal = ({
   btnText = 'Call to Action',
   onClose,
   onBtnClicked,
+  showHeader = true,
+  showFooter = true,
 }) => {
   return ReactDOM.createPortal(
     <ModalWrapper
       id="wrapper"
-      onClick={(e) => {
-        if (e.target.id === 'wrapper') {
-          onClose();
-        }
-      }}
+      // onClick={(e) => {
+      //   if (e.target.id === 'wrapper') {
+      //     onClose();
+      //   }
+      // }}
     >
       <div className="modal-dialog" role="document">
         <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">{headingText}</h5>
-            <button
-              type="button"
-              className="close"
-              onClick={onClose}
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+          {showFooter ? (
+            <div className="modal-header">
+              <h5 className="modal-title">{headingText}</h5>
+              <button
+                type="button"
+                className="close"
+                onClick={onClose}
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          ) : (
+            ''
+          )}
           <div className="modal-body">
             {children ? (
               children
@@ -57,16 +63,20 @@ const Modal = ({
               </div>
             )}
           </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={onBtnClicked}
-              data-dismiss="modal"
-            >
-              {btnText}
-            </button>
-          </div>
+          {showFooter ? (
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={onBtnClicked}
+                data-dismiss="modal"
+              >
+                {btnText}
+              </button>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </ModalWrapper>,
@@ -75,6 +85,8 @@ const Modal = ({
 };
 
 Modal.propTypes = {
+  showHeader: PropTypes.bool.isRequired,
+  showFooter: PropTypes.bool.isRequired,
   headingText: PropTypes.string,
   btnText: PropTypes.string,
   onClose: PropTypes.func.isRequired,
