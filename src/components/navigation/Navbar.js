@@ -10,6 +10,7 @@ import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
 import tableContext from '@/context/table/tableContext';
 import { useNavigate } from 'react-router-dom';
+import FCDPickCardsModal from '@/modals/FCDPickCardsModal';
 
 const LS_ENABLE_SOUNDS_STATE = 'LS_ENABLE_SOUNDS_STATE';
 
@@ -56,6 +57,15 @@ const Navbar = () => {
         t('CLOSE')
       );
     }
+  };
+
+  const openFCDPickCardsModal = () => {
+    const cards = ['7♣', '5♠', 'J♥', '7♦', '6♥'];
+    openModal(
+      () => <FCDPickCardsModal context={{ socketCtx }} cards={{ cards }} />,
+      t('CHOOSE_CARDS_TO_CHANGE'),
+      t('CONTINUE')
+    );
   };
 
   const openRankingsModal = () =>
@@ -122,6 +132,7 @@ const Navbar = () => {
             <NavButton onClick={() => openRoomModal('all')}>{t('GET_ROOMS')}</NavButton>
             <NavButton onClick={() => openRoomModal('spec')}>{t('SPECTATE')}</NavButton>
             <NavButton onClick={() => openRankingsModal()}>{t('RANKINGS')}</NavButton>
+            <NavButton onClick={() => openFCDPickCardsModal()}>FCD test</NavButton>
             <NavButton onClick={toggleSounds}>
               {enableSounds ? t('SOUNDS_DISABLE') : t('SOUNDS_ENABLE')}
             </NavButton>
