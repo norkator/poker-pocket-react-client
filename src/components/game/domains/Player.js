@@ -68,7 +68,7 @@ Player.prototype.setPlayerCard = function (index) {
 };
 
 Player.prototype.setPlayerCards = function () {
-  this.playerSeat.setCards(this.playerCards[0], this.playerCards[1]);
+  this.playerSeat.setCards(this.playerCards);
 };
 
 Player.prototype.setShowCards = function (bool) {
@@ -99,6 +99,15 @@ Player.prototype.startWinnerGlowCardsAnimation = function (winningCards, winning
           break;
         case this.playerCards[1]:
           this.playerSeat.seatStartWinningGlowCardAnimation(1);
+          break;
+        case this.playerCards[2]:
+          this.playerSeat.seatStartWinningGlowCardAnimation(2);
+          break;
+        case this.playerCards[3]:
+          this.playerSeat.seatStartWinningGlowCardAnimation(3);
+          break;
+        case this.playerCards[4]:
+          this.playerSeat.seatStartWinningGlowCardAnimation(4);
           break;
         case winningBoards.middleCards[0]:
           winningBoards.startWinnerCardGlowAnimation(0);

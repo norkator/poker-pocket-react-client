@@ -86,30 +86,30 @@ const FCDSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
         <div
           className={`pokerCard ${
             path2 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
-          } ${seat.seatWinningGlowCard1 ? 'card-glow' : ''}`}
+          } ${seat.seatWinningGlowCard2 ? 'card-glow' : ''}`}
           style={{
             visibility: path2 === null ? 'visible' : 'visible',
-            backgroundImage: seat.seatCard2 ? `url(${path1})` : seat.seatIsFold ? 'url()' : '',
+            backgroundImage: seat.seatCard2 ? `url(${path2})` : seat.seatIsFold ? 'url()' : '',
             marginLeft: '-5px',
           }}
         ></div>
         <div
           className={`pokerCard ${
             path3 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
-          } ${seat.seatWinningGlowCard1 ? 'card-glow' : ''}`}
+          } ${seat.seatWinningGlowCard3 ? 'card-glow' : ''}`}
           style={{
             visibility: path3 === null ? 'visible' : 'visible',
-            backgroundImage: seat.seatCard3 ? `url(${path1})` : seat.seatIsFold ? 'url()' : '',
+            backgroundImage: seat.seatCard3 ? `url(${path3})` : seat.seatIsFold ? 'url()' : '',
             marginLeft: '-5px',
           }}
         ></div>
         <div
           className={`pokerCard ${
             path4 !== null && seat.puffInFastEnabled ? 'magicFast puffIn' : ''
-          } ${seat.seatWinningGlowCard1 ? 'card-glow' : ''}`}
+          } ${seat.seatWinningGlowCard4 ? 'card-glow' : ''}`}
           style={{
             visibility: path4 === null ? 'visible' : 'visible',
-            backgroundImage: seat.seatCard4 ? `url(${path1})` : seat.seatIsFold ? 'url()' : '',
+            backgroundImage: seat.seatCard4 ? `url(${path4})` : seat.seatIsFold ? 'url()' : '',
             marginLeft: '-5px',
           }}
         ></div>
