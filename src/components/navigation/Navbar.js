@@ -62,8 +62,10 @@ const Navbar = () => {
   const openFCDPickCardsModal = () => {
     const cards = ['7♣', '5♠', 'J♥', '7♦', '6♥'];
     openModal(
-      () => <FCDPickCardsModal context={{ socketCtx }} cards={{ cards }} />,
+      () => <FCDPickCardsModal cards={{ cards }} />,
       t('CHOOSE_CARDS_TO_CHANGE'),
+      false,
+      false,
       t('CONTINUE')
     );
   };

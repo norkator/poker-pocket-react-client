@@ -38,6 +38,8 @@ const ModalProvider = ({ children }) => {
   const openModal = (
     children,
     headingText,
+    showHeader = true,
+    showFooter = true,
     btnText,
     btnCallBack = closeModal,
     onCloseCallBack = closeModal
@@ -45,6 +47,8 @@ const ModalProvider = ({ children }) => {
     setModalData({
       children,
       headingText,
+      showHeader,
+      showFooter,
       btnText,
       btnCallBack,
       onCloseCallBack,
@@ -68,6 +72,8 @@ const ModalProvider = ({ children }) => {
             btnText={modalData.btnText}
             onClose={modalData.onCloseCallBack}
             onBtnClicked={modalData.btnCallBack}
+            showFooter={modalData.showFooter}
+            showHeader={modalData.showHeader}
           >
             {modalData.children()}
           </Modal>
