@@ -105,6 +105,8 @@ const TableState = ({ children }) => {
     socket.handle('dealHoleCards', (jsonData) => dealHoleCards(jsonData.data)); // five card draw
 
     socket.handle('discardAndDraw', (jsonData) => discardAndDraw(jsonData.data)); // five card draw
+
+    socket.handle('newCards', (jsonData) => newPlayerCards(jsonData.data)); // five card draw after discard and draw
   }
 
   // init room data
@@ -556,6 +558,10 @@ const TableState = ({ children }) => {
       });
       socket.send(data);
     }
+  };
+
+  const newPlayerCards = (ncData) => {
+    console.log(ncData);
   };
 
   // ----------------------------------------------------
