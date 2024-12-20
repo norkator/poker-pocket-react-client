@@ -36,7 +36,7 @@ const Modal = ({
     >
       <div className="modal-dialog" role="document">
         <div className="modal-content">
-          {showFooter ? (
+          {showHeader ? (
             <div className="modal-header">
               <h5 className="modal-title">{headingText}</h5>
               <button

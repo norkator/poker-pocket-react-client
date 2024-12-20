@@ -59,17 +59,6 @@ const Navbar = () => {
     }
   };
 
-  const openFCDPickCardsModal = () => {
-    const cards = ['7♣', '5♠', 'J♥', '7♦', '6♥'];
-    openModal(
-      () => <FCDPickCardsModal cards={{ cards }} />,
-      t('CHOOSE_CARDS_TO_CHANGE'),
-      false,
-      false,
-      t('CONTINUE')
-    );
-  };
-
   const openRankingsModal = () =>
     openModal(() => <RankingsModal context={{ socketCtx }} />, t('RANKINGS'), t('CLOSE'));
 
@@ -134,7 +123,6 @@ const Navbar = () => {
             <NavButton onClick={() => openRoomModal('all')}>{t('GET_ROOMS')}</NavButton>
             <NavButton onClick={() => openRoomModal('spec')}>{t('SPECTATE')}</NavButton>
             <NavButton onClick={() => openRankingsModal()}>{t('RANKINGS')}</NavButton>
-            <NavButton onClick={() => openFCDPickCardsModal()}>FCD test</NavButton>
             <NavButton onClick={toggleSounds}>
               {enableSounds ? t('SOUNDS_DISABLE') : t('SOUNDS_ENABLE')}
             </NavButton>

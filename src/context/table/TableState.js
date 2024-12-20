@@ -23,11 +23,13 @@ import {
 import { setupSeats } from '@/components/game/domains/Seat';
 import modalContext from '@/context/modal/modalContext';
 import FCDPickCardsModal from '@/modals/FCDPickCardsModal';
+import contentContext from '@/context/content/contentContext';
 
 let tempPlayers = [];
 
 const TableState = ({ children }) => {
   const socketCtx = useContext(socketContext);
+  const { t } = useContext(contentContext);
   const { socket, playerId, socketDisconnected } = socketCtx;
   const { setMyDashboardDataRefresh } = useContext(authContext);
   const { openView, openModal, closeModal } = useContext(modalContext);
@@ -525,13 +527,27 @@ const TableState = ({ children }) => {
   }
 
   const discardAndDraw = (ddData) => {
-    console.info(ddData);
-    // const cards = ['7♣', '5♠', 'J♥', '7♦', '6♥'];
-    // openModal(
-    //   () => <FCDPickCardsModal context={{ socketCtx }} cards={{ cards }} />,
-    //   t('CHOOSE_CARDS_TO_CHANGE'),
-    //   t('CONTINUE')
-    // );
+    const cards = ddData.cards;
+    console.info(cards);
+    openModal(
+      () => (
+        <FCDPickCardsModal
+          cards={{ cards }}
+          onCardsSelected={(selectedCards) => {
+            handleSelectedCards(selectedCards);
+            closeModal();
+          }}
+        />
+      ),
+      t('CHOOSE_CARDS_TO_CHANGE'),
+      true,
+      false,
+      t('CONTINUE')
+    );
+  };
+
+  const handleSelectedCards = (selected) => {
+    console.log('Selected Cards:', selected);
   };
 
   // ----------------------------------------------------
