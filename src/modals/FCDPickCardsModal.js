@@ -59,6 +59,14 @@ const FCDPickCardsModal = ({ cards, onCardsSelected }) => {
       <div className="container" style={{ margin: '10px', marginTop: '40px' }}>
         {CardsView}
       </div>
+      <button
+        onClick={() => onCardsSelected(selectedCards)}
+        type="button"
+        className={`btn btn-outline-dark`}
+        style={{ margin: '0 2px' }}
+      >
+        {t('CONTINUE')}
+      </button>
     </>
   );
 };
