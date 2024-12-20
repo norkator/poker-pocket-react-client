@@ -53,7 +53,7 @@ const TurnControl = () => {
     }
   }, [autoPlay, getAutoPlayAction, heroTurn]);
 
-  // If auto play enabled, request action via this function
+  // If autoplay enabled, request action via this function
   function getAutoPlayAction() {
     if (socket) {
       autoPlayCommandRequested.current = true;
