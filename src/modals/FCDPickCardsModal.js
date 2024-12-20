@@ -3,7 +3,7 @@ import { getCardResource } from '@/utils/CardRes';
 import globalContext from '@/context/global/globalContext';
 import contentContext from '@/context/content/contentContext';
 
-const FCDPickCardsModal = ({ context, cards }) => {
+const FCDPickCardsModal = ({ cards, onCardsSelected }) => {
   const { t } = useContext(contentContext);
   const { cardStyle } = useContext(globalContext);
   const [selectedCards, setSelectedCards] = useState([]);
@@ -54,7 +54,7 @@ const FCDPickCardsModal = ({ context, cards }) => {
     <>
       <div className="selectedCards">
         <small>{t('CARDS_TO_DISCARD')}:</small>
-        <p>{selectedCards.join(', ')}</p>
+        {selectedCards.length > 0 ? <p>{selectedCards.join(', ')}</p> : <p>...</p>}
       </div>
       <div className="container" style={{ margin: '10px', marginTop: '40px' }}>
         {CardsView}

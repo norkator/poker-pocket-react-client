@@ -526,10 +526,11 @@ const TableState = ({ children }) => {
 
   const discardAndDraw = (ddData) => {
     console.info(ddData);
+    // const cards = ['7♣', '5♠', 'J♥', '7♦', '6♥'];
     // openModal(
-    //   () => <FCDPickCardsModal context={{ socketCtx }} cards={{ ddData }} />,
-    //   'Test',
-    //   'Close'
+    //   () => <FCDPickCardsModal context={{ socketCtx }} cards={{ cards }} />,
+    //   t('CHOOSE_CARDS_TO_CHANGE'),
+    //   t('CONTINUE')
     // );
   };
 

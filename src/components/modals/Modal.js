@@ -105,6 +105,8 @@ const initialModalData = {
   ),
   headingText: 'Modal',
   btnText: 'Button',
+  showFooter: false,
+  showHeader: false,
 };
 
 export default Modal;
