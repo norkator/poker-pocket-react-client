@@ -547,7 +547,15 @@ const TableState = ({ children }) => {
   };
 
   const handleSelectedCards = (selected) => {
-    console.log('Selected Cards:', selected);
+    console.log('Selected cards:', selected);
+    if (socket) {
+      const data = JSON.stringify({
+        key: 'discardAndDraw',
+        tableId: tableId,
+        cardsToDiscard: selected,
+      });
+      socket.send(data);
+    }
   };
 
   // ----------------------------------------------------
