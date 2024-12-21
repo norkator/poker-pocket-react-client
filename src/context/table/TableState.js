@@ -24,6 +24,7 @@ import { setupSeats } from '@/components/game/domains/Seat';
 import modalContext from '@/context/modal/modalContext';
 import FCDPickCardsModal from '@/modals/FCDPickCardsModal';
 import contentContext from '@/context/content/contentContext';
+import { toast } from 'react-toastify';
 
 let tempPlayers = [];
 
@@ -54,6 +55,12 @@ const TableState = ({ children }) => {
 
   const seatsRef = useRef(setupSeats());
   const [seats, setSeats] = useState({ data: seatsRef.current });
+
+  const tableIdRef = useRef(tableId);
+
+  useEffect(() => {
+    tableIdRef.current = tableId;
+  }, [tableId]);
 
   useEffect(() => {
     setPlayers(null);
@@ -549,14 +556,16 @@ const TableState = ({ children }) => {
   };
 
   const handleSelectedCards = (selected) => {
-    console.log('Selected cards:', selected);
+    console.log(`Selected cards ${selected} for table ${tableIdRef.current}`);
     if (socket) {
       const data = JSON.stringify({
         key: 'discardAndDraw',
-        tableId: tableId,
+        tableId: tableIdRef.current,
         cardsToDiscard: selected,
       });
       socket.send(data);
+    } else {
+      toast.error('Invalid socket');
     }
   };
 
