@@ -120,9 +120,9 @@ const Navbar = () => {
         >
           <ul className="navbar-nav mr-auto mt-1 mt-md-0">
             <NavButton onClick={() => navigateGames()}>{t('GAMES')}</NavButton>
-            <NavButton onClick={() => openRoomModal('all')}>{t('GET_ROOMS')}</NavButton>
-            <NavButton onClick={() => openRoomModal('spec')}>{t('SPECTATE')}</NavButton>
-            <NavButton onClick={() => openRankingsModal()}>{t('RANKINGS')}</NavButton>
+            {/*<NavButton onClick={() => openRoomModal('all')}>{t('GET_ROOMS')}</NavButton>*/}
+            {/*<NavButton onClick={() => openRoomModal('spec')}>{t('SPECTATE')}</NavButton>*/}
+            {/*<NavButton onClick={() => openRankingsModal()}>{t('RANKINGS')}</NavButton>*/}
             <NavButton onClick={toggleSounds}>
               {enableSounds ? t('SOUNDS_DISABLE') : t('SOUNDS_ENABLE')}
             </NavButton>
