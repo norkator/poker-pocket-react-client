@@ -10,30 +10,33 @@ const BoardCards = () => {
 
   const view = useMemo(() => {
     const current = board.data;
-
     return current ? (
       <div className="container">
-        <div className="row justify-center" style={{ justifyContent: 'center' }}>
-          {current.middleCards
-            ? current.middleCards.map((card, index) => {
-                let path = null;
-                if (card) {
-                  path = getCardResource(card, cardStyle);
-                }
-                return (
-                  <div
-                    className={`middleCard ${
-                      current.middleCardsPuffIn[index] ? 'magicFast puffIn' : ''
-                    }`}
-                    key={'MC' + index}
-                    style={{
-                      backgroundImage: card ? `url(${path})` : 'url()',
-                    }}
-                  />
-                );
-              })
-            : ''}
-        </div>
+        {current.isShowMiddleCards() ? (
+          <div className="row justify-center" style={{ justifyContent: 'center' }}>
+            {current.middleCards
+              ? current.middleCards.map((card, index) => {
+                  let path = null;
+                  if (card) {
+                    path = getCardResource(card, cardStyle);
+                  }
+                  return (
+                    <div
+                      className={`middleCard ${
+                        current.middleCardsPuffIn[index] ? 'magicFast puffIn' : ''
+                      }`}
+                      key={'MC' + index}
+                      style={{
+                        backgroundImage: card ? `url(${path})` : 'url()',
+                      }}
+                    />
+                  );
+                })
+              : ''}
+          </div>
+        ) : (
+          ''
+        )}
         <div id="totalPot" className="totalPotText">
           {current.getTotalPot() > 0 ? <div className="moneyView"></div> : ''}
           <div>{current.getTotalPot() > 0 ? formatMoney(current.getTotalPot()) + '$' : ''}</div>

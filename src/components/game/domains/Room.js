@@ -5,6 +5,7 @@ export const NewBoard = (enableSounds) => {
   let totalPot = 240;
   let minBet = 100;
 
+  let showMiddleCards = true;
   const middleCards = [];
   const middleCardsSlideUp = [];
   for (let m = 0; m < 5; m++) {
@@ -43,6 +44,14 @@ export const NewBoard = (enableSounds) => {
 
   const middleCardsPuffIn = [false, false, false, false, false];
 
+  const isShowMiddleCards = () => {
+    return showMiddleCards;
+  };
+
+  const setShowMiddleCards = (bool) => {
+    showMiddleCards = bool;
+  };
+
   return {
     middleCards,
     middleCardsSlideUp,
@@ -52,12 +61,15 @@ export const NewBoard = (enableSounds) => {
     resetMiddleCards,
     setMiddleCard,
     startWinnerCardGlowAnimation,
+    isShowMiddleCards,
+    setShowMiddleCards,
   };
 };
 
 export const initBoard = (board) => {
   board.setTotalPot(0);
   board.resetMiddleCards();
+  board.setShowMiddleCards(true);
 };
 
 export const NewRoomInfo = () => {
