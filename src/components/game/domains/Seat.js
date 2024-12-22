@@ -87,6 +87,9 @@ Seat.prototype.resetCards = function () {
 Seat.prototype.clearCards = function () {
   this.seatCard0 = null;
   this.seatCard1 = null;
+  this.seatCard2 = null;
+  this.seatCard3 = null;
+  this.seatCard4 = null;
 };
 
 Seat.prototype.setCard = function (index, cardStr) {
