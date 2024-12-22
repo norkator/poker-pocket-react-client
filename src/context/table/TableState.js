@@ -569,9 +569,25 @@ const TableState = ({ children }) => {
     }
   };
 
-  const newPlayerCards = (ncData) => {
-    console.log(ncData);
-  };
+  async function newPlayerCards(ncData) {
+    // {"playerId": 1, "cards":["3♥","4♠","8♠","10♣","4♣"]}
+    const players = tempPlayers;
+    for (let i = 0; i < players.length; i++) {
+      const player = players[i];
+      if (Number(player.playerId) === Number(ncData.playerId)) {
+        player.playerCards = [];
+        player.setPuffInFastEnabled(true);
+        ncData.cards.forEach((c, i) => {
+          player.playerCards.push(c);
+          player.setPlayerCard(i);
+        });
+        setSeats({ data: seats.data });
+        if (enableSounds) {
+          playCardSlideSix.play();
+        }
+      }
+    }
+  }
 
   // ----------------------------------------------------
 
