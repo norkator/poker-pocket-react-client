@@ -127,6 +127,16 @@ const TableState = ({ children }) => {
     boardParser(rData, roomRef.current.board);
     playerParser(rData);
 
+    switch (rData.game) {
+      case 'HOLDEM':
+        roomRef.current.board.setShowMiddleCards(true);
+        break;
+      case 'FIVE_CARD_DRAW':
+      case 'BOTTLE_SPIN':
+        roomRef.current.board.setShowMiddleCards(false);
+        break;
+    }
+
     setRoomInfo({ data: roomRef.current.roomInfo });
     setBoard({ data: roomRef.current.board });
     setSeats({ data: seatsRef.current });
