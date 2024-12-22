@@ -78,6 +78,15 @@ const TableState = ({ children }) => {
     playerIdRef.current = playerId;
   }, [playerId]);
 
+  // console debugging functionality
+  useEffect(() => {
+    // browser console, type: discardAndDraw(['A♠', 'K♣', 'Q♥', 'J♦', '10♠']);
+    window.discardAndDraw = (cards) => discardAndDraw({ cards });
+    return () => {
+      delete window.discardAndDraw;
+    };
+  }, []);
+
   const cardSetDelayMillis = 300;
 
   function regRoomHandler(socket) {
@@ -547,11 +556,12 @@ const TableState = ({ children }) => {
 
   const discardAndDraw = (ddData) => {
     const cards = ddData.cards;
-    console.info(cards);
+    const timeLeft = Number(ddData.timeLeft);
     openModal(
       () => (
         <FCDPickCardsModal
           cards={{ cards }}
+          timeLeft={timeLeft}
           onCardsSelected={(selectedCards) => {
             handleSelectedCards(selectedCards);
             closeModal();

@@ -3,7 +3,7 @@ import { getCardResource } from '@/utils/CardRes';
 import globalContext from '@/context/global/globalContext';
 import contentContext from '@/context/content/contentContext';
 
-const FCDPickCardsModal = ({ cards, onCardsSelected }) => {
+const FCDPickCardsModal = ({ cards, onCardsSelected, timeLeft = 20000 }) => {
   const { t } = useContext(contentContext);
   const { cardStyle } = useContext(globalContext);
   const [selectedCards, setSelectedCards] = useState([]);
@@ -52,7 +52,24 @@ const FCDPickCardsModal = ({ cards, onCardsSelected }) => {
 
   return (
     <>
-      <div className="selectedCards">
+      <div className="progress">
+        <div
+          className="progress-bar progress-bar-striped"
+          role="progressbar"
+          id="TimeBar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style={
+            timeLeft > 0
+              ? {
+                  width: '100%',
+                  animation: `lineburn ${timeLeft / 1000}s linear forwards`,
+                }
+              : {}
+          }
+        ></div>
+      </div>
+      <div className="selectedCards mt-2">
         <small>{t('CARDS_TO_DISCARD')}:</small>
         {selectedCards.length > 0 ? <p>{selectedCards.join(', ')}</p> : <p>...</p>}
       </div>
