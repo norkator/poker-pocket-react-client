@@ -44,7 +44,7 @@ const StyledSwitch = styled.div`
     transform: translate3d(0, 0, 0);
   }
 
-  .switch-container.swtich-animate {
+  .switch-container.switch-animate {
     transition: margin-left 0.5s;
   }
 
@@ -137,21 +137,19 @@ const SwitchButton = (props) => {
       </div>
       <div className="row">
         <div className={`switch-vision ${size}`}>
-          <div className={`switch-container swtich-animate ${state ? 'switch-on' : 'switch-off'}`}>
-            <span className={`switch-text-left ${onColor ? onColor : 'text-color'}`}>
-              {offText}
+          <div className={`switch-container switch-animate ${state ? 'switch-on' : 'switch-off'}`}>
+            <span className={`switch-text-left ${onColor || 'text-color'}`}>
+              {state ? onText : offText}
             </span>
-            <span className={`switch-text-sep ${sepColor ? sepColor : 'sep-color'}`}>
-              {sepText}
-            </span>
-            <span className={`switch-text-right ${offColor ? offColor : 'text-color'}`}>
-              {onText}
+            <span className={`switch-text-sep ${sepColor || 'sep-color'}`}>{sepText}</span>
+            <span className={`switch-text-right ${offColor || 'text-color'}`}>
+              {!state ? onText : offText}
             </span>
             <input
               className="switch-checkbox"
               id={id}
               type="checkbox"
-              value={state}
+              checked={state}
               onChange={onChangeState}
             />
           </div>
