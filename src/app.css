@@ -145,9 +145,11 @@ body {
 }
 
 .playBadge {
+    width: 110px;
     background-size: 90%;
     background-repeat: no-repeat;
     background-position: center;
+    margin-top: 10px;
 }
 
 .action-animation {

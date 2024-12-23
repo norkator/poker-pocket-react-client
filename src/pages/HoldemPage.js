@@ -2,19 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 import HoldemRoom from '@/components/game/holdem/HoldemRoom';
 import Footer from '@/components/navigation/Footer';
+import Chat from '@/components/chat/Chat';
 
 const StyledContainer = styled.div`
-  min-width: 850px;
-  width: 850px;
+  display: flex;
   margin-top: 5px;
 `;
 
 const HoldemPage = () => {
   return (
     <>
-      <StyledContainer className="container">
-        <HoldemRoom />
-        <Footer />
+      <StyledContainer
+        className="container"
+        style={{
+          maxWidth: '1400px',
+        }}
+      >
+        <div style={{ flex: 1, maxWidth: '850px' }}>
+          <HoldemRoom />
+          <Footer />
+        </div>
+        <Chat></Chat>
       </StyledContainer>
     </>
   );
