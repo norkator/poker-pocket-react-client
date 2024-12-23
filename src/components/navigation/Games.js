@@ -69,6 +69,7 @@ const Games = () => {
         tableId: table_id,
       });
       socket.send(data2);
+      setTableId(table_id);
       handleNavigation(game);
     }
   };

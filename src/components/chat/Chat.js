@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import socketContext from '@/context/websocket/socketContext';
 import contentContext from '@/context/content/contentContext';
 import { toast } from 'react-toastify';
+import tableContext from '@/context/table/tableContext';
 
 const ChatContainer = styled.div`
   height: 100%;
@@ -48,6 +49,21 @@ const Chat = () => {
   const messageEndRef = useRef(null);
   const isMounted = useRef(true);
 
+  const { tableId } = useContext(tableContext);
+
+  useEffect(() => {
+    getChatMessages();
+  }, [socket, tableId]);
+
+  function getChatMessages() {
+    if (socket) {
+      const data = JSON.stringify({
+        key: 'getChatMessages',
+      });
+      socket.send(data);
+    }
+  }
+
   const scrollToBottom = () => {
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -55,8 +71,17 @@ const Chat = () => {
   };
 
   const regAuthHandler = (socket) => {
+    socket.handle('getChatMessages', (jsonData) => handleMessages(jsonData.data));
+
     socket.handle('chatMessage', (jsonData) => newMessageData(jsonData.data));
   };
+
+  function handleMessages(mData) {
+    const messages = mData.messages;
+    if (isMounted.current) {
+      setMessages(() => messages.map((msg) => msg.message));
+    }
+  }
 
   function newMessageData(mData) {
     const newMessage = mData.message;
