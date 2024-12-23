@@ -30,5 +30,7 @@
   "JOIN": "Join",
   "CHOOSE_CARDS_TO_CHANGE": "Choose cards to discard",
   "CARDS_TO_DISCARD": "Cards to discard",
-  "CONTINUE": "Continue"
+  "CONTINUE": "Continue",
+  "MESSAGE": "Message",
+  "SEND": "Send"
 }

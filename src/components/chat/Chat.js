@@ -1,5 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import styled from 'styled-components';
+import socketContext from '@/context/websocket/socketContext';
+import contentContext from '@/context/content/contentContext';
+import { toast } from 'react-toastify';
 
 const ChatContainer = styled.div`
   height: 100%;
@@ -31,12 +34,15 @@ const MessageBubble = styled.div`
   word-wrap: break-word;
   word-break: break-word;
   font-size: 13px;
+
   &:nth-child(even) {
     align-self: flex-end;
   }
 `;
 
 const Chat = () => {
+  const { t } = useContext(contentContext);
+  const { socket, socketConnected } = useContext(socketContext);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const messageEndRef = useRef(null);
@@ -47,14 +53,41 @@ const Chat = () => {
     }
   };
 
+  const regAuthHandler = (socket) => {
+    socket.handle('chatMessage', (jsonData) => newMessageData(jsonData.data));
+  };
+
+  function newMessageData(mData) {
+    const newMessage = mData.message;
+    if (newMessage.trim()) {
+      setMessages([...messages, newMessage]);
+    }
+  }
+
+  useEffect(() => {
+    if (socket) {
+      regAuthHandler(socket);
+    }
+  }, [socket]);
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
   const handleSendMessage = () => {
-    if (newMessage.trim()) {
-      setMessages([...messages, newMessage]);
+    if (!newMessage.trim()) {
+      return;
+    }
+    if (socket) {
+      const data = JSON.stringify({
+        key: 'chatMessage',
+        message: newMessage,
+        // tableId: tableIdRef.current, // this is determined by back end for security reasons
+      });
+      socket.send(data);
       setNewMessage('');
+    } else {
+      toast.error('Could not send message');
     }
   };
 
@@ -89,7 +122,7 @@ const Chat = () => {
                 handleSendMessage();
               }
             }}
-            placeholder="Message"
+            placeholder={t('MESSAGE')}
             className="form-control mr-2"
             style={{ flex: 1, fontSize: '13px' }}
           />
@@ -100,7 +133,7 @@ const Chat = () => {
               fontSize: '13px',
             }}
           >
-            Send
+            {t('SEND')}
           </button>
         </div>
       </div>
