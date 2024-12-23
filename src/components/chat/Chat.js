@@ -46,6 +46,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const messageEndRef = useRef(null);
+  const isMounted = useRef(true);
 
   const scrollToBottom = () => {
     if (messageEndRef.current) {
@@ -59,8 +60,8 @@ const Chat = () => {
 
   function newMessageData(mData) {
     const newMessage = mData.message;
-    if (newMessage.trim()) {
-      setMessages([...messages, newMessage]);
+    if (newMessage.trim() && isMounted.current) {
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
     }
   }
 
@@ -68,11 +69,24 @@ const Chat = () => {
     if (socket) {
       regAuthHandler(socket);
     }
+    return () => {
+      if (socket) {
+        // handler is removed to prevent memory leaks
+        socket.removeHandler && socket.removeHandler('chatMessage');
+      }
+    };
   }, [socket]);
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const handleSendMessage = () => {
     if (!newMessage.trim()) {
