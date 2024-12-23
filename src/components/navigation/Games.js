@@ -105,7 +105,7 @@ const Games = () => {
           <td>{formatMoney(tableMinBet)}$</td>
           <td>
             <button
-              className="btn btn-sm btn-primary mr-2"
+              className="btn btn-sm btn-primary me-2"
               onClick={() => selectTable(tableId, game)}
             >
               {t('JOIN')}

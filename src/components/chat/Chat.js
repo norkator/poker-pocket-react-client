@@ -131,7 +131,7 @@ const Chat = () => {
   };
 
   return (
-    <ChatContainer className="ml-2">
+    <ChatContainer className="ms-2">
       <div
         className="card text-white"
         style={{
@@ -162,7 +162,7 @@ const Chat = () => {
               }
             }}
             placeholder={t('MESSAGE')}
-            className="form-control mr-2"
+            className="form-control me-2"
             style={{ flex: 1, fontSize: '13px' }}
           />
           <button

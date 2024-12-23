@@ -93,8 +93,8 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a className="navbar-brand" href="http://www.nitramite.com/poker-pocket.html">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
+        <a className="navbar-brand ms-2" href="http://www.nitramite.com/poker-pocket.html">
           <img
             src="./assets/images/logo.png"
             style={{ width: '30px', height: '30px' }}
@@ -106,23 +106,21 @@ const Navbar = () => {
         <button
           className="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
-          aria-expanded="false"
+          aria-expanded={isTogglerShow ? 'true' : 'false'}
           aria-label="Toggle navigation"
+          onClick={togglerSwitch}
         >
-          <span className="navbar-toggler-icon" onClick={togglerSwitch}></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
         <div
           className={`collapse navbar-collapse ${isTogglerShow ? 'show' : ''}`}
           id="navbarSupportedContent"
         >
-          <ul className="navbar-nav mr-auto mt-1 mt-md-0">
+          <ul className="navbar-nav me-auto mt-1 mt-md-0">
             <NavButton onClick={() => navigateGames()}>{t('GAMES')}</NavButton>
-            {/*<NavButton onClick={() => openRoomModal('all')}>{t('GET_ROOMS')}</NavButton>*/}
-            {/*<NavButton onClick={() => openRoomModal('spec')}>{t('SPECTATE')}</NavButton>*/}
-            {/*<NavButton onClick={() => openRankingsModal()}>{t('RANKINGS')}</NavButton>*/}
             <NavButton onClick={toggleSounds}>
               {enableSounds ? t('SOUNDS_DISABLE') : t('SOUNDS_ENABLE')}
             </NavButton>
@@ -130,7 +128,7 @@ const Navbar = () => {
           {isAuthed ? (
             <ul
               id="loggedInUserIcon"
-              className="nav navbar-nav navbar-right"
+              className="nav navbar-nav ms-auto"
               onClick={() => openUserModal()}
             >
               <li style={{ marginRight: '5px' }}>
@@ -166,11 +164,11 @@ const Navbar = () => {
               </li>
             </ul>
           ) : null}
-          <div className="form-inline mt-1 my-md-0">
+          <div className="d-flex mt-1 my-md-0 me-2">
             {!isAuthed ? (
               <button
                 id="nav_bar_login_btn"
-                className="btn btn-outline-success my-2 my-sm-0"
+                className="btn btn-outline-success"
                 onClick={() => openSignInModaVuew()}
               >
                 {t('LOGIN')}
@@ -178,7 +176,7 @@ const Navbar = () => {
             ) : (
               <button
                 id="login_logout_btn"
-                className="btn btn-outline-success my-2 my-sm-0"
+                className="btn btn-outline-success"
                 type="button"
                 onClick={() => logoutClick()}
               >

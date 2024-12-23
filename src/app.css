@@ -2,6 +2,10 @@ body {
     background-color: #313131;
 }
 
+.custom-navbar {
+    background-color: #343a40 !important;
+}
+
 .poker-table {
     margin-top: 15px;
     padding: 5px;
