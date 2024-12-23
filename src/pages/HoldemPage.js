@@ -15,7 +15,7 @@ const HoldemPage = () => {
       <StyledContainer
         className="container"
         style={{
-          maxWidth: '1400px',
+          maxWidth: '1200px',
         }}
       >
         <div style={{ flex: 1, maxWidth: '850px' }}>
