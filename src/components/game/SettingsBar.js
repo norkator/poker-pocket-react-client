@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import globalContext from '@/context/global/globalContext';
 import contentContext from '@/context/content/contentContext';
@@ -56,39 +56,44 @@ const autoPlayEnabledVal = () => {
 const SettingsBar = () => {
   const { setCardStyle } = useContext(globalContext);
   const { t } = useContext(contentContext);
-
   const { setAutoCheck, setAutoPlay } = useContext(tableContext);
 
   const [tablePurpleBg, setTablePurpleBg] = useState(purpleBgVal());
-  const [blackCards] = useState(blackCardVal());
-  const [autoCheckEnabled] = useState(autoCheckEnabledVal());
-  const [autoPlayEnabled] = useState(autoPlayEnabledVal());
+  const [blackCards, setBlackCards] = useState(blackCardVal());
+  const [autoCheckEnabled, setAutoCheckEnabled] = useState(autoCheckEnabledVal());
+  const [autoPlayEnabled, setAutoPlayEnabled] = useState(autoPlayEnabledVal());
 
-  useEffect(() => {
-    applyTableColor(tablePurpleBg);
-    changeBlackCards(blackCards);
-    changeAutoCheck(autoCheckEnabled);
-    changeAutoPlay(autoPlayEnabled);
-  }, [tablePurpleBg, blackCards, autoCheckEnabled, autoPlayEnabled]);
-
-  const applyTableColor = (state) => {
-    var pokerTable = document.getElementById('pokerTable');
-    if (state) {
-      pokerTable.style.backgroundImage = "url('./assets/images/poker_table_purple.png')";
-    } else {
-      pokerTable.style.backgroundImage = "url('./assets/images/poker_table_green.png')";
-    }
-    localStorage.setItem(LS_USE_PURPLE_TABLE, JSON.stringify(state));
-  };
-
+  // Handlers for each toggle
   const changeTableColor = (state) => {
     setTablePurpleBg(state);
+    localStorage.setItem(LS_USE_PURPLE_TABLE, JSON.stringify(state));
+    applyTableColor(state);
+  };
+
+  const applyTableColor = (state) => {
+    const pokerTable = document.getElementById('pokerTable');
+    pokerTable.style.backgroundImage = state
+      ? "url('./assets/images/poker_table_purple.png')"
+      : "url('./assets/images/poker_table_green.png')";
   };
 
   const changeBlackCards = (state) => {
-    const cards_style = JSON.stringify(state);
-    setCardStyle(parserCardStyle(cards_style));
-    localStorage.setItem(LS_USE_BLACK_CARDS, cards_style);
+    setBlackCards(state);
+    const cardsStyle = JSON.stringify(state);
+    setCardStyle(parserCardStyle(cardsStyle));
+    localStorage.setItem(LS_USE_BLACK_CARDS, cardsStyle);
+  };
+
+  const changeAutoCheck = (state) => {
+    setAutoCheckEnabled(state);
+    setAutoCheck(state);
+    localStorage.setItem(LS_AUTO_CHECK_ENABLED, String(state));
+  };
+
+  const changeAutoPlay = (state) => {
+    setAutoPlayEnabled(state);
+    setAutoPlay(state);
+    localStorage.setItem(LS_AUTO_PLAY_ENABLED, String(state));
   };
 
   const changeConnectMode = (state) => {
@@ -96,24 +101,12 @@ const SettingsBar = () => {
     reloadDelay();
   };
 
-  const changeAutoCheck = (state) => {
-    setAutoCheck(state);
-    localStorage.setItem(LS_AUTO_CHECK_ENABLED, String(state));
-  };
-
-  const changeAutoPlay = (state) => {
-    setAutoPlay(state);
-    localStorage.setItem(LS_AUTO_PLAY_ENABLED, String(state));
-  };
-
-  async function reloadDelay() {
+  const reloadDelay = async () => {
     await sleep(500);
     window.location.reload(); // Reload site with new connection params
-  }
-
-  const getCurrentYear = () => {
-    return new Date().getFullYear();
   };
+
+  const getCurrentYear = () => new Date().getFullYear();
 
   return (
     <div className="row">
@@ -126,52 +119,52 @@ const SettingsBar = () => {
       </div>
       <StyledItem className="col">
         <SwitchButton
-          id={'tableColor'}
+          id="tableColor"
           label={t('PURPLE_TABLE')}
           onText="On"
           offText="Off"
           value={tablePurpleBg}
-          onChange={(checked) => changeTableColor(checked)}
+          onChange={changeTableColor}
         />
       </StyledItem>
       <StyledItem className="col">
         <SwitchButton
-          id={'blackCards'}
+          id="blackCards"
           label={t('BLACK_CARDS')}
           onText="On"
           offText="Off"
           value={blackCards}
-          onChange={(checked) => changeBlackCards(checked)}
+          onChange={changeBlackCards}
         />
       </StyledItem>
       <StyledItem className="col">
         <SwitchButton
-          id={'autoCheck'}
+          id="autoCheck"
           label={t('AUTO_CHECK')}
           onText="On"
           offText="Off"
           value={autoCheckEnabled}
-          onChange={(checked) => changeAutoCheck(checked)}
+          onChange={changeAutoCheck}
         />
       </StyledItem>
       <StyledItem className="col">
         <SwitchButton
-          id={'autoPlay'}
+          id="autoPlay"
           label={t('AUTO_PLAY')}
           onText="On"
           offText="Off"
           value={autoPlayEnabled}
-          onChange={(checked) => changeAutoPlay(checked)}
+          onChange={changeAutoPlay}
         />
       </StyledItem>
       <StyledItem className="col">
         <SwitchButton
-          id={'connection'}
+          id="connection"
           label={t('CONNECTION')}
           onText="Prod"
           offText="Dev"
           value={false}
-          onChange={(checked) => changeConnectMode(checked)}
+          onChange={changeConnectMode}
         />
       </StyledItem>
       <div className="col-2" style={{ marginTop: '20px' }}>
