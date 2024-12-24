@@ -1,123 +1,61 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-const StyledSwitch = styled.div`
-  .switch-label {
-    color: #ffffff;
-    margin-left: -20px;
+const SwitchWrapper = styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+  user-select: none;
+
+  .label-text {
+    color: white;
     font-size: 13px;
+    margin-bottom: 5px;
   }
 
-  .switch-vision {
-    display: inline-block;
-    direction: ltr;
-    cursor: pointer;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+  .toggle-container {
     position: relative;
-    text-align: left;
-    overflow: hidden;
-    line-height: 8px;
-    z-index: 0;
-    user-select: none;
-    vertical-align: middle;
-    transition:
-      border-color ease-in-out 0.15s,
-      box-shadow ease-in-out 0.15s;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
   }
 
-  .switch-vision:focus {
-    border: 2px solid #66afe9;
-  }
-
-  .switch-checkbox {
+  .toggle {
     position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
+    inset: 0;
+    background-color: rgb(67, 67, 67);
+    border-radius: 24px;
+    transition: background-color 0.3s;
   }
 
-  .switch-container {
-    display: inline-flex;
-    border-radius: 4px;
-    transform: translate3d(0, 0, 0);
-  }
-
-  .switch-container.switch-animate {
-    transition: margin-left 0.5s;
-  }
-
-  .switch-text-left,
-  .switch-text-right,
-  .switch-text-sep {
-    box-sizing: border-box;
-    cursor: pointer;
-    display: table-cell;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 20px;
-  }
-
-  .switch-text-sep {
-    text-align: center;
-    margin-top: -1px;
-    margin-bottom: -1px;
-  }
-
-  .sep-color {
-    color: #333;
-    background: #444;
-  }
-
-  .text-color {
-    color: #ffffff;
-    background: #d9534f;
-  }
-
-  .switch-container.switch-right {
-    margin-left: 0px;
-  }
-
-  .switch-vision.sm {
-    width: 62px;
-  }
-
-  .switch-vision.sm .switch-container {
-    width: 100px;
-  }
-
-  .switch-vision.sm .switch-text-left,
-  .switch-vision.sm .switch-text-right {
-    width: 38px;
-    height: 30px;
-  }
-
-  .switch-vision.sm .switch-text-sep {
+  .toggle::before {
+    content: '';
+    position: absolute;
     width: 20px;
+    height: 20px;
+    background-color: #dc3545;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
   }
 
-  .switch-vision.sm .switch-container.switch-on {
-    margin-left: -37.9px;
+  .toggle-input {
+    display: none;
   }
 
-  .switch-vision.sm .switch-text-left,
-  .switch-vision.sm .switch-text-right,
-  .switch-vision.sm .switch-text-sep {
-    font-size: 12px;
-    line-height: 1.5;
+  .toggle-input:checked + .toggle {
+    background-color: #dc3545;
+  }
+
+  .toggle-input:checked + .toggle::before {
+    transform: translateX(26px);
   }
 `;
 
-const SwitchButton = (props) => {
-  const { id, value, onChange, label, onText, onColor, offText, offColor, sepText, sepColor } =
-    props;
-
+const SwitchButton = ({ id, label, onText, offText, value, onChange }) => {
   const [state, setState] = useState(value ?? false);
 
   const onChangeState = (event) => {
@@ -128,35 +66,37 @@ const SwitchButton = (props) => {
     }
   };
 
-  const size = 'sm';
-
   return (
-    <StyledSwitch>
-      <div className="switch-label" htmlFor={id}>
-        {label}
+    <SwitchWrapper htmlFor={id}>
+      <span className="label-text">
+        {label}: {value ? onText : offText}
+      </span>
+      <div className="toggle-container">
+        <input
+          id={id}
+          type="checkbox"
+          className="toggle-input"
+          checked={state}
+          onChange={onChangeState}
+        />
+        <span className="toggle" />
       </div>
-      <div className="row">
-        <div className={`switch-vision ${size}`}>
-          <div className={`switch-container switch-animate ${state ? 'switch-on' : 'switch-off'}`}>
-            <span className={`switch-text-left ${onColor || 'text-color'}`}>
-              {state ? onText : offText}
-            </span>
-            <span className={`switch-text-sep ${sepColor || 'sep-color'}`}>{sepText}</span>
-            <span className={`switch-text-right ${offColor || 'text-color'}`}>
-              {!state ? onText : offText}
-            </span>
-            <input
-              className="switch-checkbox"
-              id={id}
-              type="checkbox"
-              checked={state}
-              onChange={onChangeState}
-            />
-          </div>
-        </div>
-      </div>
-    </StyledSwitch>
+    </SwitchWrapper>
   );
+};
+
+SwitchButton.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onText: PropTypes.string,
+  offText: PropTypes.string,
+  value: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+SwitchButton.defaultProps = {
+  onText: 'On',
+  offText: 'Off',
 };
 
 export default SwitchButton;
