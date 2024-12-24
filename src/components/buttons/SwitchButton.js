@@ -72,16 +72,6 @@ const SwitchWrapper = styled.label`
 `;
 
 const SwitchButton = ({ id, label, onText, offText, value, onChange }) => {
-  const [state, setState] = useState(value ?? false);
-
-  const onChangeState = (event) => {
-    const newVal = event.target.checked;
-    setState(newVal);
-    if (onChange) {
-      onChange(newVal);
-    }
-  };
-
   return (
     <SwitchWrapper htmlFor={id}>
       <span className="label-text">{label}</span>
@@ -90,10 +80,10 @@ const SwitchButton = ({ id, label, onText, offText, value, onChange }) => {
           id={id}
           type="checkbox"
           className="toggle-input"
-          checked={state}
-          onChange={onChangeState}
+          checked={value}
+          onChange={(e) => onChange(e.target.checked)}
         />
-        <span className="toggle">{state ? <span className="toggle-text">{onText}</span> : ''}</span>
+        <span className="toggle">{value ? <span className="toggle-text">{onText}</span> : ''}</span>
       </div>
     </SwitchWrapper>
   );
