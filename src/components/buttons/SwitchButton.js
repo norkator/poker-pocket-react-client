@@ -18,8 +18,8 @@ const SwitchWrapper = styled.label`
   .toggle-container {
     position: relative;
     display: inline-block;
-    width: 50px;
-    height: 24px;
+    width: 60px;
+    height: 34px;
   }
 
   .toggle {
@@ -28,13 +28,19 @@ const SwitchWrapper = styled.label`
     background-color: rgb(67, 67, 67);
     border-radius: 24px;
     transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
   }
 
   .toggle::before {
     content: '';
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     background-color: #dc3545;
     border-radius: 50%;
     top: 2px;
@@ -51,7 +57,7 @@ const SwitchWrapper = styled.label`
   }
 
   .toggle-input:checked + .toggle::before {
-    transform: translateX(26px);
+    transform: translateX(28px);
   }
 `;
 
@@ -68,9 +74,7 @@ const SwitchButton = ({ id, label, onText, offText, value, onChange }) => {
 
   return (
     <SwitchWrapper htmlFor={id}>
-      <span className="label-text">
-        {label}: {value ? onText : offText}
-      </span>
+      <span className="label-text">{label}</span>
       <div className="toggle-container">
         <input
           id={id}
@@ -79,7 +83,7 @@ const SwitchButton = ({ id, label, onText, offText, value, onChange }) => {
           checked={state}
           onChange={onChangeState}
         />
-        <span className="toggle" />
+        <span className="toggle">{state ? onText : offText}</span>
       </div>
     </SwitchWrapper>
   );
