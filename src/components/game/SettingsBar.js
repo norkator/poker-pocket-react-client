@@ -117,7 +117,7 @@ const SettingsBar = () => {
 
   return (
     <div className="row">
-      <div className="col-4">
+      <div className="col-auto">
         <footer className="footer">
           <div style={{ color: '#FFFFFF' }}>♣ ♦ ♥ ♠</div>
           <div style={{ color: '#FFFFFF' }}>&copy; Nitramite {getCurrentYear()}</div>
@@ -126,6 +126,7 @@ const SettingsBar = () => {
       </div>
       <StyledItem className="col">
         <SwitchButton
+          id={'tableColor'}
           label={t('PURPLE_TABLE')}
           onText="On"
           offText="Off"
@@ -135,6 +136,7 @@ const SettingsBar = () => {
       </StyledItem>
       <StyledItem className="col">
         <SwitchButton
+          id={'blackCards'}
           label={t('BLACK_CARDS')}
           onText="On"
           offText="Off"
@@ -144,6 +146,7 @@ const SettingsBar = () => {
       </StyledItem>
       <StyledItem className="col">
         <SwitchButton
+          id={'autoCheck'}
           label={t('AUTO_CHECK')}
           onText="On"
           offText="Off"
@@ -153,6 +156,7 @@ const SettingsBar = () => {
       </StyledItem>
       <StyledItem className="col">
         <SwitchButton
+          id={'autoPlay'}
           label={t('AUTO_PLAY')}
           onText="On"
           offText="Off"
@@ -162,9 +166,11 @@ const SettingsBar = () => {
       </StyledItem>
       <StyledItem className="col">
         <SwitchButton
+          id={'connection'}
           label={t('CONNECTION')}
           onText="Prod"
           offText="Dev"
+          value={false}
           onChange={(checked) => changeConnectMode(checked)}
         />
       </StyledItem>

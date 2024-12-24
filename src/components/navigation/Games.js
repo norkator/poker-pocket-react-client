@@ -123,29 +123,37 @@ const Games = () => {
     <div className="container" style={{ maxWidth: '850px' }}>
       <div
         className="card"
-        style={{ backgroundColor: '#434343', width: '100%', marginTop: '10px' }}
+        style={{
+          backgroundColor: '#434343',
+          width: '100%',
+          marginTop: '10px',
+          padding: '10px',
+        }}
       >
-        <div className="container" style={{ width: '100%', padding: '10px' }}>
-          <table className="table table-dark">
-            <thead className="thead-dark">
+        <table
+          className="table table-dark table-striped"
+          style={{ marginBottom: 0, backgroundColor: '#434343' }}
+        >
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">{t('GAME')}</th>
+              <th scope="col">{t('TABLE_NAME')}</th>
+              <th scope="col">{t('PLAYERS')}</th>
+              <th scope="col">{t('MIN_BET')}</th>
+              <th scope="col">{t('ACTION')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {TableRows || (
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">{t('GAME')}</th>
-                <th scope="col">{t('TABLE_NAME')}</th>
-                <th scope="col">{t('PLAYERS')}</th>
-                <th scope="col">{t('MIN_BET')}</th>
-                <th scope="col">{t('ACTION')}</th>
+                <td colSpan="6" style={{ textAlign: 'center' }}>
+                  {t('LOADING')}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {TableRows || (
-                <tr>
-                  <td colSpan="5">{t('LOADING')}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
