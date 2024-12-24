@@ -543,7 +543,7 @@ const TableState = ({ children }) => {
       for (let i = 0; i < players.length; i++) {
         const player = players[i];
         if (!player.isFold) {
-          await sleep(cardSetDelayMillis);
+          await sleep(100);
           player.setPlayerCard(c);
           setSeats({ data: seats.data });
           if (enableSounds) {
