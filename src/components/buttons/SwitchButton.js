@@ -52,6 +52,16 @@ const SwitchWrapper = styled.label`
     display: none;
   }
 
+  .toggle-text {
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
   .toggle-input:checked + .toggle {
     background-color: #dc3545;
   }
@@ -83,7 +93,7 @@ const SwitchButton = ({ id, label, onText, offText, value, onChange }) => {
           checked={state}
           onChange={onChangeState}
         />
-        <span className="toggle">{state ? onText : offText}</span>
+        <span className="toggle">{state ? <span className="toggle-text">{onText}</span> : ''}</span>
       </div>
     </SwitchWrapper>
   );
