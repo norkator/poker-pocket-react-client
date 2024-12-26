@@ -1,3 +1,6 @@
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
 # Build Stage
 FROM node:20-alpine AS build
 
