@@ -2,13 +2,16 @@ name: Docker publish container image
 
 on:
   push:
-    branches: [ main ]
-    tags: [ 'v*.*.*' ]
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
+
 env:
   REGISTRY: ghcr.io
 
 jobs:
-  publish-container-image:
+  publish-main-image:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -27,10 +30,40 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and publish docker image
+      - name: Build and publish staging docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/norkator/poker-pocket-react-client:latest
+          tags: ghcr.io/norkator/poker-pocket-react-client-staging:latest
+          build-args: NODE_ENV=staging
+          file: Dockerfile
+
+  publish-tagged-image:
+    runs-on: ubuntu-latest
+    needs: publish-main-image
+    if: startsWith(github.ref, 'refs/tags/')
+    strategy:
+      matrix:
+        node-version: [ 20.x ]
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and publish docker image for release tag
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/norkator/poker-pocket-react-client:${{ github.ref_name }}
+          build-args: NODE_ENV=production
           file: Dockerfile
