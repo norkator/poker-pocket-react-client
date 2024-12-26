@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "FAST_REFRESH=false craco build",
     "test": "craco test",
     "eject": "craco eject"
   },
