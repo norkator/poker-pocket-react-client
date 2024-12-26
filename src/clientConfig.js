@@ -3,7 +3,9 @@ const config = {
   socketURI:
     process.env.NODE_ENV === 'production'
       ? 'wss://pokerpocket-wss.nitramite.com'
-      : 'ws://localhost:8000',
+      : process.env.NODE_ENV === 'staging'
+        ? 'wss://pokerpocket-staging-wss.nitramite.com'
+        : 'ws://localhost:8000',
 };
 
 export default config;
