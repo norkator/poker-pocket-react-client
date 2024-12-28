@@ -1,8 +1,7 @@
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
 # Build Stage
 FROM node:20-alpine AS build
+
+ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
