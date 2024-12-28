@@ -14,6 +14,20 @@ const AuthState = ({ children }) => {
   const isLoggedInRef = useRef(false);
 
   useEffect(() => {
+    const token = localStorage.getItem(LS_TOKEN);
+    if (token) {
+      if (socket) {
+        socket.send(
+          JSON.stringify({
+            key: 'userParams',
+            token: token,
+          })
+        );
+      }
+    }
+  }, [socket]);
+
+  useEffect(() => {
     if (socket) {
       regAuthHandler(socket);
     }
@@ -21,7 +35,6 @@ const AuthState = ({ children }) => {
 
   const regAuthHandler = (socket) => {
     socket.handle('userParams', userParams);
-
     socket.handle('loggedInUserStatisticsResults', (jsonData) =>
       loggedInUserStatisticsResults(jsonData.data)
     );
