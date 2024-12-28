@@ -32,5 +32,10 @@
   "CARDS_TO_DISCARD": "Cards to discard",
   "CONTINUE": "Continue",
   "MESSAGE": "Message",
-  "SEND": "Send"
+  "SEND": "Send",
+  "TOTAL_GAME": "Total games",
+  "TOTAL_BOTS": "Total bots",
+  "TOTAL_PLAYERS": "Total players",
+  "HOLDEM": "Hold 'em",
+  "FIVE_CARD_DRAW": "Five card draw"
 }
