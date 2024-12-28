@@ -5,6 +5,8 @@ import tableContext from '@/context/table/tableContext';
 import contentContext from '@/context/content/contentContext';
 import { formatMoney } from '@/utils/Money';
 import NavButton from '@/components/buttons/NavButton';
+import StatCard from '@/components/statCard';
+import GameIcon from '@/components/gameIcon';
 
 const Games = () => {
   const { t } = useContext(contentContext);
@@ -16,6 +18,7 @@ const Games = () => {
   const navigate = useNavigate();
 
   const [tablesData, setTablesData] = useState(null);
+  const [statistics, setStatistics] = useState(null);
 
   const getTables = (socket) => {
     if (socket) {
@@ -29,13 +32,14 @@ const Games = () => {
 
   useEffect(() => {
     if (socket && socketConnected) {
-      socket.handle('getTables', (jsonData) => parseTables(jsonData.data.tables));
+      socket.handle('getTables', (jsonData) => parseData(jsonData.data));
       getTables(socket);
     }
   }, [socket, socketConnected]);
 
-  const parseTables = (data) => {
-    setTablesData(data);
+  const parseData = (data) => {
+    setTablesData(data.tables);
+    setStatistics(data.stats);
   };
 
   const selectTable = (table_id, game) => {
@@ -97,7 +101,12 @@ const Games = () => {
       return (
         <tr key={tableId}>
           <th scope="row">{tableId}</th>
-          <td>{game}</td>
+          <td>
+            <div className="d-flex align-items-center">
+              <GameIcon game={game} />
+              {t(game)}
+            </div>
+          </td>
           <td>{tableName}</td>
           <td>
             {playerCount}/{maxSeats}
@@ -121,10 +130,21 @@ const Games = () => {
 
   return (
     <div className="container" style={{ maxWidth: '850px' }}>
+      {statistics ? (
+        <div className="container mt-4">
+          <div className="d-flex flex-wrap gap-3 justify-content-start">
+            <StatCard number={statistics.totalGames} text={t('TOTAL_GAME')} />
+            <StatCard number={statistics.totalPlayers} text={t('TOTAL_PLAYERS')} />
+            <StatCard number={statistics.totalBots} text={t('TOTAL_BOTS')} />
+          </div>
+        </div>
+      ) : (
+        ''
+      )}
+
       <div
         className="card"
         style={{
-          backgroundColor: '#434343',
           width: '100%',
           marginTop: '10px',
           padding: '10px',
