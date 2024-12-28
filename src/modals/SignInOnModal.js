@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { toast } from 'react-toastify';
 import { sha3_512 } from 'js-sha3';
 import SignInView from './SignInModal';
 import SignOnView from './SignOnModal';
+import contentContext from '@/context/content/contentContext';
 
 const SignInOnModal = ({ mode, context, closeModal }) => {
   const [state, setState] = useState(mode);
 
+  const { t } = useContext(contentContext);
   const { socketCtx, authCtx } = context;
   const { socket, playerId } = socketCtx;
   const { setIsLoggedIn } = authCtx;
 
   const regAuthHandler = (socket) => {
-    socket.handle('accountCreated', (jsonData) => accountCreated(jsonData.data));
+    socket.handle('createAccount', (jsonData) => accountCreated(jsonData.data));
 
-    socket.handle('loginResult', (jsonData) => loginResult(jsonData.data));
+    socket.handle('login', (jsonData) => loginResult(jsonData.data));
+
+    socket.handle('authenticationError', (jsonData) => console.log(jsonData.data));
   };
 
   useEffect(() => {
@@ -37,7 +41,7 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
   }
 
   function loginResult(lData) {
-    if (lData.result) {
+    if (lData.success) {
       toast.success('You are now logged in for this instance.');
       // Need to get all room's again or exit all running game.
       // TODO: leave all table to login
@@ -49,7 +53,7 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
       });
       closeModal();
     } else {
-      toast.error('Login failed! Check your username and password.');
+      toast.error(t(lData.translationKey));
     }
   }
 
@@ -65,28 +69,24 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
   }
 
   function userLogin(username, password) {
-    // SHA3-512
-    var passwordSha3 = sha3_512(password);
     if (socket) {
       socket.send(
         JSON.stringify({
-          key: 'userLogin',
-          name: username,
-          password: passwordSha3,
+          key: 'login',
+          username: username,
+          password: password,
         })
       );
     }
   }
 
   function createAccount(username, password, email) {
-    // SHA3-512
-    var passwordSha3 = sha3_512(password);
     if (socket) {
       socket.send(
         JSON.stringify({
           key: 'createAccount',
-          name: username,
-          password: passwordSha3,
+          username: username,
+          password: password,
           email: email,
         })
       );
