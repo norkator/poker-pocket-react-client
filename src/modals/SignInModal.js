@@ -21,19 +21,23 @@ const SignInView = ({ closeModal, userLogin, setState, forgotPasswordBtn }) => {
   };
 
   return (
-    <div className="modal-dialog" role="document">
+    <div
+      className="modal modal-dialog"
+      style={{
+        display: 'flex',
+      }}
+      role="document"
+    >
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title">{t('LOGIN')}</h5>
           <button
             type="button"
-            className="close"
-            onClick={closeModal}
-            data-dismiss="modal"
+            className="btn-close"
+            data-bs-dismiss="modal"
             aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
+            onClick={closeModal}
+          ></button>
         </div>
         <div className="modal-body">
           <div id="div-forms1">

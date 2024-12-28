@@ -26,13 +26,23 @@ const SignOnModal = ({ closeModal, createAccount, setState, forgotPasswordBtn })
   };
 
   return (
-    <div className="modal-dialog" role="document">
+    <div
+      className="modal modal-dialog"
+      style={{
+        display: 'flex',
+      }}
+      role="document"
+    >
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title">{t('REGISTER')}</h5>
-          <button type="button" className="close" onClick={closeModal}>
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            onClick={closeModal}
+          ></button>
         </div>
         <div className="modal-body">
           <div id="div-forms2">
