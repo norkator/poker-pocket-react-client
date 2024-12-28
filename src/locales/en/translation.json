@@ -37,5 +37,7 @@
   "TOTAL_BOTS": "Total bots",
   "TOTAL_PLAYERS": "Total players",
   "HOLDEM": "Hold 'em",
-  "FIVE_CARD_DRAW": "Five card draw"
+  "FIVE_CARD_DRAW": "Five card draw",
+  "USERNAME_PASSWORD_REQUIRED": "Username and password are required!",
+  "INVALID_USERNAME_OR_PASSWORD": "Invalid username or password!"
 }
