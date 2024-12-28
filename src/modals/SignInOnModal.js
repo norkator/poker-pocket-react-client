@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { toast } from 'react-toastify';
-import { sha3_512 } from 'js-sha3';
 import SignInView from './SignInModal';
 import SignOnView from './SignOnModal';
 import contentContext from '@/context/content/contentContext';
+import { LS_TOKEN } from '@/context/auth/AuthState';
 
 const SignInOnModal = ({ mode, context, closeModal }) => {
   const [state, setState] = useState(mode);
@@ -39,6 +39,7 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
   function loginResult(lData) {
     if (lData.success) {
       toast.success('You are now logged in for this instance.');
+      localStorage.setItem(LS_TOKEN, lData.token);
       setIsLoggedIn({
         token: lData.token,
       });

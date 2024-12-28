@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import AuthContext from './authContext';
 import socketContext from '@/context/websocket/socketContext';
 
-const LS_TOKEN = 'TOKEN';
+export const LS_TOKEN = 'TOKEN';
 
 const AuthState = ({ children }) => {
   const { socket, playerId } = useContext(socketContext);
@@ -20,7 +20,7 @@ const AuthState = ({ children }) => {
   }, [socket]);
 
   const regAuthHandler = (socket) => {
-    socket.handle('loggedInUserParamsResult', loggedInUserParamsResult);
+    socket.handle('userParams', userParams);
 
     socket.handle('loggedInUserStatisticsResults', (jsonData) =>
       loggedInUserStatisticsResults(jsonData.data)
@@ -42,20 +42,19 @@ const AuthState = ({ children }) => {
 
   function setLoggedInUserParams(isLoggedIn) {
     const token = isLoggedIn.token;
-    localStorage.setItem(LS_TOKEN, token);
     if (socket) {
       socket.send(
         JSON.stringify({
-          key: 'loggedInUserParams',
+          key: 'userParams',
           token: token,
         })
       );
     }
   }
 
-  function loggedInUserParamsResult(jsonData) {
+  function userParams(jsonData) {
     const lData = jsonData.data;
-    if (!lData.result) {
+    if (!lData.success) {
       toast.error('You are logged in from another instance, which is forbidden!');
     } else {
       setIsAuthed(true);
