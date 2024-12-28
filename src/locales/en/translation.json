@@ -39,5 +39,8 @@
   "HOLDEM": "Hold 'em",
   "FIVE_CARD_DRAW": "Five card draw",
   "USERNAME_PASSWORD_REQUIRED": "Username and password are required!",
-  "INVALID_USERNAME_OR_PASSWORD": "Invalid username or password!"
+  "INVALID_USERNAME_OR_PASSWORD": "Invalid username or password!",
+  "ACCOUNT_CREATED": "Account successfully created, you can now login",
+  "USERNAME_EMAIL_PASSWORD_REQUIRED": "Username, email and password are required!",
+  "ACCOUNT_CREATE_ERROR": "Account create error."
 }
