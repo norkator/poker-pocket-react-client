@@ -3,6 +3,8 @@ import { toast } from 'react-toastify';
 import AuthContext from './authContext';
 import socketContext from '@/context/websocket/socketContext';
 
+const LS_TOKEN = 'TOKEN';
+
 const AuthState = ({ children }) => {
   const { socket, playerId } = useContext(socketContext);
 
@@ -19,7 +21,7 @@ const AuthState = ({ children }) => {
 
   const regAuthHandler = (socket) => {
     socket.handle('loggedInUserParamsResult', loggedInUserParamsResult);
-    // Example: {"name":"Admin","money":79050,"winCount":1,"loseCount":6,"achievements":[{"name":"Starter","description":"Starter's achievement from good start.","icon_name":"achievement_starter"},{"name":"Test achievement","description":"Second achievement","icon_name":"achievement_starter"}]}
+
     socket.handle('loggedInUserStatisticsResults', (jsonData) =>
       loggedInUserStatisticsResults(jsonData.data)
     );
@@ -38,17 +40,14 @@ const AuthState = ({ children }) => {
     }
   }, [isAuthed]);
 
-  // Login related functions
   function setLoggedInUserParams(isLoggedIn) {
-    // SHA3-512
-    var username = isLoggedIn.username;
-    var passwordHash = isLoggedIn.password;
+    const token = isLoggedIn.token;
+    localStorage.setItem(LS_TOKEN, token);
     if (socket) {
       socket.send(
         JSON.stringify({
           key: 'loggedInUserParams',
-          name: username,
-          password: passwordHash,
+          token: token,
         })
       );
     }
