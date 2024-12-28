@@ -10,7 +10,6 @@ import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
 import tableContext from '@/context/table/tableContext';
 import { useNavigate } from 'react-router-dom';
-import FCDPickCardsModal from '@/modals/FCDPickCardsModal';
 
 const LS_ENABLE_SOUNDS_STATE = 'LS_ENABLE_SOUNDS_STATE';
 
@@ -71,7 +70,7 @@ const Navbar = () => {
   const openUserModal = () =>
     openView(() => <UserDashboardModal context={{ socketCtx, authCtx }} closeModal={closeModal} />);
 
-  const openSignInModaVuew = () => {
+  const openSignInModaView = () => {
     openView(() => (
       <SignInOnModal mode={0} context={{ socketCtx, authCtx }} closeModal={closeModal} />
     ));
@@ -94,11 +93,11 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
-        <a className="navbar-brand ms-2" href="http://www.nitramite.com/poker-pocket.html">
+        <a className="navbar-brand ms-2" href="https://pokerpocket.nitramite.com/">
           <img
             src="./assets/images/logo.png"
             style={{ width: '30px', height: '30px' }}
-            className="d-inline-block align-top"
+            className="d-inline-block align-top me-2"
             alt="Poker Pocket logo"
           />
           Poker Pocket
@@ -168,8 +167,8 @@ const Navbar = () => {
             {!isAuthed ? (
               <button
                 id="nav_bar_login_btn"
-                className="btn btn-outline-success"
-                onClick={() => openSignInModaVuew()}
+                className="btn btn-outline-light"
+                onClick={() => openSignInModaView()}
               >
                 {t('LOGIN')}
               </button>

@@ -54,7 +54,14 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
   }
 
   function forgotPasswordBtn() {
-    window.location.href = 'http://www.nitramite.com/contact.html';
+    // window.location.href = 'http://www.nitramite.com/contact.html';
+    toast.warn(
+      '🙈 Looks like you forgot your password, and we forgot to develop reset feature. Teamwork makes the dream work, right? Oh wait...',
+      {
+        autoClose: 10 * 1000,
+        theme: 'dark',
+      }
+    );
   }
 
   function userLogin(username, password) {
