@@ -28,15 +28,11 @@ const SignInOnModal = ({ mode, context, closeModal }) => {
   }, [socket]);
 
   function accountCreated(aData) {
-    if (aData.result) {
-      toast.success('Account successfully created, you can now login.');
-      // modalAnimate($formRegister, $formLogin);
-      // $('#register_username').val('');
-      // $('#register_password').val('');
-      // $('#register_email').val('');
+    if (aData.success) {
+      toast.success(t('ACCOUNT_CREATED'));
       closeModal();
     } else {
-      toast.error('Account already exists. Please try another one.');
+      toast.error(t(aData.translationKey));
     }
   }
 
