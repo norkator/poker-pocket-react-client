@@ -10,6 +10,7 @@ import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
 import tableContext from '@/context/table/tableContext';
 import { useNavigate } from 'react-router-dom';
+import { LS_TOKEN } from '@/context/auth/AuthState';
 
 const LS_ENABLE_SOUNDS_STATE = 'LS_ENABLE_SOUNDS_STATE';
 
@@ -77,6 +78,7 @@ const Navbar = () => {
   };
 
   const logoutClick = () => {
+    localStorage.removeItem(LS_TOKEN);
     window.location.reload();
   };
 
