@@ -8,7 +8,8 @@
     "start": "craco start",
     "build": "FAST_REFRESH=false craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "build-staging": "NODE_ENV=staging FAST_REFRESH=false craco build"
   },
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",
