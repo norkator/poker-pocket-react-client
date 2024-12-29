@@ -7,6 +7,7 @@ import { formatMoney } from '@/utils/Money';
 import NavButton from '@/components/buttons/NavButton';
 import StatCard from '@/components/statCard';
 import GameIcon from '@/components/gameIcon';
+import FAQCard from '@/components/FAQCard';
 
 const Games = () => {
   const { t } = useContext(contentContext);
@@ -175,6 +176,8 @@ const Games = () => {
           </tbody>
         </table>
       </div>
+
+      <FAQCard></FAQCard>
     </div>
   );
 };
