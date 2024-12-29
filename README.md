@@ -1,8 +1,8 @@
+# ⚠️ WORK  IN PROGRESS ⚠️
+
 <!--
 ![poker_pocket_front_page](./images/poker_pocket_1.PNG)
 -->
-
-### Work in progress
 
 # Poker Pocket React Client
 
@@ -19,6 +19,13 @@ Table of contents
 * [Contributions](#contributions)
 * [Contributors](#contributors)
 * [License](#license)
+
+Samples
+============
+
+Current staging: https://pokerpocket-staging.nitramite.com  
+Current production: todo
+
 
 Requirements
 ============
