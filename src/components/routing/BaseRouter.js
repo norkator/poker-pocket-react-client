@@ -4,6 +4,7 @@ import MainLayout from '@/layouts/MainLayout';
 import HoldemPage from '@/pages/HoldemPage';
 import GamesPage from '@/pages/GamesPage';
 import FiveCardDrawPage from '@/pages/FiveCardDrawPage';
+import MyAccountPage from '@/pages/MyAccountPage';
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => {
   return (
@@ -23,6 +24,7 @@ const BaseRouter = () => {
         path="/fivecarddraw"
         element={<AppRoute component={FiveCardDrawPage} layout={MainLayout} />}
       />
+      <Route path="/account" element={<AppRoute component={MyAccountPage} layout={MainLayout} />} />
     </Routes>
   );
 };
