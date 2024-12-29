@@ -157,7 +157,13 @@ const UserDashboardModal = ({ context, closeModal }) => {
   }, [myData]);
 
   return (
-    <div className="modal-dialog" role="document">
+    <div
+      className="modal modal-dialog"
+      style={{
+        display: 'flex',
+      }}
+      role="document"
+    >
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title">{t('MY_STATISTICS')}</h5>

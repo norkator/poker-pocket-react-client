@@ -62,12 +62,6 @@ const Navbar = () => {
   const openRankingsModal = () =>
     openModal(() => <RankingsModal context={{ socketCtx }} />, t('RANKINGS'), t('CLOSE'));
 
-  // const openGameInfoModal = () =>
-  //   openModal(() => <GameInfoModal context={{ socketCtx }} />, t('SERVER_INFORMATION'), t('CLOSE'));
-
-  // const openCmdModal = () =>
-  //   openView(() => <CommandModal context={{ socketCtx }} closeModal={closeModal} />);
-
   const openUserModal = () =>
     openView(() => <UserDashboardModal context={{ socketCtx, authCtx }} closeModal={closeModal} />);
 
@@ -125,35 +119,18 @@ const Navbar = () => {
             <NavButton onClick={toggleSounds}>
               {enableSounds ? t('SOUNDS_DISABLE') : t('SOUNDS_ENABLE')}
             </NavButton>
+            {isAuthed ? (
+              <NavButton onClick={() => navigate('/account')}>{t('MY_ACCOUNT')}</NavButton>
+            ) : (
+              ''
+            )}
           </ul>
           {isAuthed ? (
             <ul
               id="loggedInUserIcon"
               className="nav navbar-nav ms-auto"
-              onClick={() => openUserModal()}
+              onClick={() => navigate('/account')}
             >
-              <li style={{ marginRight: '5px' }}>
-                <div
-                  style={{
-                    color: 'white',
-                    height: '100%',
-                    textAlign: 'center',
-                    marginTop: '5px',
-                  }}
-                >
-                  {xpNeededForNextMedal ? 'Next medal +' + xpNeededForNextMedal + 'xp' : ''}
-                </div>
-              </li>
-              <li>
-                <div style={{ marginRight: '5px' }}>
-                  <img
-                    id="loggedInUserMedal"
-                    style={{ width: '40px', height: '40px' }}
-                    src="./assets/images/shaded_medal_blank.png"
-                    alt="User medal"
-                  />
-                </div>
-              </li>
               <li>
                 <div style={{ marginRight: '5px' }}>
                   <img
