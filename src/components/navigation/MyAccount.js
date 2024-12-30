@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import socketContext from '@/context/websocket/socketContext';
 import contentContext from '@/context/content/contentContext';
-import StatCard from '@/components/statCard';
+import StatCard from '@/components/StatCard';
 
 const MyAccount = () => {
   const { t } = useContext(contentContext);

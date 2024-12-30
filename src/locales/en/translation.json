@@ -41,5 +41,7 @@
   "INVALID_USERNAME_OR_PASSWORD": "Invalid username or password!",
   "ACCOUNT_CREATED": "Account successfully created, you can now login",
   "USERNAME_EMAIL_PASSWORD_REQUIRED": "Username, email and password are required!",
-  "ACCOUNT_CREATE_ERROR": "Account create error."
+  "ACCOUNT_CREATE_ERROR": "Account create error.",
+  "XP_GAINED_WIN_STREAK":  "XP WIN STREAK!",
+  "XP_GAINED": "XP Gained!"
 }

@@ -19,7 +19,7 @@ import {
   playCheckSound,
   playCardPlaceChipsOne,
   playCardSlideSix,
-} from '@/components/audio';
+} from '@/components/Audio';
 import { setupSeats } from '@/components/game/domains/Seat';
 import modalContext from '@/context/modal/modalContext';
 import FCDPickCardsModal from '@/modals/FCDPickCardsModal';

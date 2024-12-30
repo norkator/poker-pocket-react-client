@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import socketContext from '@/context/websocket/socketContext';
 import tableContext from '@/context/table/tableContext';
-import { playCardPlaceChipsOne } from '@/components/audio';
+import { playCardPlaceChipsOne } from '@/components/Audio';
 
 const StyledBetBtn = ({ onClick, label }) => {
   return (
