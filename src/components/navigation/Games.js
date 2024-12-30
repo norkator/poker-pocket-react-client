@@ -132,7 +132,7 @@ const Games = () => {
   return (
     <div className="container" style={{ maxWidth: '850px' }}>
       {statistics ? (
-        <div className="container mt-4">
+        <div className="mt-4">
           <div className="d-flex flex-wrap gap-3 justify-content-start">
             <StatCard number={statistics.totalGames} text={t('TOTAL_GAME')} />
             <StatCard number={statistics.totalPlayers} text={t('TOTAL_PLAYERS')} />

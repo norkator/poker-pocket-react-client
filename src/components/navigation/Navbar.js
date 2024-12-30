@@ -37,11 +37,11 @@ const Navbar = () => {
     localStorage.setItem(LS_ENABLE_SOUNDS_STATE, enableSounds ? 'true' : 'false');
   }, [enableSounds]);
 
-  useEffect(() => {
-    if (isAuthed) {
-      openRoomModal('all');
-    }
-  }, [socketConnected]);
+  // useEffect(() => {
+  //   if (isAuthed) {
+  //     openRoomModal('all');
+  //   }
+  // }, [socketConnected]);
 
   function toggleSounds() {
     setEnableSounds(!enableSounds);

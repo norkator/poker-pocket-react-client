@@ -85,6 +85,7 @@ const TurnControl = () => {
         break;
       case 'remove_bot': // Bot run out of money
         toast.error('Run out of money basically'); // location.reload();
+        // Todo leave table
         break;
       default:
         setCheck();
