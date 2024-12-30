@@ -132,7 +132,7 @@ const Navbar = () => {
               onClick={() => navigate('/account')}
             >
               <li>
-                <div style={{ marginRight: '5px' }}>
+                <div style={{ marginRight: '5px', cursor: 'pointer' }}>
                   <img
                     style={{ width: '40px', height: '40px' }}
                     src="./assets/images/logo_circle.png"
