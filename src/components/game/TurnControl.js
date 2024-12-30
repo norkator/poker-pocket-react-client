@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import socketContext from '@/context/websocket/socketContext';
 import tableContext from '@/context/table/tableContext';
 import { playCardPlaceChipsOne } from '@/components/Audio';
+import contentContext from '@/context/content/contentContext';
 
 const StyledBetBtn = ({ onClick, label }) => {
   return (
@@ -26,6 +27,7 @@ const StyledActBtn = ({ className, onClick, label }) => {
 };
 
 const TurnControl = () => {
+  const { t } = useContext(contentContext);
   const { socket, playerId } = useContext(socketContext);
   const { tableId, ctrl, players, heroTurn, autoCheck, autoPlay } = useContext(tableContext);
 
@@ -83,15 +85,25 @@ const TurnControl = () => {
       case 'bot_raise':
         setRaise(aData.amount);
         break;
-      case 'remove_bot': // Bot run out of money
-        toast.error('Run out of money basically'); // location.reload();
-        // Todo leave table
+      case 'remove_bot':
+        toast.warn(t('INSUFFICIENT_FUNDS'));
+        leaveTable();
         break;
       default:
         setCheck();
         break;
     }
     autoPlayCommandRequested.current = false; // reset always
+  }
+
+  function leaveTable() {
+    if (socket) {
+      const data = JSON.stringify({
+        key: 'leaveTable',
+        tableId: tableId,
+      });
+      socket.send(data);
+    }
   }
 
   function setFold() {
@@ -203,8 +215,7 @@ const TurnControl = () => {
   function checkBtnClick(hero) {
     if (hero && hero.isPlayerTurn) {
       if (hero.tempBet > 0) {
-        toast.info('You have already thrown chips in... raising...');
-
+        toast.info(t('ALREADY_THROWN_CHIPS'));
         const rTempBet = hero.tempBet;
         hero.tempBet = 0;
         setRaise(rTempBet);

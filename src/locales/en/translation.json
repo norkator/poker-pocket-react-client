@@ -45,5 +45,7 @@
   "XP": "Experience points (XP)",
   "WIN_COUNT": "Win count",
   "LOSE_COUNT": "Lose count",
-  "HELLO": "Hello"
+  "HELLO": "Hello",
+  "INSUFFICIENT_FUNDS": "Leaving table because you have no money",
+  "ALREADY_THROWN_CHIPS": "You have already thrown chips in... raising..."
 }
