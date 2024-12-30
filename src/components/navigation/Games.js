@@ -5,8 +5,8 @@ import tableContext from '@/context/table/tableContext';
 import contentContext from '@/context/content/contentContext';
 import { formatMoney } from '@/utils/Money';
 import NavButton from '@/components/buttons/NavButton';
-import StatCard from '@/components/statCard';
-import GameIcon from '@/components/gameIcon';
+import StatCard from '@/components/StatCard';
+import GameIcon from '@/components/GameIcon';
 import FAQCard from '@/components/FAQCard';
 
 const Games = () => {

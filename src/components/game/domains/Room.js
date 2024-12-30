@@ -1,4 +1,4 @@
-import { playCardTakeOutFromPackageOne, playCardSlideSix } from '@/components/audio';
+import { playCardTakeOutFromPackageOne, playCardSlideSix } from '@/components/Audio';
 import { formatMoney } from '@/utils/Money';
 
 export const NewBoard = (enableSounds) => {

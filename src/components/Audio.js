@@ -40,3 +40,13 @@ export const playCheckSound = new Howl({
   src: [audioDir + 'check_sound.ogg'],
   volume: 0.1,
 });
+
+export const playMaximize006 = new Howl({
+  src: [audioDir + 'maximize_006.ogg'],
+  volume: 0.5,
+});
+
+export const playMinimize008 = new Howl({
+  src: [audioDir + 'minimize_008.ogg'],
+  volume: 0.5,
+});

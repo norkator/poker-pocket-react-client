@@ -35,9 +35,8 @@ const AuthState = ({ children }) => {
 
   const regAuthHandler = (socket) => {
     socket.handle('userParams', userParams);
-    socket.handle('loggedInUserStatisticsResults', (jsonData) =>
-      loggedInUserStatisticsResults(jsonData.data)
-    );
+
+    socket.handle('userStatistics', (jsonData) => userStatisticsResults(jsonData.data));
   };
 
   useEffect(() => {
@@ -75,9 +74,11 @@ const AuthState = ({ children }) => {
   }
 
   function getLoggedInUserStatistics() {
-    if (socket && isAuthed) {
+    const token = localStorage.getItem(LS_TOKEN);
+    if (socket && isAuthed && token) {
       const data = JSON.stringify({
-        key: 'loggedInUserStatistics',
+        key: 'userStatistics',
+        token: token,
       });
       socket.send(data);
     }
@@ -91,7 +92,7 @@ const AuthState = ({ children }) => {
     getLoggedInUserStatistics();
   }, [myDashboardRefresh]);
 
-  function loggedInUserStatisticsResults(uData) {
+  function userStatisticsResults(uData) {
     setMyDashboardData(uData);
   }
 
