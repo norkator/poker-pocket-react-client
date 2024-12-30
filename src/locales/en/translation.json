@@ -6,12 +6,9 @@
   "GET_ROOMS": "Get rooms",
   "SPECTATE": "Spectate",
   "RANKINGS": "Rankings",
-  "SERVER": "Server",
-  "COMMAND": "Cmd",
   "SOUNDS_ENABLE": "Enable sounds",
   "SOUNDS_DISABLE": "Disable sounds",
   "SELECT_ROOM": "Select room",
-  "COMMAND_PROMPT": "Command prompt",
   "MY_ACCOUNT": "My account",
   "NOTIFICATION": "Notify",
   "PURPLE_TABLE": "Purple table",
@@ -43,5 +40,10 @@
   "USERNAME_EMAIL_PASSWORD_REQUIRED": "Username, email and password are required!",
   "ACCOUNT_CREATE_ERROR": "Account create error.",
   "XP_GAINED_WIN_STREAK":  "XP WIN STREAK!",
-  "XP_GAINED": "XP Gained!"
+  "XP_GAINED": "XP Gained!",
+  "MONEY": "Money",
+  "XP": "Experience points (XP)",
+  "WIN_COUNT": "Win count",
+  "LOSE_COUNT": "Lose count",
+  "HELLO": "Hello"
 }

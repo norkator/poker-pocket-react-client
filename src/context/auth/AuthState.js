@@ -10,6 +10,9 @@ const AuthState = ({ children }) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [isAuthed, setIsAuthed] = useState(false);
+  const [myDashboardRefresh, setMyDashboardDataRefresh] = useState(null);
+  const [myDashboardData, setMyDashboardData] = useState(null);
+  const [xpNeededForNextMedal, setXpNeededForNextMedal] = useState(null);
 
   const isLoggedInRef = useRef(false);
 
@@ -52,6 +55,10 @@ const AuthState = ({ children }) => {
     }
   }, [isAuthed]);
 
+  useEffect(() => {
+    getLoggedInUserStatistics();
+  }, [myDashboardRefresh]);
+
   function setLoggedInUserParams(isLoggedIn) {
     const token = isLoggedIn.token;
     if (socket) {
@@ -83,14 +90,6 @@ const AuthState = ({ children }) => {
       socket.send(data);
     }
   }
-
-  const [myDashboardRefresh, setMyDashboardDataRefresh] = useState(null);
-  const [myDashboardData, setMyDashboardData] = useState(null);
-  const [xpNeededForNextMedal, setXpNeededForNextMedal] = useState(null);
-
-  useEffect(() => {
-    getLoggedInUserStatistics();
-  }, [myDashboardRefresh]);
 
   function userStatisticsResults(uData) {
     setMyDashboardData(uData);
