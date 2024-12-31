@@ -48,10 +48,10 @@ const MyAccount = () => {
           >{`👋 ${t('HELLO')}, ${userStats.username}`}</h2>
         </div>
         <div className="d-flex flex-wrap gap-2 justify-content-start">
-          <StatCard number={`${formatMoney(userStats.money)}$`} text={t('MONEY')} />
-          <StatCard number={userStats.xp} text={t('XP')} />
-          <StatCard number={userStats.winCount} text={t('WIN_COUNT')} />
-          <StatCard number={userStats.loseCount} text={t('LOSE_COUNT')} />
+          <StatCard width={'15rem'} number={`${formatMoney(userStats.money)}$`} text={t('MONEY')} />
+          <StatCard width={'12rem'} number={userStats.xp} text={t('XP')} />
+          <StatCard width={'10rem'} number={userStats.winCount} text={t('WIN_COUNT')} />
+          <StatCard width={'10rem'} number={userStats.loseCount} text={t('LOSE_COUNT')} />
         </div>
       </div>
 

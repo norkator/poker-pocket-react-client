@@ -1,11 +1,11 @@
 import React from 'react';
 
-const StatCard = ({ number, text }) => {
+const StatCard = ({ number, text, width = '12rem' }) => {
   return (
     <div
       className="card p-3 text-center"
       style={{
-        width: '12rem',
+        width: width,
       }}
     >
       <div
