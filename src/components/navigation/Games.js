@@ -178,6 +178,25 @@ const Games = () => {
       </div>
 
       <FAQCard></FAQCard>
+
+      <div className="card shadow-sm mt-4">
+        <div className="card-header text-white">
+          <h5 className="card-title mb-0">Report an Issue</h5>
+        </div>
+        <div className="card-body">
+          <p className="card-text text-white">
+            You can report issue / join development / request feature on link below:
+          </p>
+          <a
+            href="https://github.com/norkator/poker-pocket-ts-backend/issues/new"
+            target="_blank"
+            className="btn btn-outline-info"
+            rel="noreferrer"
+          >
+            Report Issue on GitHub
+          </a>
+        </div>
+      </div>
     </div>
   );
 };
