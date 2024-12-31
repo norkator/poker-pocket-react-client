@@ -23,8 +23,10 @@ const BoardCards = () => {
                   return (
                     <div
                       className={`middleCard ${
-                        current.middleCardsPuffIn[index] ? 'magicFast puffIn' : ''
-                      }`}
+                        current.middleCardsPuffIn[index] && !current.middleCardsSlideUp[index]
+                          ? 'magicFast puffIn'
+                          : ''
+                      } ${current.middleCardsSlideUp[index] ? 'magictime card-glow' : ''}`}
                       key={'MC' + index}
                       style={{
                         backgroundImage: card ? `url(${path})` : 'url()',
