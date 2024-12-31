@@ -1,20 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
-import Footer from '@/components/navigation/Footer';
 import FiveCardDrawRoom from '@/components/game/fiveCardDraw/FiveCardDrawRoom';
+import Footer from '@/components/navigation/Footer';
+import Chat from '@/components/chat/Chat';
 
 const StyledContainer = styled.div`
-  min-width: 850px;
-  width: 850px;
+  display: flex;
   margin-top: 5px;
 `;
 
 const FiveCardDrawPage = () => {
   return (
     <>
-      <StyledContainer className="container">
-        <FiveCardDrawRoom />
-        <Footer />
+      <StyledContainer
+        className="container"
+        style={{
+          maxWidth: '1200px',
+        }}
+      >
+        <div style={{ flex: 1, maxWidth: '850px' }}>
+          <FiveCardDrawRoom />
+          <Footer />
+        </div>
+        <Chat></Chat>
       </StyledContainer>
     </>
   );
