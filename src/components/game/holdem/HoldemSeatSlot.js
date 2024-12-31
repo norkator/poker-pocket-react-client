@@ -33,10 +33,10 @@ const HoldemSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) =
       }
     }
 
-    if (seat.seatCard0 === undefined) {
+    if (seat.seatCard0 === undefined || seat.seatCard0 === null) {
       path0 = '';
     }
-    if (seat.seatCard1 === undefined) {
+    if (seat.seatCard1 === undefined || seat.seatCard1 === null) {
       path1 = '';
     }
 

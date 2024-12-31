@@ -45,19 +45,19 @@ const FCDSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
       }
     }
 
-    if (seat.seatCard0 === undefined) {
+    if (seat.seatCard0 === undefined || seat.seatCard0 === null) {
       path0 = '';
     }
-    if (seat.seatCard1 === undefined) {
+    if (seat.seatCard1 === undefined || seat.seatCard1 === null) {
       path1 = '';
     }
-    if (seat.seatCard2 === undefined) {
+    if (seat.seatCard2 === undefined || seat.seatCard2 === null) {
       path2 = '';
     }
-    if (seat.seatCard3 === undefined) {
+    if (seat.seatCard3 === undefined || seat.seatCard3 === null) {
       path3 = '';
     }
-    if (seat.seatCard4 === undefined) {
+    if (seat.seatCard4 === undefined || seat.seatCard4 === null) {
       path4 = '';
     }
 
