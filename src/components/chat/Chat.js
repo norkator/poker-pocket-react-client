@@ -39,6 +39,16 @@ const MessageBubble = styled.div`
   &:nth-child(even) {
     align-self: flex-end;
   }
+
+  .username {
+    font-size: 10px;
+    font-weight: lighter;
+    color: #ccc;
+  }
+
+  .message-content {
+    font-size: 13px;
+  }
 `;
 
 const Chat = () => {
@@ -79,13 +89,13 @@ const Chat = () => {
   function handleMessages(mData) {
     const messages = mData.messages;
     if (isMounted.current) {
-      setMessages(() => messages.map((msg) => msg.message));
+      setMessages(messages);
     }
   }
 
   function newMessageData(mData) {
-    const newMessage = mData.message;
-    if (newMessage.trim() && isMounted.current) {
+    const newMessage = mData.chatMessage;
+    if (newMessage.message.trim() && isMounted.current) {
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     }
   }
@@ -145,7 +155,10 @@ const Chat = () => {
           <MessageWrapper>
             <MessageList>
               {messages.map((message, index) => (
-                <MessageBubble key={index}>{message}</MessageBubble>
+                <MessageBubble key={index}>
+                  <div className="username">{message.playerName}</div>
+                  <div className="message-content">{message.message}</div>
+                </MessageBubble>
               ))}
               <div ref={messageEndRef}></div>
             </MessageList>
