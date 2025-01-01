@@ -60,7 +60,7 @@ const TableState = ({ children }) => {
 
   useEffect(() => {
     tableIdRef.current = tableId;
-  }, [tableId]);
+  }, [tableId, setTableId]);
 
   useEffect(() => {
     setPlayers(null);
