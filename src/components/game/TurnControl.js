@@ -29,7 +29,8 @@ const StyledActBtn = ({ className, onClick, label }) => {
 const TurnControl = () => {
   const { t } = useContext(contentContext);
   const { socket, playerId } = useContext(socketContext);
-  const { tableId, ctrl, players, heroTurn, autoCheck, autoPlay } = useContext(tableContext);
+  const { tableId, ctrl, players, heroTurn, autoCheck, autoPlay, refreshSeats } =
+    useContext(tableContext);
 
   const [enableSounds] = useState(true);
 
@@ -162,6 +163,7 @@ const TurnControl = () => {
         if (enableSounds) {
           playCardPlaceChipsOne.play();
         }
+        refreshSeats();
       }
     }
   }
