@@ -561,22 +561,24 @@ const TableState = ({ children }) => {
   const discardAndDraw = (ddData) => {
     const cards = ddData.cards;
     const timeLeft = Number(ddData.timeLeft);
-    openModal(
-      () => (
-        <FCDPickCardsModal
-          cards={{ cards }}
-          timeLeft={timeLeft}
-          onCardsSelected={(selectedCards) => {
-            handleSelectedCards(selectedCards);
-            closeModal();
-          }}
-        />
-      ),
-      t('CHOOSE_CARDS_TO_CHANGE'),
-      true,
-      false,
-      t('CONTINUE')
-    );
+    if (!autoPlay) {
+      openModal(
+        () => (
+          <FCDPickCardsModal
+            cards={{ cards }}
+            timeLeft={timeLeft}
+            onCardsSelected={(selectedCards) => {
+              handleSelectedCards(selectedCards);
+              closeModal();
+            }}
+          />
+        ),
+        t('CHOOSE_CARDS_TO_CHANGE'),
+        true,
+        false,
+        t('CONTINUE')
+      );
+    }
   };
 
   const handleSelectedCards = (selected) => {
