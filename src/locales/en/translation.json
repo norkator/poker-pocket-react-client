@@ -47,5 +47,7 @@
   "LOSE_COUNT": "Lose count",
   "HELLO": "Hello",
   "INSUFFICIENT_FUNDS": "Leaving table because you have no money",
-  "ALREADY_THROWN_CHIPS": "You have already thrown chips in... raising..."
+  "ALREADY_THROWN_CHIPS": "You have already thrown chips in... raising...",
+  "GIVE_YOUR_PP_USER_PASS_HINT": "Give your Poker Pocket account username and password.",
+  "LOGGING_IN": "Logging in..."
 }
