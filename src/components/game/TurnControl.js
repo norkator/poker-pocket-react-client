@@ -86,6 +86,9 @@ const TurnControl = () => {
       case 'bot_raise':
         setRaise(aData.amount);
         break;
+      case 'bot_discard_and_draw':
+        discardSelectedCards(aData.cards);
+        break;
       case 'remove_bot':
         toast.warn(t('INSUFFICIENT_FUNDS'));
         leaveTable();
@@ -106,6 +109,20 @@ const TurnControl = () => {
       socket.send(data);
     }
   }
+
+  const discardSelectedCards = (selected) => {
+    console.log(`Auto play selected cards to discard ${selected}`);
+    if (socket) {
+      const data = JSON.stringify({
+        key: 'discardAndDraw',
+        tableId: tableId,
+        cardsToDiscard: selected,
+      });
+      socket.send(data);
+    } else {
+      toast.error('Invalid socket');
+    }
+  };
 
   function setFold() {
     if (socket) {
