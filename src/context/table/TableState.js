@@ -87,6 +87,10 @@ const TableState = ({ children }) => {
     };
   }, []);
 
+  const refreshSeats = () => {
+    setSeats({ data: seats.data });
+  };
+
   const cardSetDelayMillis = 300;
 
   function regRoomHandler(socket) {
@@ -636,6 +640,7 @@ const TableState = ({ children }) => {
         setCtrl,
         seats,
         setSeats,
+        refreshSeats,
       }}
     >
       {children}
