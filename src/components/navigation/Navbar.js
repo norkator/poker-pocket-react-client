@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import NavButton from '@/components/buttons/NavButton';
 import contentContext from '@/context/content/contentContext';
 import modalContext from '@/context/modal/modalContext';
@@ -25,6 +25,14 @@ const Navbar = () => {
   const socketCtx = useContext(socketContext);
   const authCtx = useContext(authContext);
   const tableCtx = useContext(tableContext);
+
+  const { tableId, setTableId } = tableCtx;
+
+  const tableIdRef = useRef(tableId);
+
+  useEffect(() => {
+    tableIdRef.current = tableId;
+  }, [tableId, setTableId]);
 
   const [enableSounds, setEnableSounds] = useState(true);
 
@@ -82,7 +90,21 @@ const Navbar = () => {
     setIsTogglerShow(!isTogglerShow);
   };
 
+  function leaveTable() {
+    if (socket) {
+      console.info('Leave table called from navbar');
+      const data = JSON.stringify({
+        key: 'leaveTable',
+        tableId: tableId,
+      });
+      socket.send(data);
+    }
+  }
+
   const navigateGames = () => {
+    if (tableIdRef.current > 0) {
+      leaveTable();
+    }
     navigate('/games');
   };
 

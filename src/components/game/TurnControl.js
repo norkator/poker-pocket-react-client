@@ -242,7 +242,6 @@ const TurnControl = () => {
         className="card"
         style={{ backgroundColor: '#434343', width: '100%', marginTop: '-20px' }}
       >
-        {/* {console.log('RE-RENDER TurnControl', hero)} */}
         <div className="container" style={{ width: '100%', padding: '10px', marginLeft: '10%' }}>
           <div className="row" style={{ width: '100%' }}>
             <div className="col">
