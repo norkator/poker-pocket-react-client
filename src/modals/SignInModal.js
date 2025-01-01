@@ -8,11 +8,14 @@ const SignInView = ({ closeModal, userLogin, setState, forgotPasswordBtn }) => {
     lg_username: '',
     lg_password: '',
   });
-  const [tipMsg, setTipMsg] = useState('Give your Poker Pocket account username and password.');
+  const [tipMsg, setTipMsg] = useState(t('GIVE_YOUR_PP_USER_PASS_HINT'));
 
-  const form_submit = () => {
-    setTipMsg('Logging in...');
-    userLogin(inputData.lg_username, inputData.lg_password);
+  const form_submit = (event) => {
+    event.preventDefault();
+    if (inputData.lg_username && inputData.lg_password) {
+      setTipMsg(t('LOGGING_IN'));
+      userLogin(inputData.lg_username, inputData.lg_password);
+    }
   };
 
   const forgotPassword = (event) => {
@@ -41,7 +44,6 @@ const SignInView = ({ closeModal, userLogin, setState, forgotPasswordBtn }) => {
         </div>
         <div className="modal-body">
           <div id="div-forms1">
-            {/* <!-- Begin # Login Form --> */}
             <form id="login-form" onSubmit={form_submit}>
               <div style={{ marginLeft: '2px' }}>
                 <span>{tipMsg}</span>
@@ -76,12 +78,17 @@ const SignInView = ({ closeModal, userLogin, setState, forgotPasswordBtn }) => {
                   })
                 }
               />
+              <button type="submit" className="d-none" aria-hidden="true"></button>{' '}
             </form>
           </div>
         </div>
         <div className="modal-footer">
           <div>
-            <button className="btn btn-primary btn-md btn-block" onClick={form_submit}>
+            <button
+              className="btn btn-primary btn-md btn-block"
+              onClick={form_submit}
+              disabled={!inputData.lg_username || !inputData.lg_password}
+            >
               {t('LOGIN')}
             </button>
           </div>
