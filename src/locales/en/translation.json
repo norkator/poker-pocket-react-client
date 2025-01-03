@@ -49,5 +49,11 @@
   "INSUFFICIENT_FUNDS": "Leaving table because you have no money",
   "ALREADY_THROWN_CHIPS": "You have already thrown chips in... raising...",
   "GIVE_YOUR_PP_USER_PASS_HINT": "Give your Poker Pocket account username and password.",
-  "LOGGING_IN": "Logging in..."
+  "LOGGING_IN": "Logging in...",
+  "AVERAGE_MONEY": "Average Money",
+  "AVERAGE_WIN_COUNT": "Average Win Count",
+  "AVERAGE_LOSE_COUNT": "Average Lose Count",
+  "NO_STATISTICS": "No statistics...",
+  "DAYS": "Days",
+  "VALUES": "Values"
 }

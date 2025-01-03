@@ -5,6 +5,7 @@ import contentContext from '@/context/content/contentContext';
 import StatCard from '@/components/StatCard';
 import authContext from '@/context/auth/authContext';
 import { formatMoney } from '@/utils/Money';
+import StatsChart from '@/components/StatsChart';
 
 const MyAccount = () => {
   const { t } = useContext(contentContext);
@@ -48,25 +49,28 @@ const MyAccount = () => {
           >{`👋 ${t('HELLO')}, ${userStats.username}`}</h2>
         </div>
         <div className="d-flex flex-wrap gap-2 justify-content-start">
-          <StatCard width={'15rem'} number={`${formatMoney(userStats.money)}$`} text={t('MONEY')} />
+          <StatCard
+            width={'16.5rem'}
+            number={`${formatMoney(userStats.money)}$`}
+            text={t('MONEY')}
+          />
           <StatCard width={'12rem'} number={userStats.xp} text={t('XP')} />
           <StatCard width={'10rem'} number={userStats.winCount} text={t('WIN_COUNT')} />
           <StatCard width={'10rem'} number={userStats.loseCount} text={t('LOSE_COUNT')} />
         </div>
       </div>
 
-      {/*
       <div
         className="card"
         style={{
           width: '100%',
           marginTop: '10px',
           padding: '10px',
+          color: 'white',
         }}
       >
-        Hello world
+        <StatsChart userStats={userStats.dailyAverageStats}></StatsChart>
       </div>
-      */}
     </div>
   );
 };
