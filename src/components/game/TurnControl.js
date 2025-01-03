@@ -47,11 +47,11 @@ const TurnControl = () => {
     }
   }, [autoCheck, checkBtnClick, heroTurn]);
 
-  const autoPlayCommandRequested = useRef(null);
+  // const autoPlayCommandRequested = useRef(null);
 
   useEffect(() => {
     const hero = heroTurn.data;
-    if (autoPlay && hero && hero.isPlayerTurn && !autoPlayCommandRequested.current) {
+    if (autoPlay && hero && hero.isPlayerTurn) {
       getAutoPlayAction();
     }
   }, [autoPlay, getAutoPlayAction, heroTurn]);
@@ -59,7 +59,7 @@ const TurnControl = () => {
   // If autoplay enabled, request action via this function
   function getAutoPlayAction() {
     if (socket) {
-      autoPlayCommandRequested.current = true;
+      // autoPlayCommandRequested.current = true;
       const data = JSON.stringify({
         key: 'autoPlayAction',
       });
@@ -72,6 +72,8 @@ const TurnControl = () => {
     // console.log(JSON.stringify(aData));
     // example {"action":"bot_call","amount":0}
     console.log('AutoPlay action: ' + aData.action);
+
+    // autoPlayCommandRequested.current = false; // reset always
 
     switch (aData.action) {
       case 'bot_fold':
@@ -97,7 +99,6 @@ const TurnControl = () => {
         setCheck();
         break;
     }
-    autoPlayCommandRequested.current = false; // reset always
   }
 
   function leaveTable() {
