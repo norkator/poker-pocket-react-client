@@ -117,7 +117,7 @@ const SettingsBar = () => {
           <div style={{ color: '#FFFFFF' }}>Graphics Raphael Ciribelly</div>
         </footer>
       </div>
-      <StyledItem className="col">
+      <StyledItem className="col col-auto">
         <SwitchButton
           id="tableColor"
           label={t('PURPLE_TABLE')}
@@ -127,7 +127,7 @@ const SettingsBar = () => {
           onChange={changeTableColor}
         />
       </StyledItem>
-      <StyledItem className="col">
+      <StyledItem className="col col-auto">
         <SwitchButton
           id="blackCards"
           label={t('BLACK_CARDS')}
@@ -137,7 +137,7 @@ const SettingsBar = () => {
           onChange={changeBlackCards}
         />
       </StyledItem>
-      <StyledItem className="col">
+      <StyledItem className="col col-auto">
         <SwitchButton
           id="autoCheck"
           label={t('AUTO_CHECK')}
@@ -147,7 +147,7 @@ const SettingsBar = () => {
           onChange={changeAutoCheck}
         />
       </StyledItem>
-      <StyledItem className="col">
+      <StyledItem className="col col-auto">
         <SwitchButton
           id="autoPlay"
           label={t('AUTO_PLAY')}
@@ -157,7 +157,7 @@ const SettingsBar = () => {
           onChange={changeAutoPlay}
         />
       </StyledItem>
-      <StyledItem className="col">
+      <StyledItem className="col col-auto">
         <SwitchButton
           id="connection"
           label={t('CONNECTION')}
