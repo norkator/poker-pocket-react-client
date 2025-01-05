@@ -4,7 +4,7 @@ import SettingsBar from '@/components/game/SettingsBar';
 const Footer = () => {
   return (
     // <!-- Copyright & badge -->
-    <div className="container" style={{ minWidth: '850px' }}>
+    <div className="container">
       <SettingsBar />
     </div>
   );

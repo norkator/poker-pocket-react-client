@@ -9,8 +9,6 @@ body {
 .poker-table {
     margin-top: 15px;
     padding: 5px;
-    height: 450px;
-    width: 100%;
     background-image: url('../public/assets/images/poker_table_green.png');
     background-repeat: no-repeat;
     background-size: 100%;
