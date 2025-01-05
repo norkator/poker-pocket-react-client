@@ -102,11 +102,17 @@ const HoldemSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) =
     <div className={styles.root}>
       <div id={'S-' + seat.id} className={`SeatFrame ${className}`}>
         {actionView}
-        <div className="container" style={{ width: '200px' }}>
+        <div className="container" style={{ width: '100%' }}>
           {cardsView}
         </div>
-        <div className="container" style={{ width: '200px', marginTop: '-20px' }}>
-          <div id="CardView" className={`card ${seat.cardAnimation ? 'card-animation' : ''}`}>
+        <div className="container" style={{ width: '100%', marginTop: '-20px' }}>
+          <div
+            id="CardView"
+            className={`card ${seat.cardAnimation ? 'card-animation' : ''}`}
+            style={{
+              maxWidth: '176px',
+            }}
+          >
             <div id="Name" className="seatTexts">
               {seat.seatName}
             </div>
