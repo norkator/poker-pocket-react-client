@@ -110,7 +110,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
+      <nav className="navbar navbar-expand navbar-dark bg-dark custom-navbar">
         <a className="navbar-brand ms-2" href="https://pokerpocket.nitramite.com/">
           <img
             src="./assets/images/logo.png"
