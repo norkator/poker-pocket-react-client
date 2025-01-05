@@ -61,10 +61,9 @@ const MyAccount = () => {
       </div>
 
       <div
-        className="card"
+        className="card mt-2 mb-4"
         style={{
           width: '100%',
-          marginTop: '10px',
           padding: '10px',
           color: 'white',
         }}

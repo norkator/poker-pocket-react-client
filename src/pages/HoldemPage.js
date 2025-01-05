@@ -34,7 +34,7 @@ const ToggleButton = styled.button`
 `;
 
 const HoldemPage = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
 
   const toggleChat = () => {

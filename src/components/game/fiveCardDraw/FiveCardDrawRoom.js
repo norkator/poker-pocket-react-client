@@ -11,7 +11,6 @@ const FiveCardDrawRoom = () => {
       {(showOverlay) => (
         <>
           <RoomStatus />
-          {/* <!-- Poker table --> */}
           <FiveCardDrawTable>
             <div style={{ marginTop: '15px', marginLeft: '20px' }}>
               <BoardCards />
