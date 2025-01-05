@@ -33,7 +33,7 @@ body {
 .cardOne {
     width: 50px;
     height: 70px;
-    margin-left: 30%;
+    margin-left: 20%;
     background-image: url('../public/assets/images/card_top_red.png');
     background-repeat: no-repeat;
     background-size: 90%;
@@ -42,7 +42,7 @@ body {
 .cardTwo {
     width: 50px;
     height: 70px;
-    margin-left: 2px;
+    margin-left: -2%;
     background-image: url('../public/assets/images/card_top_red.png');
     background-repeat: no-repeat;
     background-size: 90%;
