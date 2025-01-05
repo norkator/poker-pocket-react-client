@@ -179,7 +179,7 @@ const Games = () => {
 
       <FAQCard></FAQCard>
 
-      <div className="card shadow-sm mt-4">
+      <div className="card shadow-sm mt-4 mb-4">
         <div className="card-header text-white">
           <h5 className="card-title mb-0">Report an Issue</h5>
         </div>

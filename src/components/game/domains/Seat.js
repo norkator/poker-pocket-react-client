@@ -107,7 +107,11 @@ Seat.prototype.setShowCards = function (bool) {
 };
 
 Seat.prototype.setName = function (name) {
-  this.seatName = name;
+  if (typeof name === 'string' && name.length > 0) {
+    this.seatName = name.charAt(0).toUpperCase() + name.slice(1);
+  } else {
+    this.seatName = name;
+  }
 };
 
 Seat.prototype.setMoney = function (money) {

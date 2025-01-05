@@ -18,7 +18,7 @@ const FAQCard = () => {
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseOne"
-                aria-expanded="true"
+                aria-expanded="false"
                 aria-controls="collapseOne"
                 style={{
                   backgroundColor: '#2E2E3A',
@@ -30,7 +30,7 @@ const FAQCard = () => {
             </h2>
             <div
               id="collapseOne"
-              className="accordion-collapse collapse show"
+              className="accordion-collapse collapse"
               aria-labelledby="headingOne"
               data-bs-parent="#faqAccordion"
               style={{ backgroundColor: '#212529', color: 'white' }}
