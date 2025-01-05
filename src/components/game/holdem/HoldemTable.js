@@ -9,7 +9,7 @@ const HoldemTable = ({ children }) => {
   return (
     <div id="pokerTable" className="poker-table">
       {/* <!-- Top layout --> */}
-      <div className="row" style={{ height: '140px' }}>
+      <div className="row tableRow">
         <div className="col">
           {/* <!-- Seat layout --> */}
           {current[2] && current[2].seatFrame ? (
@@ -32,7 +32,7 @@ const HoldemTable = ({ children }) => {
       </div>
 
       {/* <!-- Middle layout --> */}
-      <div className="row" style={{ height: '140px' }}>
+      <div className="row tableRow">
         <div className="col">
           {/* <!-- Seat layout --> */}
           {current[1] && current[1].seatFrame ? (
@@ -58,7 +58,7 @@ const HoldemTable = ({ children }) => {
       </div>
 
       {/* <!-- Bottom layout --> */}
-      <div className="row" style={{ height: '140px' }}>
+      <div className="row tableRow">
         <div className="col">
           {current[0] && current[0].seatFrame ? (
             <HoldemSeatSlot pos="s1" className="float-right" seat={current[0]} betRight />

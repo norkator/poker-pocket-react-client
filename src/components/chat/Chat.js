@@ -6,9 +6,7 @@ import { toast } from 'react-toastify';
 import tableContext from '@/context/table/tableContext';
 
 const ChatContainer = styled.div`
-  height: 100%;
   flex-direction: column;
-  min-height: 650px;
   max-width: 310px;
   transition: transform 0.3s ease;
 
@@ -16,8 +14,8 @@ const ChatContainer = styled.div`
     position: fixed;
     top: 0;
     right: 0;
-    // max-height: 100vh;
-    // transform: ${({ isVisible }) => (isVisible ? 'translateX(0)' : 'translateX(100%)')};
+    margin-right: 5px;
+    margin-top: 5px;
     max-height: 650px;
     background-color: #434343;
     z-index: 999;
@@ -26,7 +24,6 @@ const ChatContainer = styled.div`
   @media (min-width: 1200px) {
     transform: translateX(0);
     position: static;
-    max-height: unset;
   }
 `;
 
@@ -161,15 +158,7 @@ const Chat = ({ isVisible }) => {
 
   return (
     <ChatContainer className="ms-2" isVisible={isVisible}>
-      <div
-        className="card text-white"
-        style={{
-          backgroundColor: '#434343',
-          minHeight: '650px',
-          maxHeight: '650px',
-          maxWidth: '310px',
-        }}
-      >
+      <div className="card text-white chatSize">
         <div className="card-body" style={{ padding: 0, overflowY: 'auto' }}>
           <MessageWrapper>
             <MessageList>

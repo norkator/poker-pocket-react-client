@@ -34,7 +34,7 @@ const ToggleButton = styled.button`
 `;
 
 const HoldemPage = () => {
-  const [isChatOpen, setIsChatOpen] = useState(true);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
 
   const toggleChat = () => {
@@ -46,6 +46,8 @@ const HoldemPage = () => {
       setIsMobile(window.innerWidth < 1200);
       if (window.innerWidth >= 1200) {
         setIsChatOpen(true);
+      } else {
+        setIsChatOpen(false);
       }
     };
 

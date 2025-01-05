@@ -486,3 +486,27 @@ body {
         transform: scale(0.9);
     }
 }
+
+.chatSize {
+    background-color: #434343;
+    min-height: 650px;
+    max-height: 650px;
+    max-width: 310px;
+
+    @media (max-width: 1200px) {
+        min-height: 80vh;
+        max-height: 80vh;
+    }
+}
+
+.tableRow {
+    height: 140px;
+
+    @media (max-width: 990px) {
+        height: 120px;
+    }
+
+    @media (max-width: 768px) {
+        height: 80px;
+    }
+}
