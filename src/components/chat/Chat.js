@@ -9,6 +9,25 @@ const ChatContainer = styled.div`
   height: 100%;
   flex-direction: column;
   min-height: 650px;
+  max-width: 310px;
+  transition: transform 0.3s ease;
+
+  @media (max-width: 1200px) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    // max-height: 100vh;
+    // transform: ${({ isVisible }) => (isVisible ? 'translateX(0)' : 'translateX(100%)')};
+    max-height: 650px;
+    background-color: #434343;
+    z-index: 999;
+  }
+
+  @media (min-width: 1200px) {
+    transform: translateX(0);
+    position: static;
+    max-height: unset;
+  }
 `;
 
 const MessageList = styled.div`
@@ -51,7 +70,7 @@ const MessageBubble = styled.div`
   }
 `;
 
-const Chat = () => {
+const Chat = ({ isVisible }) => {
   const { t } = useContext(contentContext);
   const { socket, socketConnected } = useContext(socketContext);
   const [messages, setMessages] = useState([]);
@@ -141,7 +160,7 @@ const Chat = () => {
   };
 
   return (
-    <ChatContainer className="ms-2">
+    <ChatContainer className="ms-2" isVisible={isVisible}>
       <div
         className="card text-white"
         style={{
