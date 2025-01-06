@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import socketContext from '@/context/websocket/socketContext';
 import contentContext from '@/context/content/contentContext';
 import StatCard from '@/components/StatCard';
-import { toast } from 'react-toastify';
+import GameIcon from '@/components/GameIcon';
+import { formatMoney } from '@/utils/Money';
 
 const Rankings = () => {
   const { t } = useContext(contentContext);
@@ -31,12 +32,9 @@ const Rankings = () => {
   }
 
   function getRankingsResult(jsonData) {
-    const responseCode = jsonData.code;
-    const rData = jsonData.data;
-    if (Number(responseCode) === 200) {
+    const rData = jsonData.data.ranks;
+    if (rData.length > 0) {
       setRankingData(rData);
-    } else {
-      toast.error('Unspecified error while retrieving rankings');
     }
   }
 
@@ -45,50 +43,24 @@ const Rankings = () => {
   }
 
   const RankingView = useMemo(() => {
-    if (!rankingData) {
-      return null;
-    }
+    if (!rankingData) return null;
 
-    return rankingData.map((rData) => {
+    return rankingData.map((rank, index) => {
+      const { username, xp, money, win_count, lose_count } = rank;
       return (
-        <button key={rData.name} className="list-group-item list-group-item-action">
-          <div className="d-flex flex-row">
-            <div className="p-2" style={{ marginLeft: '-10px' }}>
-              <img
-                src={loadMedalImage(rData.icon)}
-                alt=""
-                style={{ width: '25px', height: '50px' }}
-              />
+        <tr key={username}>
+          <td>{index + 1}</td>
+          <td>
+            <div className="d-flex align-items-center">
+              <GameIcon game="Game" />
+              {t(username)}
             </div>
-            <div className="p-2" style={{ marginLeft: '-10px', width: '150px' }}>
-              <div className="grid" style={{ marginLeft: '30px' }}>
-                <div className="row">
-                  <b>{rData.name}</b>
-                </div>
-                <div className="row">
-                  <label>{rData.xp + ' xp'}</label>
-                </div>
-              </div>
-            </div>
-            <div className="p-2">
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-8">
-                    <h6>
-                      Wins
-                      <span className="badge badge-secondary">{rData.win_count}</span>
-                    </h6>
-                  </div>
-                  <div className="col-md-8">
-                    <h6>
-                      Losses <span className="badge badge-secondary">{rData.lose_count}</span>
-                    </h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </button>
+          </td>
+          <td>{xp} XP</td>
+          <td>{`${formatMoney(money)}$`}</td>
+          <td>{win_count}</td>
+          <td>{lose_count}</td>
+        </tr>
       );
     });
   }, [rankingData]);
@@ -117,9 +89,30 @@ const Rankings = () => {
           color: 'white',
         }}
       >
-        <ul id="rankingListGroup" className="list-group" style={{ marginTop: '10px' }}>
-          {RankingView}
-        </ul>
+        <table
+          className="table table-dark table-striped"
+          style={{ marginBottom: 0, backgroundColor: '#434343' }}
+        >
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">{t('RANK')}</th>
+              <th scope="col">{t('USERNAME')}</th>
+              <th scope="col">XP</th>
+              <th scope="col">{t('MONEY')}</th>
+              <th scope="col">{t('WIN_COUNT')}</th>
+              <th scope="col">{t('LOSE_COUNT')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {RankingView || (
+              <tr>
+                <td colSpan="6" style={{ textAlign: 'center' }}>
+                  {t('LOADING')}
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
