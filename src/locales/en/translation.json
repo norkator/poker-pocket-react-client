@@ -55,5 +55,7 @@
   "AVERAGE_LOSE_COUNT": "Average Lose Count",
   "NO_STATISTICS": "No statistics...",
   "DAYS": "Days",
-  "VALUES": "Values"
+  "VALUES": "Values",
+  "USERNAME": "Username",
+  "RANK": "Rank"
 }
