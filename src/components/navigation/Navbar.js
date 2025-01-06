@@ -141,6 +141,7 @@ const Navbar = () => {
             <NavButton onClick={toggleSounds}>
               {enableSounds ? t('SOUNDS_DISABLE') : t('SOUNDS_ENABLE')}
             </NavButton>
+            <NavButton onClick={() => openRankingsModal()}>{t('RANKINGS')}</NavButton>
             {isAuthed ? (
               <NavButton onClick={() => navigate('/account')}>{t('MY_ACCOUNT')}</NavButton>
             ) : (
