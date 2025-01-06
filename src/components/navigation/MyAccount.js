@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import socketContext from '@/context/websocket/socketContext';
 import contentContext from '@/context/content/contentContext';
@@ -6,6 +6,8 @@ import StatCard from '@/components/StatCard';
 import authContext from '@/context/auth/authContext';
 import { formatMoney } from '@/utils/Money';
 import StatsChart from '@/components/StatsChart';
+import GameIcon from '@/components/GameIcon';
+import NavButton from '@/components/buttons/NavButton';
 
 const MyAccount = () => {
   const { t } = useContext(contentContext);
@@ -23,6 +25,7 @@ const MyAccount = () => {
     achievements: [],
   };
   const [userStats, setUserStats] = useState(initUserStats);
+  const [myGamesData, setMyGamesData] = useState(null);
 
   useEffect(() => {
     if (myDashboardData) {
@@ -36,6 +39,40 @@ const MyAccount = () => {
     const stats = data.userStats;
     setUserStats(stats);
   }
+
+  function removeTable(tableId) {
+    console.info('remove table ' + tableId);
+  }
+
+  const MyGamesTableRows = useMemo(() => {
+    if (!myGamesData) return null;
+
+    return myGamesData.map((table) => {
+      const { game, tableId, tableName, password, botCount } = table;
+      return (
+        <tr key={tableId}>
+          <th scope="row">{tableId}</th>
+          <td>
+            <div className="d-flex align-items-center">
+              <GameIcon game={game} />
+              {t(game)}
+            </div>
+          </td>
+          <td>{tableName}</td>
+          <td>{password}</td>
+          <td>{botCount}</td>
+          <td>
+            <button
+              className="btn btn-sm btn-outline-danger me-2"
+              onClick={() => removeTable(tableId)}
+            >
+              {t('REMOVE')}
+            </button>
+          </td>
+        </tr>
+      );
+    });
+  }, [myGamesData]);
 
   return (
     <div className="container" style={{ maxWidth: '850px' }}>
@@ -61,7 +98,7 @@ const MyAccount = () => {
       </div>
 
       <div
-        className="card mt-2 mb-4"
+        className="card mt-2"
         style={{
           width: '100%',
           padding: '10px',
@@ -69,6 +106,56 @@ const MyAccount = () => {
         }}
       >
         <StatsChart userStats={userStats.dailyAverageStats}></StatsChart>
+      </div>
+
+      <div
+        className="card mt-4 mb-4"
+        style={{
+          width: '100%',
+          padding: '10px',
+        }}
+      >
+        <div>
+          <h4
+            style={{
+              color: 'white',
+            }}
+          >{`🎮 ${t('MY_GAMES')}`}</h4>
+        </div>
+        <div
+          style={{
+            fontSize: '13px',
+            color: 'white',
+            marginBottom: '1rem',
+          }}
+        >
+          {t('MY_GAMES_INFO')}
+        </div>
+        <table
+          className="table table-dark table-striped"
+          style={{ marginBottom: 0, backgroundColor: '#434343' }}
+        >
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">{t('GAME')}</th>
+              <th scope="col">{t('TABLE_NAME')}</th>
+              <th scope="col">{t('PASSWORD')}</th>
+              <th scope="col">{t('BOT_COUNT')}</th>
+              <th scope="col">{t('ACTION')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {MyGamesTableRows || (
+              <tr>
+                <td colSpan="6" style={{ textAlign: 'center' }}>
+                  {t('LOADING')}
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+        <button className="btn btn-sm btn-outline-light mt-2">{t('CREATE_TABLE')}</button>
       </div>
     </div>
   );
