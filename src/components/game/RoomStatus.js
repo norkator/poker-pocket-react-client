@@ -23,32 +23,32 @@ const RoomStatus = () => {
             <div className="container">
               <div className="row">
                 <div className="col-sm">
-                  <div id="tableName" style={{ color: '#FFFFFF', fontSize: '14px' }}>
+                  <div id="tableName" className="roomStatusText">
                     {current.getTableName()}
                   </div>
                 </div>
                 <div className="col-sm">
-                  <div id="minBet" style={{ color: '#FFFFFF', fontSize: '12px' }}>
+                  <div id="minBet" className="roomStatusText">
                     {current.getMinBet()}
                   </div>
                 </div>
                 <div className="col-sm">
-                  <div id="spectatorsCount" style={{ color: '#FFFFFF', fontSize: '12px' }}>
+                  <div id="spectatorsCount" className="roomStatusText">
                     {current.getRoomSpectatorCount()}
                   </div>
                 </div>
                 <div className="col-sm">
-                  <div id="waitingPlayersCount" style={{ color: '#FFFFFF', fontSize: '12px' }}>
+                  <div id="waitingPlayersCount" className="roomStatusText">
                     {current.getRoomWaitingPlayersCount()}
                   </div>
                 </div>
                 <div className="col-sm">
-                  <div id="deckStatus" style={{ color: '#FFFFFF', fontSize: '12px' }}>
+                  <div id="deckStatus" className="roomStatusText">
                     {current.getRoomDeckStatus()}
                   </div>
                 </div>
                 <div className="col-sm">
-                  <div id="deckCardsBurned" style={{ color: '#FFFFFF', fontSize: '12px' }}>
+                  <div id="deckCardsBurned" className="roomStatusText">
                     {current.getRoomDeckBurnedCount()}
                   </div>
                 </div>
@@ -59,20 +59,14 @@ const RoomStatus = () => {
             <div className="container">
               <div className="row">
                 <div className="col-sm-auto">
-                  <div
-                    id="roomStatusText"
-                    style={{ color: 'white', fontSize: '12px', textAlign: 'left' }}
-                  >
+                  <div id="roomStatusText" className="roomStatusText" style={{ textAlign: 'left' }}>
                     <span style={{ marginRight: '30px' }}>
                       ♣ Table status: {current.getRoomStatusText()}
                     </span>
                   </div>
                 </div>
                 <div className="col-sm-auto">
-                  <div
-                    id="roomTurnText"
-                    style={{ color: 'white', fontSize: '12px', textAlign: 'left' }}
-                  >
+                  <div id="roomTurnText" className="roomStatusText" style={{ textAlign: 'left' }}>
                     <span style={{ marginRight: '30px' }}>
                       ♠ Turn: {current.getRoomTurnText()}
                     </span>

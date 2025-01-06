@@ -17,7 +17,7 @@ const AppRoute = ({ component: Component, layout: Layout, ...rest }) => {
 const BaseRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<AppRoute component={HoldemPage} layout={MainLayout} />} />
+      <Route path="/" element={<AppRoute component={GamesPage} layout={MainLayout} />} />
       <Route path="/games" element={<AppRoute component={GamesPage} layout={MainLayout} />} />
       <Route path="/holdem" element={<AppRoute component={HoldemPage} layout={MainLayout} />} />
       <Route

@@ -12,6 +12,10 @@ body {
     background-image: url('../public/assets/images/poker_table_green.png');
     background-repeat: no-repeat;
     background-size: 100%;
+
+    @media (max-width: 768px) {
+        margin-bottom: 20px;
+    }
 }
 
 .pokerCard {
@@ -37,6 +41,11 @@ body {
     background-image: url('../public/assets/images/card_top_red.png');
     background-repeat: no-repeat;
     background-size: 90%;
+
+    @media (max-width: 990px) {
+        width: 40px;
+        height: 60px;
+    }
 }
 
 .cardTwo {
@@ -46,6 +55,11 @@ body {
     background-image: url('../public/assets/images/card_top_red.png');
     background-repeat: no-repeat;
     background-size: 90%;
+
+    @media (max-width: 990px) {
+        width: 40px;
+        height: 60px;
+    }
 }
 
 .middleCard {
@@ -54,6 +68,11 @@ body {
     background-image: url('../public/assets/images/card_top_red.png');
     background-repeat: no-repeat;
     background-size: 90%;
+
+    @media (max-width: 768px) {
+        width: 30px;
+        height: 50px;
+    }
 }
 
 .card {
@@ -63,6 +82,10 @@ body {
 .seatTexts {
     text-align: center;
     color: #FFFFFF;
+
+    @media (max-width: 990px) {
+        font-size: 10px;
+    }
 }
 
 .lastActionTexts {
@@ -81,6 +104,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
 }
 
 .minBetText {
@@ -88,6 +115,11 @@ body {
     color: #FFFFFF;
     font-size: 12px;
     margin-top: -10px;
+
+    @media (max-width: 990px) {
+        font-size: 10px;
+    }
+
 }
 
 .chipIcon {
@@ -99,6 +131,11 @@ body {
     background-position: center;
     margin-right: 5px;
     margin-left: -10px;
+
+    @media (max-width: 990px) {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 .spectateIcon {
@@ -140,10 +177,15 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     z-index: 2;
-
     position: absolute;
     top: 30px;
     left: 130px;
+
+    @media (max-width: 990px) {
+        width: 30px;
+        height: 30px;
+        left: 120px;
+    }
 }
 
 .playBadge {
@@ -508,5 +550,14 @@ body {
 
     @media (max-width: 768px) {
         height: 80px;
+    }
+}
+
+.roomStatusText {
+    color: #FFFFFF;
+    font-size: 12px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
     }
 }
