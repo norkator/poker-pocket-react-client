@@ -28,7 +28,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "11.0.2",
     "socket.io": "4.8.1",
-    "styled-components": "6.1.13"
+    "styled-components": "6.1.14"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "6.6.3",
