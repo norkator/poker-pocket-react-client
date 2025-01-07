@@ -71,6 +71,11 @@ const TableState = ({ children }) => {
     autoPlayRef.current = autoPlay;
   }, [autoPlay, setAutoPlay]);
 
+  const autoCheckRef = useRef(autoCheck);
+  useEffect(() => {
+    autoCheckRef.current = autoCheck;
+  }, [autoCheck, setAutoCheck]);
+
   const playerIdRef = useRef(-1);
 
   useEffect(() => {
@@ -566,7 +571,7 @@ const TableState = ({ children }) => {
   const discardAndDraw = (ddData) => {
     const cards = ddData.cards;
     const timeLeft = Number(ddData.timeLeft);
-    if (!autoPlayRef.current) {
+    if (!autoPlayRef.current && !autoCheckRef.current) {
       openModal(
         () => (
           <FCDPickCardsModal
