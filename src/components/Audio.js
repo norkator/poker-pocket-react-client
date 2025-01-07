@@ -30,6 +30,7 @@ export const playCardSlideSix = new Howl({
 
 export const playCardTakeOutFromPackageOne = new Howl({
   src: [audioDir + 'card_take_out_from_package_one.wav'],
+  volume: 0.4,
 });
 
 export const playCollectChipsToPot = new Howl({
