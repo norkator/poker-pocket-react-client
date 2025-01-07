@@ -99,6 +99,36 @@ const FAQCard = () => {
               </div>
             </div>
           </div>
+          <div className="accordion-item" style={{ backgroundColor: '#454d55', color: '#fff' }}>
+            <h2 className="accordion-header" id="headingFour">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFour"
+                aria-expanded="false"
+                aria-controls="collapseFour"
+                style={{
+                  backgroundColor: '#2E2E3A',
+                  color: '#fff',
+                }}
+              >
+                🕹️ How can I create my own table?
+              </button>
+            </h2>
+            <div
+              id="collapseFour"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingFour"
+              data-bs-parent="#faqAccordion"
+              style={{ backgroundColor: '#212529', color: 'white' }}
+            >
+              <div className="accordion-body">
+                🕹️ You need to create account first or if you already have, then login and go my
+                account page. There you find option to create tables.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
