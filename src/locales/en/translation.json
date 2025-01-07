@@ -34,6 +34,7 @@
   "TOTAL_PLAYERS": "Total players",
   "HOLDEM": "Hold 'em",
   "FIVE_CARD_DRAW": "Five card draw",
+  "BOTTLE_SPIN": "Bottle spin",
   "USERNAME_PASSWORD_REQUIRED": "Username and password are required!",
   "INVALID_USERNAME_OR_PASSWORD": "Invalid username or password!",
   "ACCOUNT_CREATED": "Account successfully created, you can now login",
@@ -63,5 +64,7 @@
   "PASSWORD":  "Password",
   "BOT_COUNT": "Bot count",
   "MY_GAMES_INFO": "Here you can create your own game tables. Add join password protection or leave empty for no password.",
-  "CREATE_TABLE": "Create table"
+  "CREATE_TABLE": "Create table",
+  "GAME_TYPE": "Game type",
+  "SELECT_GAME_TYPE": "Select game type"
 }

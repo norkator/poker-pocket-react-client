@@ -8,6 +8,9 @@ import { formatMoney } from '@/utils/Money';
 import StatsChart from '@/components/StatsChart';
 import GameIcon from '@/components/GameIcon';
 import NavButton from '@/components/buttons/NavButton';
+import SelectTableModal from '@/modals/SelectTableModal';
+import modalContext from '@/context/modal/modalContext';
+import CreateTableModal from '@/modals/CreateTableModal';
 
 const MyAccount = () => {
   const { t } = useContext(contentContext);
@@ -15,6 +18,7 @@ const MyAccount = () => {
   const { socket, socketConnected } = useContext(socketContext);
   const navigate = useNavigate();
   const { myDashboardData } = useContext(authContext);
+  const { openView, openModal, closeModal } = useContext(modalContext);
 
   const initUserStats = {
     username: '',
@@ -43,6 +47,18 @@ const MyAccount = () => {
   function removeTable(tableId) {
     console.info('remove table ' + tableId);
   }
+
+  const openCreateTableModal = () => {
+    if (socket) {
+      openModal(
+        () => <CreateTableModal context={{ socketCtx }} closeModal={closeModal} />,
+        t('CREATE_TABLE'),
+        true,
+        true,
+        t('CLOSE')
+      );
+    }
+  };
 
   const MyGamesTableRows = useMemo(() => {
     if (!myGamesData) return null;
@@ -155,7 +171,12 @@ const MyAccount = () => {
             )}
           </tbody>
         </table>
-        <button className="btn btn-sm btn-outline-light mt-2">{t('CREATE_TABLE')}</button>
+        <button
+          className="btn btn-sm btn-outline-light mt-2"
+          onClick={() => openCreateTableModal()}
+        >
+          {t('CREATE_TABLE')}
+        </button>
       </div>
     </div>
   );
