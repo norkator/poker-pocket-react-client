@@ -144,10 +144,14 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
       <Input
         id="tableName"
         type="text"
-        placeholder="Enter table name"
+        placeholder="Enter table name (max 20 characters)"
         value={tableName}
+        maxLength={20}
         onChange={(e) => setTableName(e.target.value)}
       />
+      <small style={{ color: '#555', display: 'block', marginTop: '-8px', marginBottom: '10px' }}>
+        {t('Table name must be 20 characters or fewer.')}
+      </small>
 
       <Label htmlFor="botCount">Bot Count</Label>
       <Select id="botCount" value={botCount} onChange={(e) => setBotCount(Number(e.target.value))}>
@@ -196,7 +200,7 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
         id="discardAndDrawTimeout"
         type="number"
         value={discardAndDrawTimeout}
-        disabled={gameType !== 'someSpecificGame'}
+        disabled={gameType !== 'FIVE_CARD_DRAW'}
         onChange={(e) => setDiscardAndDrawTimeout(Number(e.target.value))}
       />
 
