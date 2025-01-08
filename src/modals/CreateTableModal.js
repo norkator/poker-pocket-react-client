@@ -64,7 +64,7 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
       if (tableId) {
         socket.send(
           JSON.stringify({
-            key: 'getTable',
+            key: 'getUserTable',
             tableId,
           })
         );
@@ -73,8 +73,8 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
   }, [socket, tableId]);
 
   const regSocketMessageHandler = (socket) => {
-    socket.handle('getTable', (jsonData) => tableData(jsonData.data));
-    socket.handle('createUpdateTable', (jsonData) => createUpdateTableResult(jsonData.data));
+    socket.handle('getUserTable', (jsonData) => tableData(jsonData.data));
+    socket.handle('createUpdateUserTable', (jsonData) => createUpdateTableResult(jsonData.data));
   };
 
   function tableData(data) {
@@ -102,7 +102,7 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
   function createUpdateTable(tableData) {
     if (socket) {
       const data = JSON.stringify({
-        key: 'createUpdateTable',
+        key: 'createUpdateUserTable',
         tableData,
       });
       socket.send(data);
