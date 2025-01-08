@@ -45,11 +45,12 @@ const Button = styled.button`
   }
 `;
 
-const CreateTableModal = ({ tableId, context, closeModal }) => {
+const CreateTableModal = ({ existingTableId, context, closeModal }) => {
   const { socketCtx } = context;
   const { socket, playerId } = socketCtx;
   const { t } = useContext(contentContext);
 
+  const [tableId, setTableId] = useState(-1);
   const [gameType, setGameType] = useState('');
   const [tableName, setTableName] = useState('');
   const [botCount, setBotCount] = useState(0);
@@ -62,16 +63,19 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
   useEffect(() => {
     if (socket) {
       regSocketMessageHandler(socket);
-      if (tableId) {
+      if (existingTableId > 0) {
+        setTableId(existingTableId);
+        const token = localStorage.getItem(LS_TOKEN);
         socket.send(
           JSON.stringify({
             key: 'getUserTable',
-            tableId,
+            token,
+            tableId: existingTableId,
           })
         );
       }
     }
-  }, [socket, tableId]);
+  }, [socket, existingTableId]);
 
   const regSocketMessageHandler = (socket) => {
     socket.handle('getUserTable', (jsonData) => tableData(jsonData.data));
@@ -80,15 +84,17 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
   };
 
   function tableData(data) {
-    if (data) {
-      setGameType(data.gameType || '');
-      setTableName(data.tableName || '');
-      setBotCount(data.botCount || 0);
-      setPassword(data.password || '');
-      setTurnCountdown(data.turnCountdown || 20);
-      setMinBet(data.minBet || 10);
-      setAfterRoundCountdown(data.afterRoundCountdown || 10);
-      setDiscardAndDrawTimeout(data.discardAndDrawTimeout || 20);
+    const table = data.table;
+    if (table) {
+      setTableId(table.id);
+      setGameType(table.game || '');
+      setTableName(table.tableName || '');
+      setBotCount(table.botCount || 0);
+      setPassword(table.password || '');
+      setTurnCountdown(table.turnCountdown || 20);
+      setMinBet(table.minBet || 10);
+      setAfterRoundCountdown(table.afterRoundCountdown || 10);
+      setDiscardAndDrawTimeout(table.discardAndDrawTimeout || 20);
     }
   }
 
@@ -209,7 +215,7 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
       />
 
       <Button className="mt-2" onClick={handleCreateTable} disabled={!isFormValid}>
-        {t('CREATE_TABLE')}
+        {existingTableId > 0 ? t('UPDATE_TABLE') : t('CREATE_TABLE')}
       </Button>
     </>
   );

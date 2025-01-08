@@ -7,10 +7,10 @@ import authContext from '@/context/auth/authContext';
 import { formatMoney } from '@/utils/Money';
 import StatsChart from '@/components/StatsChart';
 import GameIcon from '@/components/GameIcon';
-import NavButton from '@/components/buttons/NavButton';
-import SelectTableModal from '@/modals/SelectTableModal';
 import modalContext from '@/context/modal/modalContext';
 import CreateTableModal from '@/modals/CreateTableModal';
+import { LS_TOKEN } from '@/context/auth/AuthState';
+import { toast } from 'react-toastify';
 
 const MyAccount = () => {
   const { t } = useContext(contentContext);
@@ -19,6 +19,17 @@ const MyAccount = () => {
   const navigate = useNavigate();
   const { myDashboardData } = useContext(authContext);
   const { openView, openModal, closeModal } = useContext(modalContext);
+
+  useEffect(() => {
+    if (socket) {
+      regSocketMessageHandler(socket);
+      getUserTables();
+    }
+  }, [socket]);
+
+  const regSocketMessageHandler = (socket) => {
+    socket.handle('getUserTables', (jsonData) => getUserTablesDataResult(jsonData.data));
+  };
 
   const initUserStats = {
     username: '',
@@ -29,7 +40,7 @@ const MyAccount = () => {
     achievements: [],
   };
   const [userStats, setUserStats] = useState(initUserStats);
-  const [myGamesData, setMyGamesData] = useState(null);
+  const [userTables, setUserTables] = useState(null);
 
   useEffect(() => {
     if (myDashboardData) {
@@ -46,12 +57,41 @@ const MyAccount = () => {
 
   function removeTable(tableId) {
     console.info('remove table ' + tableId);
+    toast.warn('🙈 Removing user tables is not implemented yet', {
+      autoClose: 5 * 1000,
+      theme: 'dark',
+    });
   }
 
-  const openCreateTableModal = () => {
+  function getUserTables() {
+    const token = localStorage.getItem(LS_TOKEN);
+    socket.send(
+      JSON.stringify({
+        key: 'getUserTables',
+        token: token,
+      })
+    );
+  }
+
+  function getUserTablesDataResult(data) {
+    if (data.success) {
+      setUserTables(data.tables);
+    }
+  }
+
+  const openCreateTableModal = (existingTableId = -1) => {
     if (socket) {
       openModal(
-        () => <CreateTableModal context={{ socketCtx }} closeModal={closeModal} />,
+        () => (
+          <CreateTableModal
+            context={{ socketCtx }}
+            closeModal={() => {
+              getUserTables();
+              closeModal();
+            }}
+            existingTableId={existingTableId}
+          />
+        ),
         t('CREATE_TABLE'),
         true,
         true,
@@ -61,13 +101,13 @@ const MyAccount = () => {
   };
 
   const MyGamesTableRows = useMemo(() => {
-    if (!myGamesData) return null;
+    if (!userTables) return null;
 
-    return myGamesData.map((table) => {
-      const { game, tableId, tableName, password, botCount } = table;
+    return userTables.map((table) => {
+      const { game, id, tableName, password, botCount } = table;
       return (
-        <tr key={tableId}>
-          <th scope="row">{tableId}</th>
+        <tr key={id}>
+          <th scope="row">{id}</th>
           <td>
             <div className="d-flex align-items-center">
               <GameIcon game={game} />
@@ -79,16 +119,19 @@ const MyAccount = () => {
           <td>{botCount}</td>
           <td>
             <button
-              className="btn btn-sm btn-outline-danger me-2"
-              onClick={() => removeTable(tableId)}
+              className="btn btn-sm btn-outline-info me-2"
+              onClick={() => openCreateTableModal(id)}
             >
+              {t('EDIT')}
+            </button>
+            <button className="btn btn-sm btn-outline-danger me-2" onClick={() => removeTable(id)}>
               {t('REMOVE')}
             </button>
           </td>
         </tr>
       );
     });
-  }, [myGamesData]);
+  }, [userTables]);
 
   return (
     <div className="container" style={{ maxWidth: '850px' }}>
@@ -173,7 +216,7 @@ const MyAccount = () => {
         </table>
         <button
           className="btn btn-sm btn-outline-light mt-2"
-          onClick={() => openCreateTableModal()}
+          onClick={() => openCreateTableModal(-1)}
         >
           {t('CREATE_TABLE')}
         </button>
