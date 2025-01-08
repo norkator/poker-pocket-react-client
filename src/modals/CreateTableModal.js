@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import contentContext from '@/context/content/contentContext';
@@ -33,6 +33,7 @@ const Button = styled.button`
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
+
   &:hover {
     background-color: #0056b3;
   }
@@ -52,10 +53,30 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
   const [afterRoundCountdown, setAfterRoundCountdown] = useState(10);
   const [discardAndDrawTimeout, setDiscardAndDrawTimeout] = useState(20);
 
+  const regSocketMessageHandler = (socket) => {
+    socket.handle('getTables', (jsonData) => tablesData(jsonData.data));
+
+    socket.handle('createUpdateTable', (jsonData) => createUpdateTableResult(jsonData.data));
+  };
+
+  useEffect(() => {
+    if (socket) {
+      regSocketMessageHandler(socket);
+    }
+  }, [socket]);
+
+  function tablesData(tablesData) {
+    console.log(tablesData);
+  }
+
+  function createUpdateTableResult(tableData) {
+    console.log(tableData);
+  }
+
   function createUpdateTable(tableData) {
     if (socket) {
       const data = JSON.stringify({
-        key: 'createTable',
+        key: 'createUpdateTable',
         tableData: tableData,
       });
       socket.send(data);
