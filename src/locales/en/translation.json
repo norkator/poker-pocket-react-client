@@ -65,6 +65,8 @@
   "BOT_COUNT": "Bot count",
   "MY_GAMES_INFO": "Here you can create your own game tables. Add join password protection or leave empty for no password.",
   "CREATE_TABLE": "Create table",
+  "UPDATE_TABLE": "Update table",
   "GAME_TYPE": "Game type",
-  "SELECT_GAME_TYPE": "Select game type"
+  "SELECT_GAME_TYPE": "Select game type",
+  "EDIT": "Edit"
 }
