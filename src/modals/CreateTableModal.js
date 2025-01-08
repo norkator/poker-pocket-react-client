@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import contentContext from '@/context/content/contentContext';
+import { LS_TOKEN } from '@/context/auth/AuthState';
 
 const Label = styled.label`
   font-weight: bold;
@@ -74,6 +75,7 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
 
   const regSocketMessageHandler = (socket) => {
     socket.handle('getUserTable', (jsonData) => tableData(jsonData.data));
+
     socket.handle('createUpdateUserTable', (jsonData) => createUpdateTableResult(jsonData.data));
   };
 
@@ -100,9 +102,11 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
   }
 
   function createUpdateTable(tableData) {
-    if (socket) {
+    const token = localStorage.getItem(LS_TOKEN);
+    if (socket && token) {
       const data = JSON.stringify({
         key: 'createUpdateUserTable',
+        token: token,
         tableData,
       });
       socket.send(data);
@@ -116,7 +120,7 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
     }
     const tableData = {
       id: tableId,
-      gameType,
+      game: gameType,
       tableName,
       botCount,
       password,
