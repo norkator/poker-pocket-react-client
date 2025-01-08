@@ -37,6 +37,11 @@ const Button = styled.button`
   &:hover {
     background-color: #0056b3;
   }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
 `;
 
 const CreateTableModal = ({ tableId, context, closeModal }) => {
@@ -53,35 +58,54 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
   const [afterRoundCountdown, setAfterRoundCountdown] = useState(10);
   const [discardAndDrawTimeout, setDiscardAndDrawTimeout] = useState(20);
 
-  const regSocketMessageHandler = (socket) => {
-    socket.handle('getTables', (jsonData) => tablesData(jsonData.data));
-
-    socket.handle('createUpdateTable', (jsonData) => createUpdateTableResult(jsonData.data));
-  };
-
   useEffect(() => {
     if (socket) {
       regSocketMessageHandler(socket);
+      if (tableId) {
+        socket.send(
+          JSON.stringify({
+            key: 'getTable',
+            tableId,
+          })
+        );
+      }
     }
-  }, [socket]);
+  }, [socket, tableId]);
 
-  function tablesData(tablesData) {
-    console.log(tablesData);
+  const regSocketMessageHandler = (socket) => {
+    socket.handle('getTable', (jsonData) => tableData(jsonData.data));
+    socket.handle('createUpdateTable', (jsonData) => createUpdateTableResult(jsonData.data));
+  };
+
+  function tableData(data) {
+    if (data) {
+      setGameType(data.gameType || '');
+      setTableName(data.tableName || '');
+      setBotCount(data.botCount || 0);
+      setPassword(data.password || '');
+      setTurnCountdown(data.turnCountdown || 20);
+      setMinBet(data.minBet || 10);
+      setAfterRoundCountdown(data.afterRoundCountdown || 10);
+      setDiscardAndDrawTimeout(data.discardAndDrawTimeout || 20);
+    }
   }
 
-  function createUpdateTableResult(tableData) {
-    console.log(tableData);
+  function createUpdateTableResult(data) {
+    if (data.success) {
+      toast.success('Table created/updated successfully!');
+      closeModal();
+    } else {
+      toast.error(data.message || 'Failed to create/update table.');
+    }
   }
 
   function createUpdateTable(tableData) {
     if (socket) {
       const data = JSON.stringify({
         key: 'createUpdateTable',
-        tableData: tableData,
+        tableData,
       });
       socket.send(data);
-      toast.success('Table created successfully!');
-      closeModal();
     }
   }
 
@@ -103,6 +127,8 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
     };
     createUpdateTable(tableData);
   };
+
+  const isFormValid = gameType && tableName;
 
   return (
     <>
@@ -174,7 +200,7 @@ const CreateTableModal = ({ tableId, context, closeModal }) => {
         onChange={(e) => setDiscardAndDrawTimeout(Number(e.target.value))}
       />
 
-      <Button className="mt-2" onClick={handleCreateTable}>
+      <Button className="mt-2" onClick={handleCreateTable} disabled={!isFormValid}>
         {t('CREATE_TABLE')}
       </Button>
     </>
