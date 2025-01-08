@@ -160,7 +160,7 @@ const CreateTableModal = ({ existingTableId, context, closeModal }) => {
         onChange={(e) => setTableName(e.target.value)}
       />
       <small style={{ color: '#555', display: 'block', marginTop: '-8px', marginBottom: '10px' }}>
-        {t('Table name must be 20 characters or fewer.')}
+        {t('Table name can be max 20 characters long.')}
       </small>
 
       <Label htmlFor="botCount">Bot Count</Label>
