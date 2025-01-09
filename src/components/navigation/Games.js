@@ -12,9 +12,8 @@ import FAQCard from '@/components/FAQCard';
 const Games = () => {
   const { t } = useContext(contentContext);
   const socketCtx = useContext(socketContext);
-  const tableCtx = useContext(tableContext);
   const { socket, socketConnected } = useContext(socketContext);
-  const { tableId, setTableId } = tableCtx;
+  const { tableId, setTableId } = useContext(tableContext);
 
   const navigate = useNavigate();
 

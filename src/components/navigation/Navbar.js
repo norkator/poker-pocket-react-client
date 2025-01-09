@@ -25,7 +25,7 @@ const Navbar = () => {
   const authCtx = useContext(authContext);
   const tableCtx = useContext(tableContext);
 
-  const { tableId, setTableId } = tableCtx;
+  const { tableId, setTableId } = useContext(tableContext);
 
   const tableIdRef = useRef(tableId);
 
@@ -98,9 +98,10 @@ const Navbar = () => {
   }
 
   const navigateGames = () => {
-    if (tableIdRef.current > 0) {
+    if (tableIdRef.current > -1) {
       leaveTable();
     }
+    setTableId(-1);
     navigate('/games');
   };
 
