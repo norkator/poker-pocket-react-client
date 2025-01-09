@@ -6,6 +6,7 @@ import GamesPage from '@/pages/GamesPage';
 import FiveCardDrawPage from '@/pages/FiveCardDrawPage';
 import MyAccountPage from '@/pages/MyAccountPage';
 import RankingsPage from '@/pages/RankingsPage';
+import BottleSpinPage from '@/pages/BottleSpinPage';
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => {
   return (
@@ -27,6 +28,10 @@ const BaseRouter = () => {
       />
       <Route path="/account" element={<AppRoute component={MyAccountPage} layout={MainLayout} />} />
       <Route path="/rankings" element={<AppRoute component={RankingsPage} layout={MainLayout} />} />
+      <Route
+        path="/bottlespin"
+        element={<AppRoute component={BottleSpinPage} layout={MainLayout} />}
+      />
     </Routes>
   );
 };

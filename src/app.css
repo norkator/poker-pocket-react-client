@@ -561,3 +561,36 @@ body {
         font-size: 10px;
     }
 }
+
+
+.bottleSpinTable {
+    margin-top: 10px;
+    padding: 5px;
+    background-image: url('../public/assets/images/round_table_green.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    max-width: 500px;
+    height: 490px;
+}
+
+.bottleSpinTableRow {
+    height: 180px;
+}
+
+.spinnerChipView {
+    width: 40px;
+    height: 40px;
+    background-image: url('../public/assets/images/logo_circle.png');
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: -10px;
+    left: 0;
+
+    @media (max-width: 990px) {
+        width: 30px;
+        height: 30px;
+        left: 120px;
+    }
+}
