@@ -143,12 +143,24 @@ const CreateTableModal = ({ existingTableId, context, closeModal }) => {
   return (
     <>
       <Label htmlFor="gameType">{t('GAME_TYPE')}</Label>
-      <Select id="gameType" value={gameType} onChange={(e) => setGameType(e.target.value)}>
+      <Select
+        id="gameType"
+        value={gameType}
+        onChange={(e) => setGameType(e.target.value)}
+        disabled={existingTableId > 0}
+      >
         <option value="">{t('SELECT_GAME_TYPE')}</option>
         <option value="HOLDEM">{t('HOLDEM')}</option>
         <option value="FIVE_CARD_DRAW">{t('FIVE_CARD_DRAW')}</option>
         <option value="BOTTLE_SPIN">{t('BOTTLE_SPIN')}</option>
       </Select>
+      {existingTableId > 0 ? (
+        <small style={{ color: '#555', display: 'block', marginTop: '-8px', marginBottom: '10px' }}>
+          {'Game type cannot be changed'}
+        </small>
+      ) : (
+        ''
+      )}
 
       <Label htmlFor="tableName">{t('TABLE_NAME')}</Label>
       <Input
@@ -160,17 +172,29 @@ const CreateTableModal = ({ existingTableId, context, closeModal }) => {
         onChange={(e) => setTableName(e.target.value)}
       />
       <small style={{ color: '#555', display: 'block', marginTop: '-8px', marginBottom: '10px' }}>
-        {t('Table name can be max 20 characters long.')}
+        {'Table name can be max 20 characters long.'}
       </small>
 
       <Label htmlFor="botCount">Bot Count</Label>
-      <Select id="botCount" value={botCount} onChange={(e) => setBotCount(Number(e.target.value))}>
+      <Select
+        id="botCount"
+        value={botCount}
+        onChange={(e) => setBotCount(Number(e.target.value))}
+        disabled={existingTableId > 0}
+      >
         {[...Array(7).keys()].map((count) => (
           <option key={count} value={count}>
             {count}
           </option>
         ))}
       </Select>
+      {existingTableId > 0 ? (
+        <small style={{ color: '#555', display: 'block', marginTop: '-8px', marginBottom: '10px' }}>
+          {'Bot count cannot be changed (not supported atm)'}
+        </small>
+      ) : (
+        ''
+      )}
 
       <Label htmlFor="password">Password</Label>
       <Input
