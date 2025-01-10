@@ -11,6 +11,7 @@ import FAQCard from '@/components/FAQCard';
 import { toast } from 'react-toastify';
 import modalContext from '@/context/modal/modalContext';
 import TablePasswordModal from '@/modals/TablePasswordModal';
+import PublicChat from '@/components/chat/PublicChat';
 
 const Games = () => {
   const { t } = useContext(contentContext);
@@ -23,6 +24,7 @@ const Games = () => {
 
   const [tablesData, setTablesData] = useState(null);
   const [statistics, setStatistics] = useState(null);
+  const [isChatVisible, setIsChatVisible] = useState(false);
 
   const getTables = (socket) => {
     if (socket) {
@@ -144,6 +146,10 @@ const Games = () => {
     }
   };
 
+  const toggleChatVisibility = () => {
+    setIsChatVisible(!isChatVisible);
+  };
+
   // Memoized table rows
   const TableRows = useMemo(() => {
     if (!tablesData) return null;
@@ -258,6 +264,26 @@ const Games = () => {
           </a>
         </div>
       </div>
+
+      <PublicChat isVisible={isChatVisible} toggleVisibility={toggleChatVisibility} />
+      <button
+        onClick={() => toggleChatVisibility()}
+        style={{
+          position: 'fixed',
+          right: '10px',
+          bottom: '10px',
+          backgroundColor: '#23272b',
+          color: 'white',
+          border: 'none',
+          borderRadius: '50%',
+          padding: '15px',
+          fontSize: '15px',
+          cursor: 'pointer',
+          zIndex: 9999,
+        }}
+      >
+        💬
+      </button>
     </div>
   );
 };
