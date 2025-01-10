@@ -9,9 +9,12 @@ import StatCard from '@/components/StatCard';
 import GameIcon from '@/components/GameIcon';
 import FAQCard from '@/components/FAQCard';
 import { toast } from 'react-toastify';
+import modalContext from '@/context/modal/modalContext';
+import TablePasswordModal from '@/modals/TablePasswordModal';
 
 const Games = () => {
   const { t } = useContext(contentContext);
+  const { openView, openModal, closeModal } = useContext(modalContext);
   const socketCtx = useContext(socketContext);
   const { socket, socketConnected } = useContext(socketContext);
   const { tableId, setTableId } = useContext(tableContext);
@@ -54,7 +57,12 @@ const Games = () => {
 
   const beforeSelectTable = (tableId, passwordProtected) => {
     if (passwordProtected) {
-      /* */
+      openView(() => (
+        <TablePasswordModal
+          closeModal={closeModal}
+          onProceed={(password) => console.log(password)}
+        />
+      ));
     } else {
       selectTable(tableId, '');
     }

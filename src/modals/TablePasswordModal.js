@@ -1,61 +1,59 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import contentContext from '@/context/content/contentContext';
 
-const TablePasswordModal = ({ context, closeModal }) => {
+const TablePasswordModal = ({ closeModal, onProceed }) => {
   const { t } = useContext(contentContext);
+  const [password, setPassword] = useState('');
+
+  const handleProceed = () => {
+    onProceed(password);
+    closeModal();
+  };
 
   return (
-    <div
-      className="modal modal-dialog"
-      style={{
-        display: 'flex',
-      }}
-      role="document"
-    >
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title">{t('TABLE_PASSWORD')}</h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={closeModal}
-          ></button>
-        </div>
-        <div className="modal-body">
-          <div id="div-forms1">
-            <form id="login-form" onSubmit={form_submit}>
-              <div style={{ marginLeft: '2px' }}>
-                <span>{tipMsg}</span>
-              </div>
+    <div>
+      <div
+        className="modal modal-dialog"
+        style={{
+          display: 'flex',
+        }}
+        role="document"
+      >
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">{t('TABLE_PASSWORD')}</h5>
+            <button
+              type="button"
+              className="btn-close"
+              aria-label="Close"
+              onClick={closeModal}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                handleProceed();
+              }}
+            >
               <input
                 id="table_password"
                 className="form-control"
                 type="password"
-                placeholder="Table password"
+                placeholder={t('TABLE_PASSWORD')}
                 required
-                style={{ marginTop: '5px' }}
-                value={inputData.lg_password}
-                onChange={(event) =>
-                  setInputData({
-                    ...inputData,
-                    lg_password: event.currentTarget.value,
-                  })
-                }
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
               />
-              <button type="submit" className="d-none" aria-hidden="true"></button>{' '}
             </form>
           </div>
-        </div>
-        <div className="modal-footer">
-          <div>
+          <div className="modal-footer">
             <button
               className="btn btn-primary btn-md btn-block"
-              onClick={form_submit}
-              disabled={!inputData.lg_username || !inputData.lg_password}
+              onClick={handleProceed}
+              disabled={!password}
             >
-              {t('LOGIN')}
+              {t('CONTINUE')}
             </button>
           </div>
         </div>
