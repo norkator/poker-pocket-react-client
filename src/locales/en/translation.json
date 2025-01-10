@@ -70,5 +70,6 @@
   "SELECT_GAME_TYPE": "Select game type",
   "EDIT": "Edit",
   "YES": "Yes",
-  "INVALID_TABLE_PASSWORD": "Invalid table password!"
+  "INVALID_TABLE_PASSWORD": "Invalid table password!",
+  "TABLE_PASSWORD": "Table password"
 }

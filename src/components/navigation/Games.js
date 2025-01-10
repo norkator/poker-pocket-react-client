@@ -52,11 +52,19 @@ const Games = () => {
     setStatistics(data.stats);
   };
 
-  const selectTable = (table_id, password) => {
+  const beforeSelectTable = (tableId, passwordProtected) => {
+    if (passwordProtected) {
+      /* */
+    } else {
+      selectTable(tableId, '');
+    }
+  };
+
+  const selectTable = (tableId, password) => {
     if (socket) {
       const data = JSON.stringify({
         key: 'selectTable',
-        tableId: table_id,
+        tableId: tableId,
         password: password,
       });
       socket.send(data);
@@ -77,11 +85,19 @@ const Games = () => {
     handleNavigation(data.game);
   };
 
-  const selectSpectateTable = (table_id, password) => {
+  const beforeSelectSpectateTable = (tableId, passwordProtected) => {
+    if (passwordProtected) {
+      /* */
+    } else {
+      selectSpectateTable(tableId, '');
+    }
+  };
+
+  const selectSpectateTable = (tableId, password) => {
     if (socket) {
       const data = JSON.stringify({
         key: 'selectSpectateTable',
-        tableId: table_id,
+        tableId: tableId,
         password: password,
       });
       socket.send(data);
@@ -147,11 +163,11 @@ const Games = () => {
           <td>
             <button
               className="btn btn-sm btn-primary me-2"
-              onClick={() => selectTable(tableId, game)}
+              onClick={() => beforeSelectTable(tableId, passwordProtected)}
             >
               {t('JOIN')}
             </button>
-            <NavButton onClick={() => selectSpectateTable(tableId, game)}>
+            <NavButton onClick={() => beforeSelectSpectateTable(tableId, passwordProtected)}>
               {t('SPECTATE')}
             </NavButton>
           </td>
