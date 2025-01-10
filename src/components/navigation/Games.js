@@ -60,7 +60,7 @@ const Games = () => {
       openView(() => (
         <TablePasswordModal
           closeModal={closeModal}
-          onProceed={(password) => console.log(password)}
+          onProceed={(password) => selectTable(tableId, password)}
         />
       ));
     } else {
@@ -95,7 +95,12 @@ const Games = () => {
 
   const beforeSelectSpectateTable = (tableId, passwordProtected) => {
     if (passwordProtected) {
-      /* */
+      openView(() => (
+        <TablePasswordModal
+          closeModal={closeModal}
+          onProceed={(password) => selectSpectateTable(tableId, password)}
+        />
+      ));
     } else {
       selectSpectateTable(tableId, '');
     }
