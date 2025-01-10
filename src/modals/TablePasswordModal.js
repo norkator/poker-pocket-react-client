@@ -1,9 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import contentContext from '@/context/content/contentContext';
 
 const TablePasswordModal = ({ closeModal, onProceed }) => {
   const { t } = useContext(contentContext);
   const [password, setPassword] = useState('');
+  const passwordInputRef = useRef(null);
+
+  useEffect(() => {
+    if (passwordInputRef.current) {
+      passwordInputRef.current.focus();
+    }
+  }, []);
 
   const handleProceed = () => {
     onProceed(password);
@@ -44,6 +51,7 @@ const TablePasswordModal = ({ closeModal, onProceed }) => {
                 required
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
+                ref={passwordInputRef}
               />
             </form>
           </div>
