@@ -3,7 +3,6 @@ import NavButton from '@/components/buttons/NavButton';
 import contentContext from '@/context/content/contentContext';
 import modalContext from '@/context/modal/modalContext';
 import SelectTableModal from '@/modals/SelectTableModal';
-import UserDashboardModal from '@/modals/UserDashboardModal';
 import SignInOnModal from '@/modals/SignInOnModal';
 import socketContext from '@/context/websocket/socketContext';
 import authContext from '@/context/auth/authContext';
@@ -65,9 +64,6 @@ const Navbar = () => {
       );
     }
   };
-
-  const openUserModal = () =>
-    openView(() => <UserDashboardModal context={{ socketCtx, authCtx }} closeModal={closeModal} />);
 
   const openSignInModaView = () => {
     openView(() => (
