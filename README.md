@@ -35,6 +35,19 @@ Contributors
 * [linus2code](https://github.com/linus2code) created this React version.
 * React version is based on this old jquery version https://github.com/norkator/poker-pocket-web-client
 
+Graphics and sounds
+============
+
+### Raphael Ciribelly
+* Designed and created all card, table, logo and chip images.
+
+### Kenney Assets
+* All medal images.
+* Currently all sounds.
+
+Kenney asset packs: https://kenney.nl/assets
+
+
 License
 ============
 MIT
