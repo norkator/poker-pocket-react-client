@@ -8,6 +8,7 @@ import NavButton from '@/components/buttons/NavButton';
 import StatCard from '@/components/StatCard';
 import GameIcon from '@/components/GameIcon';
 import FAQCard from '@/components/FAQCard';
+import { toast } from 'react-toastify';
 
 const Games = () => {
   const { t } = useContext(contentContext);
@@ -33,6 +34,15 @@ const Games = () => {
   useEffect(() => {
     if (socket && socketConnected) {
       socket.handle('getTables', (jsonData) => parseData(jsonData.data));
+
+      socket.handle('invalidTablePassword', (jsonData) =>
+        invalidTablePasswordResult(jsonData.data)
+      );
+
+      socket.handle('selectTable', (jsonData) => selectTableResult(jsonData.data));
+
+      socket.handle('selectSpectateTable', (jsonData) => selectSpectateTableResult(jsonData.data));
+
       getTables(socket);
     }
   }, [socket, socketConnected]);
@@ -42,40 +52,50 @@ const Games = () => {
     setStatistics(data.stats);
   };
 
-  const selectTable = (table_id, game) => {
+  const selectTable = (table_id, password) => {
     if (socket) {
       const data = JSON.stringify({
         key: 'selectTable',
         tableId: table_id,
+        password: password,
       });
       socket.send(data);
-
-      const data2 = JSON.stringify({
-        key: 'getTableParams',
-        tableId: table_id,
-      });
-      socket.send(data2);
-      setTableId(table_id);
-      handleNavigation(game);
     }
   };
 
-  const selectSpectateTable = (table_id, game) => {
+  const invalidTablePasswordResult = (data) => {
+    toast.error(t(data.translationKey));
+  };
+
+  const selectTableResult = (data) => {
+    const data2 = JSON.stringify({
+      key: 'getTableParams',
+      tableId: data.tableId,
+    });
+    socket.send(data2);
+    setTableId(data.tableId);
+    handleNavigation(data.game);
+  };
+
+  const selectSpectateTable = (table_id, password) => {
     if (socket) {
       const data = JSON.stringify({
         key: 'selectSpectateTable',
         tableId: table_id,
+        password: password,
       });
       socket.send(data);
-
-      const data2 = JSON.stringify({
-        key: 'getTableParams',
-        tableId: table_id,
-      });
-      socket.send(data2);
-      setTableId(table_id);
-      handleNavigation(game);
     }
+  };
+
+  const selectSpectateTableResult = (data) => {
+    const data2 = JSON.stringify({
+      key: 'getTableParams',
+      tableId: data.tableId,
+    });
+    socket.send(data2);
+    setTableId(data.tableId);
+    handleNavigation(data.game);
   };
 
   const handleNavigation = (game) => {
@@ -85,6 +105,9 @@ const Games = () => {
         break;
       case 'FIVE_CARD_DRAW':
         navigate('/fivecarddraw');
+        break;
+      case 'BOTTLE_SPIN':
+        navigate('/bottlespin');
         break;
       default:
         navigate('/games');
@@ -97,7 +120,15 @@ const Games = () => {
     if (!tablesData) return null;
 
     return tablesData.map((table) => {
-      const { game, tableId, tableName, playerCount, maxSeats, tableMinBet = 10 } = table;
+      const {
+        game,
+        tableId,
+        tableName,
+        playerCount,
+        maxSeats,
+        tableMinBet = 10,
+        passwordProtected,
+      } = table;
       return (
         <tr key={tableId}>
           <th scope="row">{tableId}</th>
@@ -112,6 +143,7 @@ const Games = () => {
             {playerCount}/{maxSeats}
           </td>
           <td>{formatMoney(tableMinBet)}$</td>
+          <td>{passwordProtected ? t('YES') : ''}</td>
           <td>
             <button
               className="btn btn-sm btn-primary me-2"
@@ -161,6 +193,7 @@ const Games = () => {
               <th scope="col">{t('TABLE_NAME')}</th>
               <th scope="col">{t('PLAYERS')}</th>
               <th scope="col">{t('MIN_BET')}</th>
+              <th scope="col">{t('PASSWORD')}</th>
               <th scope="col">{t('ACTION')}</th>
             </tr>
           </thead>

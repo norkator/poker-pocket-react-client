@@ -68,5 +68,7 @@
   "UPDATE_TABLE": "Update table",
   "GAME_TYPE": "Game type",
   "SELECT_GAME_TYPE": "Select game type",
-  "EDIT": "Edit"
+  "EDIT": "Edit",
+  "YES": "Yes",
+  "INVALID_TABLE_PASSWORD": "Invalid table password!"
 }
