@@ -154,17 +154,11 @@ const Navbar = () => {
           ) : null}
           <div className="d-flex mt-1 my-md-0 me-2">
             {!isAuthed ? (
-              <button
-                id="nav_bar_login_btn"
-                className="btn btn-outline-light"
-                onClick={() => openSignInModaView()}
-              >
-                {t('LOGIN')}
-              </button>
+              <NavButton onClick={() => openSignInModaView()}>{t('LOGIN')}</NavButton>
             ) : (
               <button
                 id="login_logout_btn"
-                className="btn btn-outline-success"
+                className="btn btn-sm align-middle btn-outline-success"
                 type="button"
                 onClick={() => logoutClick()}
               >
