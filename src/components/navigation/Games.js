@@ -12,6 +12,25 @@ import { toast } from 'react-toastify';
 import modalContext from '@/context/modal/modalContext';
 import TablePasswordModal from '@/modals/TablePasswordModal';
 import PublicChat from '@/components/chat/PublicChat';
+import styled from 'styled-components';
+
+const ChatButton = styled.button`
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  background-color: #23272b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 9999;
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
 
 const Games = () => {
   const { t } = useContext(contentContext);
@@ -208,7 +227,6 @@ const Games = () => {
       ) : (
         ''
       )}
-
       <div
         className="card"
         style={{
@@ -243,9 +261,7 @@ const Games = () => {
           </tbody>
         </table>
       </div>
-
       <FAQCard></FAQCard>
-
       <div className="card shadow-sm mt-4 mb-4">
         <div className="card-header text-white">
           <h5 className="card-title mb-0">Report an Issue</h5>
@@ -264,26 +280,8 @@ const Games = () => {
           </a>
         </div>
       </div>
-
       <PublicChat isVisible={isChatVisible} toggleVisibility={toggleChatVisibility} />
-      <button
-        onClick={() => toggleChatVisibility()}
-        style={{
-          position: 'fixed',
-          right: '10px',
-          bottom: '10px',
-          backgroundColor: '#23272b',
-          color: 'white',
-          border: 'none',
-          borderRadius: '50%',
-          padding: '15px',
-          fontSize: '15px',
-          cursor: 'pointer',
-          zIndex: 9999,
-        }}
-      >
-        💬
-      </button>
+      <ChatButton onClick={() => toggleChatVisibility()}>💬</ChatButton>;
     </div>
   );
 };

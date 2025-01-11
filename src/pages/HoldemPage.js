@@ -12,24 +12,19 @@ const StyledContainer = styled.div`
 
 const ToggleButton = styled.button`
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #434343;
+  right: 10px;
+  bottom: 10px;
+  background-color: #23272b;
   color: white;
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  padding: 15px;
+  font-size: 15px;
   cursor: pointer;
+  z-index: 9999;
 
-  @media (min-width: 1200px) {
-    display: none;
+  &:hover {
+    opacity: 0.9;
   }
 `;
 
@@ -63,7 +58,7 @@ const HoldemPage = () => {
           <Footer />
         </div>
         {isChatOpen && <Chat />}
-        {isMobile && <ToggleButton onClick={toggleChat}>{isChatOpen ? '×' : '➤'}</ToggleButton>}
+        {isMobile && <ToggleButton onClick={toggleChat}>💬</ToggleButton>}
       </StyledContainer>
     </>
   );
