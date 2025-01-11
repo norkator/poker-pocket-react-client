@@ -1,5 +1,9 @@
 body {
     background-color: #313131;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
 }
 
 .custom-navbar {
@@ -14,7 +18,7 @@ body {
     background-size: 100%;
 
     @media (max-width: 768px) {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 }
 
@@ -70,8 +74,8 @@ body {
     background-size: 90%;
 
     @media (max-width: 768px) {
-        width: 30px;
-        height: 50px;
+        width: 35px;
+        height: 55px;
     }
 }
 
@@ -417,6 +421,16 @@ body {
 /* ------------------------------------------- */
 /* Collect pot movement animation */
 
+:root {
+    --scale-factor: 1;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --scale-factor: 0.40;
+    }
+}
+
 @keyframes s1ChipsToPot {
     0% {
         transform-origin: 0 0;
@@ -424,7 +438,7 @@ body {
     }
     100% {
         transform-origin: 0 0;
-        transform: translate3D(80px, -120px, 0); /* X, Y, ? */
+        transform: translate3D(calc(80px * var(--scale-factor)), calc(-120px * var(--scale-factor)), 0); /* Scaled X, Y */
     }
 }
 
@@ -435,7 +449,7 @@ body {
     }
     100% {
         transform-origin: 0 0;
-        transform: translate3D(190px, 40px, 0); /* X, Y, ? */
+        transform: translate3D(calc(190px * var(--scale-factor)), calc(40px * var(--scale-factor)), 0); /* Scaled X, Y */
     }
 }
 
@@ -446,7 +460,7 @@ body {
     }
     100% {
         transform-origin: 0 0;
-        transform: translate3D(70px, 160px, 0); /* X, Y, ? */
+        transform: translate3D(calc(70px * var(--scale-factor)), calc(160px * var(--scale-factor)), 0); /* Scaled X, Y */
     }
 }
 
@@ -457,7 +471,7 @@ body {
     }
     100% {
         transform-origin: 0 0;
-        transform: translate3D(-60px, 160px, 0); /* X, Y, ? */
+        transform: translate3D(calc(-60px * var(--scale-factor)), calc(160px * var(--scale-factor)), 0); /* Scaled X, Y */
     }
 }
 
@@ -468,7 +482,7 @@ body {
     }
     100% {
         transform-origin: 0 0;
-        transform: translate3D(-190px, 40px, 0); /* X, Y, ? */
+        transform: translate3D(calc(-190px * var(--scale-factor)), calc(40px * var(--scale-factor)), 0); /* Scaled X, Y */
     }
 }
 
@@ -479,9 +493,10 @@ body {
     }
     100% {
         transform-origin: 0 0;
-        transform: translate3D(-60px, -120px, 0); /* X, Y, ? */
+        transform: translate3D(calc(-60px * var(--scale-factor)), calc(-120px * var(--scale-factor)), 0); /* Scaled X, Y */
     }
 }
+
 
 /* ------------------------------------------- */
 
@@ -558,7 +573,7 @@ body {
     font-size: 12px;
 
     @media (max-width: 768px) {
-        font-size: 10px;
+        font-size: 8px;
     }
 }
 
