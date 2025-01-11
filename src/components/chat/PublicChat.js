@@ -142,7 +142,7 @@ const PublicChat = ({ isVisible, toggleVisibility }) => {
   };
 
   return (
-    <ChatContainer isVisible={isVisible}>
+    <ChatContainer isVisible={isVisible} className="magicFast puffIn">
       <div className="card text-white">
         <div className="card-body" style={{ padding: 0 }}>
           <MessageWrapper>
