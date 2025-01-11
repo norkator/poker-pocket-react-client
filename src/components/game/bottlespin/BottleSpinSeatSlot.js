@@ -43,7 +43,13 @@ const BottleSpinSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight 
 
   return (
     <div className={styles.root}>
-      <div id={'S-' + seat.id} className={`SeatFrame ${className}`}>
+      <div
+        id={'S-' + seat.id}
+        className={`SeatFrame ${className}`}
+        style={{
+          width: '125px',
+        }}
+      >
         {actionView}
         <div className="container" style={{ width: '100%', marginTop: '20px' }}>
           <div id="CardView" className={`card ${seat.cardAnimation ? 'card-animation' : ''}`}>
