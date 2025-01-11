@@ -473,7 +473,9 @@ const TableState = ({ children }) => {
     board.middleCards[3] = tData.middleCards[3];
     board.middleCardsPuffIn[3] = true;
     setBoard({ data: { ...board } });
-    playCardSlideSix.play();
+    if (enableSoundsRef.current) {
+      playCardSlideSix.play();
+    }
   }
 
   function theRiver(rData) {
