@@ -1,11 +1,14 @@
+const isProduction = process.env.NODE_ENV === 'production';
+const isStaging = process.env.NODE_ENV === 'staging';
+const localIP = window.location.hostname;
+
 const config = {
-  isProduction: process.env.NODE_ENV === 'production',
-  socketURI:
-    process.env.NODE_ENV === 'production'
-      ? 'wss://pokerpocket.nitramite.com/api'
-      : process.env.NODE_ENV === 'staging'
-        ? 'wss://pokerpocket-staging.nitramite.com/api'
-        : 'ws://localhost:8000',
+  isProduction,
+  socketURI: isProduction
+    ? 'wss://pokerpocket.nitramite.com/api'
+    : isStaging
+      ? 'wss://pokerpocket-staging.nitramite.com/api'
+      : `ws://${localIP}:8000/api`,
 };
 
 export default config;
