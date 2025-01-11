@@ -62,6 +62,12 @@ const TableState = ({ children }) => {
     tableIdRef.current = tableId;
   }, [tableId, setTableId]);
 
+  const enableSoundsRef = useRef(enableSounds);
+
+  useEffect(() => {
+    enableSoundsRef.current = enableSounds;
+  }, [enableSounds, setEnableSounds]);
+
   useEffect(() => {
     setPlayers(null);
   }, [socketDisconnected]);
@@ -316,7 +322,7 @@ const TableState = ({ children }) => {
       }
       if (pIsFold) {
         if (!player.isFold) {
-          if (enableSounds) {
+          if (enableSoundsRef.current) {
             playCardFoldOne.play();
           }
           player.setPlayerFold();
@@ -336,7 +342,7 @@ const TableState = ({ children }) => {
     }
     if (sData.isResultsCall) {
       // showdown round
-      if (enableSounds) {
+      if (enableSoundsRef.current) {
         playChipsHandleFive.play();
       }
 
@@ -371,7 +377,7 @@ const TableState = ({ children }) => {
         }
       }
 
-      if (isPlaySound && enableSounds) {
+      if (isPlaySound && enableSoundsRef.current) {
         playCardSlideSix.play();
       }
     }
@@ -416,7 +422,7 @@ const TableState = ({ children }) => {
           await sleep(cardSetDelayMillis);
           player.setPlayerCard(c);
           setSeats({ data: seats.data });
-          if (enableSounds) {
+          if (enableSoundsRef.current) {
             playCardSlideSix.play();
           }
         }
@@ -455,7 +461,7 @@ const TableState = ({ children }) => {
       board.middleCards[i] = fData.middleCards[i];
       board.middleCardsPuffIn[i] = true;
       setBoard({ data: { ...board } });
-      if (enableSounds) {
+      if (enableSoundsRef.current) {
         playCardSlideSix.play();
       }
       await new Promise((resolve) => setTimeout(resolve, cardSetDelayMillis));
@@ -475,14 +481,14 @@ const TableState = ({ children }) => {
     board.middleCards[4] = rData.middleCards[4];
     board.middleCardsPuffIn[4] = true;
     setBoard({ data: { ...board } });
-    if (enableSounds) {
+    if (enableSoundsRef.current) {
       playCardSlideSix.play();
     }
   }
 
   // Backend want's to run collect chips to pot animation
   async function collectChipsToPotAction() {
-    if (enableSounds) {
+    if (enableSoundsRef.current) {
       playCollectChipsToPot.play();
     }
     const players = tempPlayers;
@@ -514,7 +520,7 @@ const TableState = ({ children }) => {
   }
 
   function audioCommand(aData) {
-    if (enableSounds) {
+    if (enableSoundsRef.current) {
       switch (aData.command) {
         case 'fold':
           playCardFoldOne.play();
@@ -560,7 +566,7 @@ const TableState = ({ children }) => {
           await sleep(100);
           player.setPlayerCard(c);
           setSeats({ data: seats.data });
-          if (enableSounds) {
+          if (enableSoundsRef.current) {
             playCardSlideSix.play();
           }
         }
@@ -618,7 +624,7 @@ const TableState = ({ children }) => {
           player.setPlayerCard(i);
         });
         setSeats({ data: seats.data });
-        if (enableSounds) {
+        if (enableSoundsRef.current) {
           playCardSlideSix.play();
         }
       }

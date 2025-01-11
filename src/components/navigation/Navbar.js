@@ -24,7 +24,7 @@ const Navbar = () => {
   const authCtx = useContext(authContext);
   const tableCtx = useContext(tableContext);
 
-  const { tableId, setTableId } = useContext(tableContext);
+  const { tableId, setTableId, enableSounds, setEnableSounds } = useContext(tableContext);
 
   const tableIdRef = useRef(tableId);
 
@@ -32,25 +32,15 @@ const Navbar = () => {
     tableIdRef.current = tableId;
   }, [tableId, setTableId]);
 
-  const [enableSounds, setEnableSounds] = useState(true);
-
   useEffect(() => {
     const sounds = localStorage.getItem(LS_ENABLE_SOUNDS_STATE);
-    setEnableSounds(sounds);
+    setEnableSounds(sounds === 'true');
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem(LS_ENABLE_SOUNDS_STATE, enableSounds ? 'true' : 'false');
-  }, [enableSounds]);
-
-  // useEffect(() => {
-  //   if (isAuthed) {
-  //     openRoomModal('all');
-  //   }
-  // }, [socketConnected]);
-
   function toggleSounds() {
-    setEnableSounds(!enableSounds);
+    const sounds = !enableSounds;
+    localStorage.setItem(LS_ENABLE_SOUNDS_STATE, sounds ? 'true' : 'false');
+    setEnableSounds(sounds);
   }
 
   const openRoomModal = (mode) => {
