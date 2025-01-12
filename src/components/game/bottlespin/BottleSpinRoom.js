@@ -21,9 +21,7 @@ const BottleSpinRoom = () => {
           <RoomStatus />
           <CenteredBottleSpinTable>
             <BottleSpinTable>
-              <div style={{ marginTop: '15px', marginLeft: '20px' }}>
-                <Bottle />
-              </div>
+              <Bottle />
             </BottleSpinTable>
           </CenteredBottleSpinTable>
           <TurnControl />

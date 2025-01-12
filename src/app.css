@@ -610,3 +610,32 @@ body {
         left: 120px;
     }
 }
+
+.bottleContainer {
+    margin-top: -40px;
+}
+
+.bottle {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottleTotalPotText {
+    position: absolute;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    background-color: #2E2E3A;
+}
+
+.bottleIcon {
+    width: 200px;
+    height: 200px;
+    background-image: url('../public/assets/images/dealer_chip.png');
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
