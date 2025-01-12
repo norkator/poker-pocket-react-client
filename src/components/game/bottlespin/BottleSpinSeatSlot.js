@@ -29,6 +29,7 @@ const BottleSpinSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight 
             `}
         style={{
           animation: seat.seatCollectChips ? pos + 'ChipsToPot 0.5s alternate forwards' : '',
+          zIndex: 9999,
         }}
       >
         <div className="moneyView"></div>
