@@ -601,14 +601,8 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     position: absolute;
-    top: -10px;
-    left: 0;
-
-    @media (max-width: 990px) {
-        width: 30px;
-        height: 30px;
-        left: 120px;
-    }
+    top: 30px;
+    z-index: 5;
 }
 
 .bottleContainer {
