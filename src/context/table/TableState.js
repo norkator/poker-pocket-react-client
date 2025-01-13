@@ -107,6 +107,7 @@ const TableState = ({ children }) => {
     setSeats({ data: seats.data });
   };
 
+  const holeCardsDelayMillis = 200;
   const cardSetDelayMillis = 300;
 
   function regRoomHandler(socket) {
@@ -421,7 +422,7 @@ const TableState = ({ children }) => {
       for (let i = 0; i < players.length; i++) {
         const player = players[i];
         if (!player.isFold) {
-          await sleep(cardSetDelayMillis);
+          await sleep(holeCardsDelayMillis);
           player.setPlayerCard(c);
           setSeats({ data: seats.data });
           if (enableSoundsRef.current) {
