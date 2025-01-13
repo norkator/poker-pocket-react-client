@@ -2,16 +2,15 @@ import React, { useContext, useMemo } from 'react';
 import styles from '../SeatSlot.module.css';
 import globalContext from '@/context/global/globalContext';
 import { formatMoney } from '@/utils/Money';
-import { getCardResource } from '@/utils/CardRes';
 
-const BottleSpinSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight }) => {
+const BottleSpinSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight, position }) => {
   const { cardStyle } = useContext(globalContext);
 
   const actionView = useMemo(() => {
     const seatLastAction = seat.seatLastAction;
 
     return (
-      <div className="container player-action-pos">
+      <div className="container">
         {seatLastAction ? (
           <div className="lastActionTexts magictime puffIn action-animation">{seatLastAction}</div>
         ) : null}
@@ -43,7 +42,15 @@ const BottleSpinSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight 
   }, [seat.seatBetFrame, seat.seatDoBet, seat.seatCollectChips, seat.seatTotalBet]);
 
   return (
-    <div className={styles.root}>
+    <div
+      className={styles.root}
+      style={{
+        position: 'absolute',
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        transform: 'translate(-50%, -50%)',
+      }}
+    >
       <div
         id={'S-' + seat.id}
         className={`SeatFrame ${className}`}
