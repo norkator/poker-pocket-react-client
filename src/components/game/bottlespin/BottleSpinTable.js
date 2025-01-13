@@ -1,81 +1,57 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import BottleSpinSeatSlot from './BottleSpinSeatSlot';
 import tableContext from '@/context/table/tableContext';
 
 const BottleSpinTable = ({ children }) => {
   const { seats } = useContext(tableContext);
+  const [positions, setPositions] = useState([]);
 
-  const current = seats.data;
+  function calculatePositions(numSeats) {
+    const positions = [];
+    const angleIncrement = (2 * Math.PI) / numSeats;
+    const radius = 200; // circle radius in pixels
+    const centerX = 250; // x-coordinate of the center
+    const centerY = 250; // y-coordinate of the center
+    for (let i = 0; i < numSeats; i++) {
+      const angle = i * angleIncrement;
+      positions.push({
+        x: centerX + radius * Math.cos(angle),
+        y: centerY + radius * Math.sin(angle),
+      });
+    }
+    return positions;
+  }
+
+  useEffect(() => {
+    const numSeats = seats.data.length;
+    const calculatedPositions = calculatePositions(numSeats);
+    setPositions(calculatedPositions);
+  }, [seats.data]);
+
+  const current = seats.data.map((seat, index) => ({
+    ...seat,
+    position: positions[index] || { x: 0, y: 0 },
+  }));
+
   return (
     <div id="bottleSpinTable" className="bottleSpinTable">
-      {/* <!-- Top layout --> */}
-      <div className="row bottleSpinTableRow">
-        <div className="col">
-          {/* <!-- Seat layout --> */}
-          {current[2] && current[2].seatFrame ? (
-            <BottleSpinSeatSlot pos="s3" className="float-right" seat={current[2]} betRight />
-          ) : (
-            ''
-          )}
-          {/* <!-- /Seat --> */}
-        </div>
-        <div className="col-2">{/* <!-- POT INFO --> */}</div>
-        <div className="col">
-          {/* <!-- Seat layout --> */}
-          {current[3] && current[3].seatFrame ? (
-            <BottleSpinSeatSlot pos="s4" className="float-left" seat={current[3]} betLeft />
-          ) : (
-            ''
-          )}
-          {/* <!-- /Seat --> */}
-        </div>
-      </div>
-
-      {/* <!-- Middle layout --> */}
-      <div className="row bottleSpinTableRow">
-        <div className="col">
-          {/* <!-- Seat layout --> */}
-          {current[1] && current[1].seatFrame ? (
-            <BottleSpinSeatSlot pos="s2" seat={current[1]} betRight />
-          ) : (
-            ''
-          )}
-          {/* <!-- /Seat --> */}
-        </div>
-        <div className="col-5">
-          {/* <!-- MIDDLE BOTTLE --> */}
-          {children}
-          {/* <!-- /MIDDLE BOTTLE --> */}
-        </div>
-        <div className="col">
-          {/* <!-- Seat layout --> */}
-          {current[4] && current[4].seatFrame ? (
-            <BottleSpinSeatSlot pos="s5" seat={current[4]} betLeft />
-          ) : (
-            ''
-          )}
-        </div>
-      </div>
-
-      {/* <!-- Bottom layout --> */}
-      <div className="row bottleSpinTableRow">
-        <div className="col">
-          {current[0] && current[0].seatFrame ? (
-            <BottleSpinSeatSlot pos="s1" className="float-right" seat={current[0]} betRight />
-          ) : (
-            ''
-          )}
-        </div>
-        <div className="col-2">{/* <!-- Empty space --> */}</div>
-        <div className="col">
-          {/* <!-- Seat layout --> */}
-          {current[5] && current[5].seatFrame ? (
-            <BottleSpinSeatSlot pos="s6" className="float-left" seat={current[5]} betLeft />
-          ) : (
-            ''
-          )}
-        </div>
-      </div>
+      {/* Table layout */}
+      {current.map(
+        (seat, index) =>
+          seat.seatFrame && (
+            <BottleSpinSeatSlot
+              key={seat.id}
+              pos={`s${index + 1}`}
+              seat={seat}
+              position={{
+                x: seat.position.x,
+                y: seat.position.y,
+              }}
+            />
+          )
+      )}
+      {/* Middle Bottle */}
+      {children}
     </div>
   );
 };

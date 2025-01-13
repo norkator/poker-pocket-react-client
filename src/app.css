@@ -579,14 +579,14 @@ body {
 
 
 .bottleSpinTable {
-    margin-top: 10px;
+    position: relative;
     padding: 5px;
     background-image: url('../public/assets/images/round_table_green.png');
     background-repeat: no-repeat;
     background-size: 100%;
     max-width: 500px;
     width: 500px;
-    height: 490px;
+    height: 500px;
 }
 
 .bottleSpinTableRow {
@@ -612,7 +612,11 @@ body {
 }
 
 .bottleContainer {
-    margin-top: -40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
 }
 
 .bottle {
