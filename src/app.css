@@ -601,7 +601,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     position: absolute;
-    top: 30px;
+    top: -15px;
     z-index: 5;
 }
 
