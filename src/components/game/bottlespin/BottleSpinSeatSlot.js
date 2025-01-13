@@ -56,6 +56,7 @@ const BottleSpinSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight,
         className={`SeatFrame ${className}`}
         style={{
           width: '125px',
+          position: 'relative',
         }}
       >
         {actionView}
