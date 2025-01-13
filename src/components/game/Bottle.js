@@ -2,16 +2,25 @@ import React, { useContext, useRef, useState, useEffect } from 'react';
 import globalContext from '@/context/global/globalContext';
 import tableContext from '@/context/table/tableContext';
 import { formatMoney } from '@/utils/Money';
+import socketContext from '@/context/websocket/socketContext';
 
 const Bottle = () => {
   const { cardStyle } = useContext(globalContext);
-  const { board } = useContext(tableContext);
+  const { socket, playerId } = useContext(socketContext);
+  const { tableId, board, heroTurn, autoCheck, autoPlay } = useContext(tableContext);
+  const [enableSounds] = useState(true);
 
   const bottleRef = useRef(null);
   const [rotation, setRotation] = useState(0);
   const [spinSpeed, setSpinSpeed] = useState(0.2);
   const [isSpinning, setIsSpinning] = useState(false);
   const [hasClicked, setHasClicked] = useState(false);
+
+  useEffect(() => {
+    if (socket) {
+      socket.handle('bottleSpin', (jsonData) => spinBottle(jsonData.data));
+    }
+  }, [socket, tableId]);
 
   useEffect(() => {
     if (hasClicked) return;
@@ -23,24 +32,30 @@ const Bottle = () => {
   }, [spinSpeed, hasClicked]);
 
   const handleBottleClick = () => {
+    const hero = heroTurn.data;
+    if (socket && hero && hero.isPlayerTurn) {
+      const data = JSON.stringify({
+        key: 'bottleSpin',
+        tableId: tableId,
+      });
+      socket.send(data);
+    }
+  };
+
+  const spinBottle = (sData) => {
     if (isSpinning) return;
-
     setHasClicked(true);
-
-    const initialSpeed = Math.random() * 15 + 15; // Random speed between 15 and 30
-    const deceleration = 0.2;
-
+    const initialSpeed = Number(sData.initialSpeed);
+    const deceleration = Number(sData.deceleration);
+    // const initialSpeed = Math.random() * 15 + 15; // Random speed between 15 and 30
+    // const deceleration = 0.2;
     setSpinSpeed(initialSpeed);
     setIsSpinning(true);
-
     let currentSpeed = initialSpeed;
-
     const spinInterval = setInterval(() => {
       currentSpeed = Math.max(0, currentSpeed - deceleration);
       setSpinSpeed(currentSpeed);
-
       setRotation((prev) => (prev + currentSpeed) % 360);
-
       if (currentSpeed <= 0) {
         clearInterval(spinInterval);
         setIsSpinning(false);
