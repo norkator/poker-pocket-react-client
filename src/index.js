@@ -9,11 +9,11 @@ import './app.css';
 const rootElement = document.getElementById('root');
 
 // StrictMode
-ReactDOMClient.createRoot(rootElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// ReactDOMClient.createRoot(rootElement).render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );
 
 // Without StrictMode
-// ReactDOMClient.createRoot(rootElement).render(<App />);
+ReactDOMClient.createRoot(rootElement).render(<App />);
