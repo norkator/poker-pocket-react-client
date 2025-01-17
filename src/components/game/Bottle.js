@@ -18,7 +18,7 @@ const Bottle = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.handle('bottleSpin', (jsonData) => spinBottle(jsonData.data));
+      socket.handle('spinBottle', (jsonData) => spinBottle(jsonData.data));
     }
   }, [socket, tableId]);
 
@@ -47,8 +47,6 @@ const Bottle = () => {
     setHasClicked(true);
     const initialSpeed = Number(sData.initialSpeed);
     const deceleration = Number(sData.deceleration);
-    // const initialSpeed = Math.random() * 15 + 15; // Random speed between 15 and 30
-    // const deceleration = 0.2;
     setSpinSpeed(initialSpeed);
     setIsSpinning(true);
     let currentSpeed = initialSpeed;

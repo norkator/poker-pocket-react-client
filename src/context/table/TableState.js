@@ -637,7 +637,7 @@ const TableState = ({ children }) => {
   }
 
   async function bottleSpin(bsData) {
-    console.log(bsData);
+    console.log('this should activate player to be able to spin bottle', bsData);
   }
 
   // ----------------------------------------------------
