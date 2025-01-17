@@ -144,8 +144,6 @@ const TableState = ({ children }) => {
     socket.handle('discardAndDraw', (jsonData) => discardAndDraw(jsonData.data)); // five card draw
 
     socket.handle('newCards', (jsonData) => newPlayerCards(jsonData.data)); // five card draw after discard and draw
-
-    socket.handle('bottleSpin', (jsonData) => bottleSpin(jsonData.data)); // bottle spin command who spins bottle
   }
 
   // init room data
@@ -634,10 +632,6 @@ const TableState = ({ children }) => {
         }
       }
     }
-  }
-
-  async function bottleSpin(bsData) {
-    console.log('this should activate player to be able to spin bottle', bsData);
   }
 
   // ----------------------------------------------------
