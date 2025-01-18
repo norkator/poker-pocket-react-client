@@ -3,14 +3,18 @@ import styles from '../SeatSlot.module.css';
 import globalContext from '@/context/global/globalContext';
 import { formatMoney } from '@/utils/Money';
 
-const BottleSpinSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight, position }) => {
+const BottleSpinSeatSlot = ({ pos, className, seat, betLeft, betRight, position }) => {
   const { cardStyle } = useContext(globalContext);
 
   const actionView = useMemo(() => {
     const seatLastAction = seat.seatLastAction;
 
     return (
-      <div className="container">
+      <div
+        style={{
+          position: 'relative',
+        }}
+      >
         {seatLastAction ? (
           <div className="lastActionTexts magictime puffIn action-animation">{seatLastAction}</div>
         ) : null}
@@ -22,12 +26,11 @@ const BottleSpinSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight,
     return seat.seatBetFrame ? (
       <div
         id="BetFrame"
-        className={`container ${seat.seatDoBet ? 'magictime puffIn' : ''} bet-pos ${
-          betLeft ? 'bet-left' : ''
-        } ${betRight ? 'bet-right' : ''}
-            `}
+        className={`${seat.seatDoBet ? 'magictime puffIn' : ''}`}
         style={{
-          animation: seat.seatCollectChips ? pos + 'ChipsToPot 0.5s alternate forwards' : '',
+          position: 'absolute',
+          left: '-50px',
+          top: '30px',
           zIndex: 9999,
         }}
       >
@@ -55,8 +58,9 @@ const BottleSpinSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight,
         id={'S-' + seat.id}
         className={`SeatFrame ${className}`}
         style={{
-          width: '125px',
+          width: '130px',
           position: 'relative',
+          top: '-10px',
         }}
       >
         {actionView}
@@ -88,7 +92,18 @@ const BottleSpinSeatSlot = ({ pos, className, playerId, seat, betLeft, betRight,
           </div>
         </div>
         {betFrameView}
-        {seat.seatDealerChip ? <div id="DealerChip" className="spinnerChipView"></div> : ''}
+        {seat.seatDealerChip ? (
+          <div
+            id="DealerChip"
+            className="spinnerChipView"
+            style={{
+              position: 'relative',
+              top: '-80px',
+            }}
+          ></div>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );
