@@ -43,6 +43,7 @@ const Bottle = () => {
   };
 
   const spinBottle = (sData) => {
+    setRotation(0);
     if (isSpinning) return;
     setHasClicked(true);
     const initialSpeed = Number(sData.initialSpeed);
