@@ -211,7 +211,7 @@ const TableState = ({ children }) => {
       case 2:
         giveSeats(
           playerCount,
-          [0, 3],
+          rData.game === 'BOTTLE_SPIN' ? [0, 1] : [0, 3],
           playerIds,
           playerNames,
           playerMoneys,
@@ -222,7 +222,7 @@ const TableState = ({ children }) => {
       case 3:
         giveSeats(
           playerCount,
-          [0, 2, 3],
+          rData.game === 'BOTTLE_SPIN' ? [0, 1, 2] : [0, 2, 3],
           playerIds,
           playerNames,
           playerMoneys,
@@ -233,7 +233,7 @@ const TableState = ({ children }) => {
       case 4:
         giveSeats(
           playerCount,
-          [0, 2, 3, 5],
+          rData.game === 'BOTTLE_SPIN' ? [0, 1, 2, 3] : [0, 2, 3, 5],
           playerIds,
           playerNames,
           playerMoneys,
@@ -244,7 +244,7 @@ const TableState = ({ children }) => {
       case 5:
         giveSeats(
           playerCount,
-          [0, 1, 2, 3, 5],
+          rData.game === 'BOTTLE_SPIN' ? [0, 1, 2, 3, 4] : [0, 1, 2, 3, 5],
           playerIds,
           playerNames,
           playerMoneys,
@@ -255,7 +255,7 @@ const TableState = ({ children }) => {
       case 6:
         giveSeats(
           playerCount,
-          [0, 1, 2, 3, 4, 5, 6],
+          [0, 1, 2, 3, 4, 5],
           playerIds,
           playerNames,
           playerMoneys,
