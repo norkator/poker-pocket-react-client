@@ -95,6 +95,9 @@ const TurnControl = () => {
         toast.warn(t('INSUFFICIENT_FUNDS'));
         leaveTable();
         break;
+      case 'bot_spin_bottle':
+        spinBottle();
+        break;
       default:
         setCheck();
         break;
@@ -151,6 +154,17 @@ const TurnControl = () => {
         key: 'setRaise',
         tableId: tableId,
         amount: amount,
+      });
+      socket.send(data);
+    }
+  }
+
+  function spinBottle() {
+    const hero = heroTurn.data;
+    if (socket && hero && hero.isPlayerTurn) {
+      const data = JSON.stringify({
+        key: 'bottleSpin',
+        tableId: tableId,
       });
       socket.send(data);
     }
