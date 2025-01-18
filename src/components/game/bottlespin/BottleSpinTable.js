@@ -5,51 +5,56 @@ import tableContext from '@/context/table/tableContext';
 const BottleSpinTable = ({ children }) => {
   const { seats } = useContext(tableContext);
   const [positions, setPositions] = useState([]);
+  const [currentSeats, setCurrentSeats] = useState([]);
 
-  function calculatePositions(numSeats) {
+  function calculatePositions(numActiveSeats) {
     const positions = [];
-    const angleIncrement = (2 * Math.PI) / numSeats;
-    const radius = 200; // circle radius in pixels
+    const angleIncrement = (2 * Math.PI) / numActiveSeats; // Divide full circle by active seats
+    const radius = 200; // Circle radius in pixels
     const centerX = 250; // x-coordinate of the center
     const centerY = 250; // y-coordinate of the center
-    for (let i = 0; i < numSeats; i++) {
-      const angle = i * angleIncrement;
+
+    // Place active players in their corresponding seats
+    for (let i = 0; i < numActiveSeats; i++) {
+      const angle = -Math.PI / 2 + i * angleIncrement; // Start at the top and rotate clockwise
       positions.push({
-        x: centerX + radius * Math.cos(angle),
-        y: centerY + radius * Math.sin(angle),
+        x: Math.round(centerX + radius * Math.cos(angle)), // x-coordinate
+        y: Math.round(centerY + radius * Math.sin(angle)), // y-coordinate
       });
     }
     return positions;
   }
 
   useEffect(() => {
-    const numSeats = seats.data.length;
+    const numSeats = seats.data.filter((s) => s.seatFrame).length;
     const calculatedPositions = calculatePositions(numSeats);
-    setPositions(calculatedPositions);
-  }, [seats.data]);
-
-  const current = seats.data.map((seat, index) => ({
-    ...seat,
-    position: positions[index] || { x: 0, y: 0 },
-  }));
+    setPositions(calculatedPositions); // Set positions first
+    const current = seats.data
+      .filter((s) => s.seatFrame)
+      .map((seat, index) => ({
+        ...seat,
+        position: calculatedPositions[index] || { x: 0, y: 0 },
+      }));
+    setCurrentSeats(current);
+  }, [JSON.stringify(seats.data)]);
 
   return (
     <div id="bottleSpinTable" className="bottleSpinTable">
       {/* Table layout */}
-      {current.map(
-        (seat, index) =>
-          seat.seatFrame && (
-            <BottleSpinSeatSlot
-              key={seat.id}
-              pos={`s${index + 1}`}
-              seat={seat}
-              position={{
-                x: seat.position.x,
-                y: seat.position.y,
-              }}
-            />
-          )
+      {currentSeats.map((seat, index) =>
+        seat.seatFrame ? (
+          <BottleSpinSeatSlot
+            key={seat.id}
+            pos={`s${index + 1}`}
+            seat={seat}
+            position={{
+              x: seat.position.x,
+              y: seat.position.y,
+            }}
+          />
+        ) : null
       )}
+
       {/* Middle Bottle */}
       {children}
     </div>
