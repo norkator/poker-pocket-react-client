@@ -6,7 +6,6 @@ import ContentProvider from './content/ContentProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalProvider from './modal/ModalProvider';
-import OfflineProvider from './offline/OfflineProvider';
 import WebSocketProvider from './websocket/WebsocketProvider';
 import AuthState from './auth/AuthState';
 import GameState from './game/GameState';
@@ -19,15 +18,13 @@ const Providers = ({ children }) => (
         <ContentProvider>
           <ToastContainer />
           <ModalProvider>
-            <OfflineProvider>
-              <WebSocketProvider>
-                <AuthState>
-                  <GameState>
-                    <TableState>{children}</TableState>
-                  </GameState>
-                </AuthState>
-              </WebSocketProvider>
-            </OfflineProvider>
+            <WebSocketProvider>
+              <AuthState>
+                <GameState>
+                  <TableState>{children}</TableState>
+                </GameState>
+              </AuthState>
+            </WebSocketProvider>
           </ModalProvider>
         </ContentProvider>
       </LocaProvider>
