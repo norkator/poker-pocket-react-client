@@ -71,5 +71,6 @@
   "EDIT": "Edit",
   "YES": "Yes",
   "INVALID_TABLE_PASSWORD": "Invalid table password!",
-  "TABLE_PASSWORD": "Table password"
+  "TABLE_PASSWORD": "Table password",
+  "MAX_SEATS": "Max seats"
 }

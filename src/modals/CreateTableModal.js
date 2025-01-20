@@ -54,6 +54,7 @@ const CreateTableModal = ({ existingTableId, context, closeModal }) => {
   const [gameType, setGameType] = useState('');
   const [tableName, setTableName] = useState('');
   const [botCount, setBotCount] = useState(0);
+  const [maxSeats, setMaxSeats] = useState(6);
   const [password, setPassword] = useState('');
   const [turnCountdown, setTurnCountdown] = useState(20);
   const [minBet, setMinBet] = useState(10);
@@ -128,6 +129,7 @@ const CreateTableModal = ({ existingTableId, context, closeModal }) => {
       id: tableId,
       game: gameType,
       tableName,
+      maxSeats,
       botCount,
       password,
       turnCountdown,
@@ -175,26 +177,23 @@ const CreateTableModal = ({ existingTableId, context, closeModal }) => {
         {'Table name can be max 20 characters long.'}
       </small>
 
-      <Label htmlFor="botCount">Bot Count</Label>
-      <Select
-        id="botCount"
-        value={botCount}
-        onChange={(e) => setBotCount(Number(e.target.value))}
-        disabled={existingTableId > 0}
-      >
-        {[...Array(7).keys()].map((count) => (
+      <Label htmlFor="maxSeats">{t('MAX_SEATS')}</Label>
+      <Select id="maxSeats" value={maxSeats} onChange={(e) => setMaxSeats(Number(e.target.value))}>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </Select>
+
+      <Label htmlFor="botCount">{t('BOT_COUNT')}</Label>
+      <Select id="botCount" value={botCount} onChange={(e) => setBotCount(Number(e.target.value))}>
+        {[...Array(maxSeats + 1).keys()].map((count) => (
           <option key={count} value={count}>
             {count}
           </option>
         ))}
       </Select>
-      {existingTableId > 0 ? (
-        <small style={{ color: '#555', display: 'block', marginTop: '-8px', marginBottom: '10px' }}>
-          {'Bot count cannot be changed (not supported atm)'}
-        </small>
-      ) : (
-        ''
-      )}
 
       <Label htmlFor="password">Password</Label>
       <Input
