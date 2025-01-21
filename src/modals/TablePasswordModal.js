@@ -46,7 +46,7 @@ const TablePasswordModal = ({ closeModal, onProceed }) => {
               <input
                 id="table_password"
                 className="form-control"
-                type="password"
+                type="text"
                 placeholder={t('TABLE_PASSWORD')}
                 required
                 value={password}
