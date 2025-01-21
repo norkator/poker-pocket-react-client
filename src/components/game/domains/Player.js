@@ -11,6 +11,7 @@ export default function Player(playerSeat_, playerId_, playerName_, playerMoney_
   this.isFold = false;
   this.isDealer = false;
   this.isCallSituation = false;
+  this.actionsAvailable = [];
 }
 
 Player.prototype.initPlayer = function (isMiddleOfTheGame) {

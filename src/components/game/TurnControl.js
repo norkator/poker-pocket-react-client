@@ -284,22 +284,44 @@ const TurnControl = () => {
             </div>
             {!autoCheck && !autoPlay && hero && hero.isPlayerTurn ? (
               <div className="col">
-                <StyledActBtn
-                  onClick={() => foldBtnClick(hero)}
-                  className={`${current.isFoldBtn ? 'ctrl-btn-visiable' : 'ctrl-btn-hide'}`}
-                  label="Fold"
-                />
+                {hero.actionsAvailable.includes('FOLD') ? (
+                  <StyledActBtn
+                    onClick={() => foldBtnClick(hero)}
+                    className={`${current.isFoldBtn ? 'ctrl-btn-visible' : 'ctrl-btn-hide'}`}
+                    label="Fold"
+                  />
+                ) : (
+                  ''
+                )}
                 {/* When calling situation occurs, swap check btn text to call (handled by statusUpdate call from server) */}
-                <StyledActBtn
-                  onClick={() => checkBtnClick(hero)}
-                  className={`${current.isCheckBtn ? 'ctrl-btn-visiable' : 'ctrl-btn-hide'}`}
-                  label={current.isCallSituation ? 'Call' : 'Check'}
-                />
-                <StyledActBtn
-                  onClick={() => raiseBtnClick(hero)}
-                  className={`${current.isRaiseBtn ? 'ctrl-btn-visiable' : 'ctrl-btn-hide'}`}
-                  label="Raise"
-                />
+                {hero.actionsAvailable.includes('CHECK') ||
+                hero.actionsAvailable.includes('CALL') ? (
+                  <StyledActBtn
+                    onClick={() => checkBtnClick(hero)}
+                    className={`${current.isCheckBtn ? 'ctrl-btn-visible' : 'ctrl-btn-hide'}`}
+                    label={current.isCallSituation ? 'Call' : 'Check'}
+                  />
+                ) : (
+                  ''
+                )}
+                {hero.actionsAvailable.includes('RAISE') ? (
+                  <StyledActBtn
+                    onClick={() => raiseBtnClick(hero)}
+                    className={`${current.isRaiseBtn ? 'ctrl-btn-visible' : 'ctrl-btn-hide'}`}
+                    label="Raise"
+                  />
+                ) : (
+                  ''
+                )}
+                {hero.actionsAvailable.includes('SPIN_BOTTLE') ? (
+                  <StyledActBtn
+                    onClick={() => spinBottle()}
+                    className={`${current.isRaiseBtn ? 'ctrl-btn-visible' : 'ctrl-btn-hide'}`}
+                    label="Spin bottle"
+                  />
+                ) : (
+                  ''
+                )}
               </div>
             ) : (
               ''

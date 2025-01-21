@@ -313,6 +313,7 @@ const TableState = ({ children }) => {
       }
 
       player.setTimeBar(pTimeLeft);
+      player.actionsAvailable = playerRaw.actionsAvailable;
       if (Number(pId) === Number(playerIdRef.current) && player.tempBet > 0) {
         // Hero Do nothing
       } else {
