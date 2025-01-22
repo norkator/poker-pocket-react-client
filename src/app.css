@@ -142,17 +142,6 @@ body {
     }
 }
 
-.spectateIcon {
-    width: 30px;
-    height: 30px;
-    background-image: url('../public/assets/images/spectate_icon.png');
-    background-size: 90%;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-right: 5px;
-    margin-left: -10px;
-}
-
 .logoRoundIcon {
     width: 30px;
     height: 30px;
@@ -286,18 +275,6 @@ body {
         width: 0%
     }
 }
-
-
-.soundsBtn {
-    width: 32px;
-    height: 32px;
-    background-image: url('../public/assets/images/sound_icon_on.png');
-    background-size: 90%;
-    background-repeat: no-repeat;
-    background-position: right;
-    float: right;
-}
-
 
 .ctrl-btn-visible {
     visibility: visible;
