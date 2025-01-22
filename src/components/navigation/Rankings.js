@@ -18,9 +18,10 @@ const Rankings = () => {
 
   useEffect(() => {
     getRankings();
-  }, []);
+  }, [socket]);
 
   const [rankingData, setRankingData] = useState(null);
+  const [rankCount, setRankCount] = useState(0);
 
   function getRankings() {
     if (socket) {
@@ -33,8 +34,10 @@ const Rankings = () => {
 
   function getRankingsResult(jsonData) {
     const rData = jsonData.data.ranks;
+    const count = jsonData.data.count;
     if (rData.length > 0) {
       setRankingData(rData);
+      setRankCount(count);
     }
   }
 
@@ -77,7 +80,7 @@ const Rankings = () => {
           >{`📈 ${t('RANKINGS')}`}</h2>
         </div>
         <div className="d-flex flex-wrap gap-2 justify-content-start">
-          <StatCard width={'16.5rem'} number={0} text={t('TOTAL_PLAYERS')} />
+          <StatCard width={'16.5rem'} number={rankCount} text={t('TOTAL_PLAYERS')} />
         </div>
       </div>
 
