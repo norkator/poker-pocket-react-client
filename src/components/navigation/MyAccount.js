@@ -11,6 +11,7 @@ import modalContext from '@/context/modal/modalContext';
 import CreateTableModal from '@/modals/CreateTableModal';
 import { LS_TOKEN } from '@/context/auth/AuthState';
 import { toast } from 'react-toastify';
+import Achievements from '@/components/Achievements';
 
 const MyAccount = () => {
   const { t } = useContext(contentContext);
@@ -154,6 +155,26 @@ const MyAccount = () => {
           <StatCard width={'10rem'} number={userStats.winCount} text={t('WIN_COUNT')} />
           <StatCard width={'10rem'} number={userStats.loseCount} text={t('LOSE_COUNT')} />
         </div>
+      </div>
+
+      <div
+        className="card mt-2"
+        style={{
+          width: '100%',
+          padding: '10px',
+          color: 'white',
+        }}
+      >
+        <div
+          style={{
+            fontSize: '13px',
+            color: 'white',
+            marginBottom: '1rem',
+          }}
+        >
+          {t('ACHIEVEMENT_INFO')}
+        </div>
+        <Achievements />
       </div>
 
       <div

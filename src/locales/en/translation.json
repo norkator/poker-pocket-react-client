@@ -74,5 +74,6 @@
   "TABLE_PASSWORD": "Table password",
   "MAX_SEATS": "Max seats",
   "NO_SEAT_CHANGED_TO_SPECTATOR": "No available seats. You are now spectator.",
-  "NO_MONEY_CHANGED_TO_SPECTATOR": "Not enough money to join the game. You are now spectator."
+  "NO_MONEY_CHANGED_TO_SPECTATOR": "Not enough money to join the game. You are now spectator.",
+  "ACHIEVEMENT_INFO": "\uD83C\uDFC6 If you have achievements. They will be shown here."
 }
