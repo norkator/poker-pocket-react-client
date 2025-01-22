@@ -186,7 +186,7 @@ const Games = () => {
         tableMinBet = 10,
         passwordProtected,
       } = table;
-      const isHighlighted = tableId === Number(queryStrTableId);
+      const isHighlighted = tableId === Number(queryStrTableId || -1);
       return (
         <tr
           key={tableId}
