@@ -276,7 +276,7 @@ const Games = () => {
         </div>
         <div className="card-body">
           <p className="card-text text-white">
-            You can report issue / join development / request feature on link below:
+            You can report issue / join development / request feature on links below:
           </p>
           <a
             href="https://github.com/norkator/poker-pocket-ts-backend/issues/new"
@@ -284,7 +284,15 @@ const Games = () => {
             className="btn btn-outline-info"
             rel="noreferrer"
           >
-            Report Issue on GitHub
+            Backend (GitHub)
+          </a>
+          <a
+            href="https://github.com/norkator/poker-pocket-react-client/issues/new"
+            target="_blank"
+            className="btn btn-outline-info ms-2"
+            rel="noreferrer"
+          >
+            Frontend (GitHub)
           </a>
         </div>
       </div>

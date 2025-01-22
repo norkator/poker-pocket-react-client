@@ -129,6 +129,37 @@ const FAQCard = () => {
               </div>
             </div>
           </div>
+          <div className="accordion-item" style={{ backgroundColor: '#454d55', color: '#fff' }}>
+            <h2 className="accordion-header" id="headingFive">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFive"
+                aria-expanded="false"
+                aria-controls="collapseFive"
+                style={{
+                  backgroundColor: '#2E2E3A',
+                  color: '#fff',
+                }}
+              >
+                📧 Why is email needed for account and can I use fake one?
+              </button>
+            </h2>
+            <div
+              id="collapseFive"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingFive"
+              data-bs-parent="#faqAccordion"
+              style={{ backgroundColor: '#212529', color: 'white' }}
+            >
+              <div className="accordion-body">
+                📧 Email is asked if we in the future develop feature which could use email like
+                password reset or some other game feature like tournament notifications. You can use
+                disposable/temp email if you want.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
