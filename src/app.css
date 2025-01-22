@@ -587,6 +587,13 @@ body {
     max-width: 500px;
     width: 500px;
     height: 500px;
+
+    @media (max-width: 768px) {
+        margin-bottom: 10px;
+        max-width: 250px;
+        width: 250px;
+        height: 250px;
+    }
 }
 
 .bottleSpinTableRow {
@@ -636,4 +643,9 @@ body {
     background-size: 90%;
     background-repeat: no-repeat;
     background-position: center;
+
+    @media (max-width: 768px) {
+        width: 100px;
+        height: 100px;
+    }
 }

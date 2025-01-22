@@ -7,16 +7,20 @@ const BottleSpinTable = ({ children }) => {
   const [positions, setPositions] = useState([]);
   const [currentSeats, setCurrentSeats] = useState([]);
 
-  function calculatePositions(numActiveSeats) {
-    const positions = [];
-    const angleIncrement = (2 * Math.PI) / numActiveSeats; // Divide full circle by active seats
-    const radius = 200; // Circle radius in pixels
-    const centerX = 250; // x-coordinate of the center
-    const centerY = 250; // y-coordinate of the center
+  function calculateResponsiveValues() {
+    if (window.innerWidth <= 768) {
+      return { radius: 100, centerX: 125, centerY: 125 }; // half of the original size
+    }
+    return { radius: 200, centerX: 250, centerY: 250 }; // original size
+  }
 
-    // Place active players in their corresponding seats
+  function calculatePositions(numActiveSeats) {
+    const { radius, centerX, centerY } = calculateResponsiveValues();
+    const positions = [];
+    const angleIncrement = (2 * Math.PI) / numActiveSeats;
+
     for (let i = 0; i < numActiveSeats; i++) {
-      const angle = -Math.PI / 2 + i * angleIncrement; // Start at the top and rotate clockwise
+      const angle = -Math.PI / 2 + i * angleIncrement;
       positions.push({
         x: Math.round(centerX + radius * Math.cos(angle)), // x-coordinate
         y: Math.round(centerY + radius * Math.sin(angle)), // y-coordinate
@@ -26,16 +30,23 @@ const BottleSpinTable = ({ children }) => {
   }
 
   useEffect(() => {
-    const numSeats = seats.data.filter((s) => s.seatFrame).length;
-    const calculatedPositions = calculatePositions(numSeats);
-    setPositions(calculatedPositions); // Set positions first
-    const current = seats.data
-      .filter((s) => s.seatFrame)
-      .map((seat, index) => ({
-        ...seat,
-        position: calculatedPositions[index] || { x: 0, y: 0 },
-      }));
-    setCurrentSeats(current);
+    function updatePositions() {
+      const numSeats = seats.data.filter((s) => s.seatFrame).length;
+      const calculatedPositions = calculatePositions(numSeats);
+      setPositions(calculatedPositions);
+      const current = seats.data
+        .filter((s) => s.seatFrame)
+        .map((seat, index) => ({
+          ...seat,
+          position: calculatedPositions[index] || { x: 0, y: 0 },
+        }));
+      setCurrentSeats(current);
+    }
+
+    updatePositions();
+
+    window.addEventListener('resize', updatePositions);
+    return () => window.removeEventListener('resize', updatePositions);
   }, [JSON.stringify(seats.data)]);
 
   return (
