@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import socketContext from '@/context/websocket/socketContext';
 import tableContext from '@/context/table/tableContext';
 import contentContext from '@/context/content/contentContext';
@@ -33,6 +33,9 @@ const ChatButton = styled.button`
 `;
 
 const Games = () => {
+  const [searchParams] = useSearchParams();
+  const queryStrTableId = searchParams.get('tableId');
+
   const { t } = useContext(contentContext);
   const { openView, openModal, closeModal } = useContext(modalContext);
   const socketCtx = useContext(socketContext);
@@ -183,9 +186,17 @@ const Games = () => {
         tableMinBet = 10,
         passwordProtected,
       } = table;
+      const isHighlighted = tableId === Number(queryStrTableId);
       return (
-        <tr key={tableId}>
-          <th scope="row">{tableId}</th>
+        <tr
+          key={tableId}
+          style={{
+            fontWeight: isHighlighted ? 'bold' : 'normal',
+          }}
+        >
+          <th scope="row" className={isHighlighted ? 'bg-danger' : ''}>
+            {tableId}
+          </th>
           <td>
             <div className="d-flex align-items-center">
               <GameIcon game={game} />
@@ -235,10 +246,7 @@ const Games = () => {
           padding: '10px',
         }}
       >
-        <table
-          className="table table-dark table-striped"
-          style={{ marginBottom: 0, backgroundColor: '#434343' }}
-        >
+        <table className="table table-dark" style={{ marginBottom: 0, backgroundColor: '#434343' }}>
           <thead className="thead-dark">
             <tr>
               <th scope="col">#</th>
