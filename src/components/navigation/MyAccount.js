@@ -174,7 +174,7 @@ const MyAccount = () => {
         >
           {t('ACHIEVEMENT_INFO')}
         </div>
-        <Achievements />
+        <Achievements achievements={userStats.achievements} />
       </div>
 
       <div
