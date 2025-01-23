@@ -109,7 +109,7 @@ const Achievements = ({ achievements }) => {
         <Achievement
           key={index}
           name={achievement.name}
-          icon={'shaded_medal_blank'}
+          icon={achievement.icon ? achievement.icon : 'shaded_medal_blank'}
           description={achievement.description}
         />
       ))}
