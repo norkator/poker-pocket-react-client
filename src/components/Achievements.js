@@ -97,18 +97,11 @@ const Achievement = ({ name, icon, description }) => {
   );
 };
 
-const Achievements = () => {
+const Achievements = ({ achievements }) => {
   // const achievements = Array.from({ length: 9 }, (_, index) => ({
   //   name: `Test${index + 1}`,
   //   description: `Description for achievement ${index + 1}.`,
   // }));
-
-  const achievements = [
-    {
-      name: `Test 1`,
-      description: `Description for achievement 1.`,
-    },
-  ];
 
   return (
     <AchievementFlex>
