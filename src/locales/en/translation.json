@@ -40,7 +40,7 @@
   "ACCOUNT_CREATED": "Account successfully created, you can now login",
   "USERNAME_EMAIL_PASSWORD_REQUIRED": "Username, email and password are required!",
   "ACCOUNT_CREATE_ERROR": "Account create error.",
-  "XP_GAINED_WIN_STREAK":  "XP WIN STREAK!",
+  "XP_GAINED_WIN_STREAK": "XP WIN STREAK!",
   "XP_GAINED": "XP Gained!",
   "MONEY": "Money",
   "XP": "Experience points (XP)",
@@ -61,7 +61,7 @@
   "RANK": "Rank",
   "REMOVE": "Remove",
   "MY_GAMES": "My game tables",
-  "PASSWORD":  "Password",
+  "PASSWORD": "Password",
   "BOT_COUNT": "Bot count",
   "MY_GAMES_INFO": "Here you can create your own game tables. Add join password protection or leave empty for no password.",
   "CREATE_TABLE": "Create table",
@@ -75,5 +75,7 @@
   "MAX_SEATS": "Max seats",
   "NO_SEAT_CHANGED_TO_SPECTATOR": "No available seats. You are now spectator.",
   "NO_MONEY_CHANGED_TO_SPECTATOR": "Not enough money to join the game. You are now spectator.",
-  "ACHIEVEMENT_INFO": "\uD83C\uDFC6 If you have achievements. They will be shown here."
+  "ACHIEVEMENT_INFO": "\uD83C\uDFC6 If you have achievements. They will be shown here.",
+  "MESSAGE_TOO_LONG": "Message is too long. Maximum length is 400 characters.",
+  "MESSAGES_TOO_QUICKLY": "You are sending messages too quickly. Please wait a moment."
 }
