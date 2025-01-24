@@ -110,9 +110,13 @@ const Chat = ({ isVisible }) => {
   }
 
   function newMessageData(mData) {
-    const newMessage = mData.chatMessage;
-    if (newMessage.message.trim() && isMounted.current) {
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    if (mData.success) {
+      const newMessage = mData.chatMessage;
+      if (newMessage.message.trim() && isMounted.current) {
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+      }
+    } else {
+      toast.error(t(mData.translationKey));
     }
   }
 
