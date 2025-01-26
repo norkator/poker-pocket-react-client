@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   devServer: {
@@ -19,6 +20,18 @@ module.exports = {
         htmlPlugin.options.ANALYTICS_ID =
           process.env.ANALYTICS_ID === undefined ? 'analytics-empty-id' : process.env.ANALYTICS_ID;
       }
+
+      // copy serviceWorker.js to the build directory
+      webpackConfig.plugins.push(
+        new CopyPlugin({
+          patterns: [
+            {
+              from: path.resolve(__dirname, 'src/serviceWorker.js'),
+              to: path.resolve(__dirname, 'build/serviceWorker.js'),
+            },
+          ],
+        })
+      );
 
       return webpackConfig;
     },
