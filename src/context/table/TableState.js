@@ -25,6 +25,8 @@ import modalContext from '@/context/modal/modalContext';
 import FCDPickCardsModal from '@/modals/FCDPickCardsModal';
 import contentContext from '@/context/content/contentContext';
 import { toast } from 'react-toastify';
+import { LS_AUTO_CHECK_ENABLED, LS_AUTO_PLAY_ENABLED } from '@/components/game/SettingsBar';
+import { LS_ENABLE_SOUNDS_STATE } from '@/components/navigation/Navbar';
 
 let tempPlayers = [];
 
@@ -35,11 +37,20 @@ const TableState = ({ children }) => {
   const { setMyDashboardDataRefresh } = useContext(authContext);
   const { openView, openModal, closeModal } = useContext(modalContext);
 
-  const [enableSounds, setEnableSounds] = useState(true);
-  const [autoCheck, setAutoCheck] = useState(false);
+  const [enableSounds, setEnableSounds] = useState(() => {
+    const storedValue = localStorage.getItem(LS_ENABLE_SOUNDS_STATE);
+    return storedValue === 'true';
+  });
 
-  // Set true makes logged in player play automatically
-  const [autoPlay, setAutoPlay] = useState(false);
+  const [autoCheck, setAutoCheck] = useState(() => {
+    const storedValue = localStorage.getItem(LS_AUTO_CHECK_ENABLED);
+    return storedValue === 'true';
+  });
+
+  const [autoPlay, setAutoPlay] = useState(() => {
+    const storedValue = localStorage.getItem(LS_AUTO_PLAY_ENABLED);
+    return storedValue === 'true';
+  });
 
   const [tableId, setTableId] = useState(-1);
   const [players, setPlayers] = useState(null);

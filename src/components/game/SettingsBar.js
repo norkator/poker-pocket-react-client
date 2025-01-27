@@ -10,11 +10,11 @@ const StyledItem = styled.div`
   margin-top: 10px;
 `;
 
-const LS_USE_PURPLE_TABLE = 'LS_USE_PURPLE_TABLE';
-const LS_USE_BLACK_CARDS = 'LS_USE_BLACK_CARDS';
-const LS_AUTO_CHECK_ENABLED = 'LS_AUTO_CHECK_ENABLED';
-const LS_AUTO_PLAY_ENABLED = 'LS_AUTO_PLAY_ENABLED';
-const LS_MODE_TOGGLE_STATE = 'LS_MODE_TOGGLE_STATE';
+export const LS_USE_PURPLE_TABLE = 'LS_USE_PURPLE_TABLE';
+export const LS_USE_BLACK_CARDS = 'LS_USE_BLACK_CARDS';
+export const LS_AUTO_CHECK_ENABLED = 'LS_AUTO_CHECK_ENABLED';
+export const LS_AUTO_PLAY_ENABLED = 'LS_AUTO_PLAY_ENABLED';
+export const LS_MODE_TOGGLE_STATE = 'LS_MODE_TOGGLE_STATE';
 
 // Sleep promise
 function sleep(ms) {
@@ -56,12 +56,10 @@ const autoPlayEnabledVal = () => {
 const SettingsBar = () => {
   const { setCardStyle } = useContext(globalContext);
   const { t } = useContext(contentContext);
-  const { setAutoCheck, setAutoPlay } = useContext(tableContext);
+  const { autoCheck, setAutoCheck, autoPlay, setAutoPlay } = useContext(tableContext);
 
   const [tablePurpleBg, setTablePurpleBg] = useState(purpleBgVal());
   const [blackCards, setBlackCards] = useState(blackCardVal());
-  const [autoCheckEnabled, setAutoCheckEnabled] = useState(autoCheckEnabledVal());
-  const [autoPlayEnabled, setAutoPlayEnabled] = useState(autoPlayEnabledVal());
 
   // Handlers for each toggle
   const changeTableColor = (state) => {
@@ -85,13 +83,11 @@ const SettingsBar = () => {
   };
 
   const changeAutoCheck = (state) => {
-    setAutoCheckEnabled(state);
     setAutoCheck(state);
     localStorage.setItem(LS_AUTO_CHECK_ENABLED, String(state));
   };
 
   const changeAutoPlay = (state) => {
-    setAutoPlayEnabled(state);
     setAutoPlay(state);
     localStorage.setItem(LS_AUTO_PLAY_ENABLED, String(state));
   };
@@ -143,8 +139,11 @@ const SettingsBar = () => {
           label={t('AUTO_CHECK')}
           onText="On"
           offText="Off"
-          value={autoCheckEnabled}
-          onChange={changeAutoCheck}
+          value={autoCheck}
+          onChange={(state) => {
+            setAutoCheck(state);
+            localStorage.setItem(LS_AUTO_CHECK_ENABLED, String(state));
+          }}
         />
       </StyledItem>
       <StyledItem className="col col-auto">
@@ -153,8 +152,11 @@ const SettingsBar = () => {
           label={t('AUTO_PLAY')}
           onText="On"
           offText="Off"
-          value={autoPlayEnabled}
-          onChange={changeAutoPlay}
+          value={autoPlay}
+          onChange={(state) => {
+            setAutoPlay(state);
+            localStorage.setItem(LS_AUTO_PLAY_ENABLED, String(state));
+          }}
         />
       </StyledItem>
       <StyledItem className="col col-auto">

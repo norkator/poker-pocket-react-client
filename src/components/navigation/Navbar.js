@@ -10,7 +10,7 @@ import tableContext from '@/context/table/tableContext';
 import { useNavigate } from 'react-router-dom';
 import { LS_TOKEN } from '@/context/auth/AuthState';
 
-const LS_ENABLE_SOUNDS_STATE = 'LS_ENABLE_SOUNDS_STATE';
+export const LS_ENABLE_SOUNDS_STATE = 'LS_ENABLE_SOUNDS_STATE';
 
 const Navbar = () => {
   const { t } = useContext(contentContext);
