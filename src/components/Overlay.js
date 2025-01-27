@@ -2,10 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import socketContext from '@/context/websocket/socketContext';
 import contentContext from '@/context/content/contentContext';
 import { playMaximize006, playMinimize008 } from '@/components/Audio';
+import tableContext from '@/context/table/tableContext';
 
 const Overlay = ({ children }) => {
   const { t } = useContext(contentContext);
   const { socket, playerId } = useContext(socketContext);
+  const { enableSounds } = useContext(tableContext);
   const [isVisible, setIsVisible] = useState(false);
   const [text, setText] = useState('');
 
@@ -28,9 +30,13 @@ const Overlay = ({ children }) => {
   const showOverlay = (message) => {
     setText(message);
     setIsVisible(true);
-    playMaximize006.play();
+    if (enableSounds) {
+      playMaximize006.play();
+    }
     setTimeout(() => {
-      playMinimize008.play();
+      if (enableSounds) {
+        playMinimize008.play();
+      }
       setIsVisible(false);
     }, 2000);
   };

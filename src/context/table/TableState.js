@@ -41,6 +41,7 @@ const TableState = ({ children }) => {
     const storedValue = localStorage.getItem(LS_ENABLE_SOUNDS_STATE);
     return storedValue === 'true';
   });
+  const enableSoundsRef = useRef(enableSounds);
 
   const [autoCheck, setAutoCheck] = useState(() => {
     const storedValue = localStorage.getItem(LS_AUTO_CHECK_ENABLED);
@@ -59,10 +60,16 @@ const TableState = ({ children }) => {
   const [actionButtonsEnabled, setActionButtonsEnabled] = useState(false);
 
   const [roomInfo, setRoomInfo] = useState({ data: NewRoomInfo() });
-  const [board, setBoard] = useState({ data: NewBoard(enableSounds) });
-  const [ctrl, setCtrl] = useState({ data: NewCtrl(enableSounds) });
+  const [board, setBoard] = useState({ data: NewBoard(() => enableSoundsRef.current) });
+  const [ctrl, setCtrl] = useState({ data: NewCtrl(() => enableSoundsRef.current) });
 
-  const roomRef = useRef(NewRoom(NewRoomInfo(), NewBoard(enableSounds), NewCtrl(enableSounds)));
+  const roomRef = useRef(
+    NewRoom(
+      NewRoomInfo(),
+      NewBoard(() => enableSoundsRef.current),
+      NewCtrl(() => enableSoundsRef.current)
+    )
+  );
 
   const seatsRef = useRef(setupSeats());
   const [seats, setSeats] = useState({ data: seatsRef.current });
@@ -72,8 +79,6 @@ const TableState = ({ children }) => {
   useEffect(() => {
     tableIdRef.current = tableId;
   }, [tableId, setTableId]);
-
-  const enableSoundsRef = useRef(enableSounds);
 
   useEffect(() => {
     enableSoundsRef.current = enableSounds;

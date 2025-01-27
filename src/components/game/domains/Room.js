@@ -1,7 +1,7 @@
 import { playCardTakeOutFromPackageOne, playCardSlideSix } from '@/components/Audio';
 import { formatMoney } from '@/utils/Money';
 
-export const NewBoard = (enableSounds) => {
+export const NewBoard = (getEnableSounds) => {
   let totalPot = 240;
   let minBet = 100;
 
@@ -21,6 +21,7 @@ export const NewBoard = (enableSounds) => {
   };
 
   const setMiddleCard = (number, cardStr, isMiddleOfTheGame) => {
+    const enableSounds = getEnableSounds();
     if (enableSounds && !isMiddleOfTheGame) {
       playCardSlideSix.play();
     }
@@ -166,7 +167,7 @@ export const NewRoomInfo = () => {
   };
 };
 
-export const NewCtrl = (enableSounds) => {
+export const NewCtrl = (getEnableSounds) => {
   let isFoldBtn = true;
   let isCheckBtn = true;
   let isRaiseBtn = true;
@@ -177,6 +178,7 @@ export const NewCtrl = (enableSounds) => {
   };
 
   const actionBtnVisibility = (visible, isInit) => {
+    const enableSounds = getEnableSounds();
     if (visible) {
       if (!isFoldBtn && !isInit) {
         if (enableSounds) {

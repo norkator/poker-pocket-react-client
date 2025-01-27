@@ -32,16 +32,21 @@ const Navbar = () => {
     tableIdRef.current = tableId;
   }, [tableId, setTableId]);
 
-  useEffect(() => {
+  const getEnableSoundsFromLocalStorage = () => {
     const sounds = localStorage.getItem(LS_ENABLE_SOUNDS_STATE);
-    setEnableSounds(sounds === 'true');
-  }, []);
+    return sounds === 'true';
+  };
 
-  function toggleSounds() {
-    const sounds = !enableSounds;
-    localStorage.setItem(LS_ENABLE_SOUNDS_STATE, sounds ? 'true' : 'false');
-    setEnableSounds(sounds);
-  }
+  useEffect(() => {
+    const initialSoundsState = getEnableSoundsFromLocalStorage();
+    setEnableSounds(initialSoundsState);
+  }, [setEnableSounds]);
+
+  const toggleSounds = () => {
+    const newEnableSounds = !enableSounds;
+    localStorage.setItem(LS_ENABLE_SOUNDS_STATE, newEnableSounds.toString());
+    setEnableSounds(newEnableSounds);
+  };
 
   const openRoomModal = (mode) => {
     if (socket) {
