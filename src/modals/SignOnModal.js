@@ -62,7 +62,7 @@ const SignOnModal = ({ closeModal, createAccount, setState, forgotPasswordBtn })
                 onChange={(event) =>
                   setInputData({
                     ...inputData,
-                    rg_username: event.currentTarget.value,
+                    rg_username: event.currentTarget.value.toLowerCase().replace(/\s/g, ''),
                   })
                 }
               />
