@@ -77,5 +77,6 @@
   "NO_MONEY_CHANGED_TO_SPECTATOR": "Not enough money to join the game. You are now spectator.",
   "ACHIEVEMENT_INFO": "\uD83C\uDFC6 If you have achievements. They will be shown here.",
   "MESSAGE_TOO_LONG": "Message is too long. Maximum length is 400 characters.",
-  "MESSAGES_TOO_QUICKLY": "You are sending messages too quickly. Please wait a moment."
+  "MESSAGES_TOO_QUICKLY": "You are sending messages too quickly. Please wait a moment.",
+  "INVALID_USERNAME": "Username did not pass validation."
 }
