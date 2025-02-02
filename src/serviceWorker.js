@@ -1,4 +1,4 @@
-const CACHE_NAME = 'poker-pocket-react-frontend';
+const CACHE_NAME = `poker-pocket-react-frontend-${Date.now()}`;
 const urlsToCache = ['/', '/index.html'];
 
 self.addEventListener('install', (event) => {
@@ -7,33 +7,40 @@ self.addEventListener('install', (event) => {
       return cache.addAll(urlsToCache);
     })
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (!cacheWhitelist.includes(cacheName)) {
+          if (cacheName !== CACHE_NAME) {
+            console.log(`Deleting old cache: ${cacheName}`);
             return caches.delete(cacheName);
           }
         })
       );
     })
   );
+  self.clients.claim();
 });
 
-// Listen for fetch requests and return cached responses if available
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
+    caches.open(CACHE_NAME).then((cache) => {
+      return fetch(event.request)
+        .then((response) => {
+          if (event.request.method === 'GET' && response.status === 200) {
+            cache.put(event.request, response.clone());
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request));
     })
   );
 });
 
-// Listen for updates to the service worker and notify the user
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
