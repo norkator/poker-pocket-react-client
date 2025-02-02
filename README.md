@@ -1,5 +1,3 @@
-# ⚠️ WORK  IN PROGRESS ⚠️
-
 # Poker Pocket React Client
 
 ![poker_pocket_front_page](./images/table.png)
@@ -39,9 +37,11 @@ Graphics and sounds
 ============
 
 ### Raphael Ciribelly
+
 * Designed and created all card, table, logo and chip images.
 
 ### Kenney Assets
+
 * All medal images.
 * Currently all sounds.
 

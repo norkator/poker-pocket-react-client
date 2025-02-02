@@ -14,7 +14,6 @@ export const LS_USE_PURPLE_TABLE = 'LS_USE_PURPLE_TABLE';
 export const LS_USE_BLACK_CARDS = 'LS_USE_BLACK_CARDS';
 export const LS_AUTO_CHECK_ENABLED = 'LS_AUTO_CHECK_ENABLED';
 export const LS_AUTO_PLAY_ENABLED = 'LS_AUTO_PLAY_ENABLED';
-export const LS_MODE_TOGGLE_STATE = 'LS_MODE_TOGGLE_STATE';
 
 // Sleep promise
 function sleep(ms) {
@@ -92,16 +91,6 @@ const SettingsBar = () => {
     localStorage.setItem(LS_AUTO_PLAY_ENABLED, String(state));
   };
 
-  const changeConnectMode = (state) => {
-    localStorage.setItem(LS_MODE_TOGGLE_STATE, JSON.stringify(state));
-    reloadDelay();
-  };
-
-  const reloadDelay = async () => {
-    await sleep(500);
-    window.location.reload(); // Reload site with new connection params
-  };
-
   const getCurrentYear = () => new Date().getFullYear();
 
   return (
@@ -157,16 +146,6 @@ const SettingsBar = () => {
             setAutoPlay(state);
             localStorage.setItem(LS_AUTO_PLAY_ENABLED, String(state));
           }}
-        />
-      </StyledItem>
-      <StyledItem className="col col-auto">
-        <SwitchButton
-          id="connection"
-          label={t('CONNECTION')}
-          onText="Prod"
-          offText="Dev"
-          value={false}
-          onChange={changeConnectMode}
         />
       </StyledItem>
       <div className="col-2" style={{ marginTop: '20px' }}>
