@@ -26,12 +26,14 @@ const BaseRouter = () => {
         path="/fivecarddraw"
         element={<AppRoute component={FiveCardDrawPage} layout={MainLayout} />}
       />
-      <Route path="/account" element={<AppRoute component={MyAccountPage} layout={MainLayout} />} />
-      <Route path="/rankings" element={<AppRoute component={RankingsPage} layout={MainLayout} />} />
       <Route
         path="/bottlespin"
         element={<AppRoute component={BottleSpinPage} layout={MainLayout} />}
       />
+      <Route path="/account" element={<AppRoute component={MyAccountPage} layout={MainLayout} />} />
+      <Route path="/rankings" element={<AppRoute component={RankingsPage} layout={MainLayout} />} />
+      <Route path="/account-android" element={<MyAccountPage />} />
+      <Route path="/rankings-android" element={<RankingsPage />} />
     </Routes>
   );
 };
