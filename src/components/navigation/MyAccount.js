@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import socketContext from '@/context/websocket/socketContext';
 import contentContext from '@/context/content/contentContext';
 import StatCard from '@/components/StatCard';
@@ -14,12 +14,26 @@ import { toast } from 'react-toastify';
 import Achievements from '@/components/Achievements';
 
 const MyAccount = () => {
+  const [searchParams] = useSearchParams();
+  const queryStrToken = searchParams.get('token');
+  const authCtx = useContext(authContext);
+  const { setIsLoggedIn } = authCtx;
+
   const { t } = useContext(contentContext);
   const socketCtx = useContext(socketContext);
   const { socket, socketConnected } = useContext(socketContext);
   const navigate = useNavigate();
   const { myDashboardData } = useContext(authContext);
   const { openView, openModal, closeModal } = useContext(modalContext);
+
+  useEffect(() => {
+    if (socket && queryStrToken) {
+      localStorage.setItem(LS_TOKEN, queryStrToken);
+      setIsLoggedIn({
+        token: queryStrToken,
+      });
+    }
+  }, [socket, queryStrToken]);
 
   useEffect(() => {
     if (socket) {
