@@ -7,6 +7,9 @@ COPY package*.json ./
 
 RUN NODE_ENV=development npm install
 
+ARG ANALYTICS_ID
+ENV ANALYTICS_ID=${ANALYTICS_ID}
+
 COPY . .
 
 ENV NODE_ENV=production
