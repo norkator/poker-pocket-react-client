@@ -12,7 +12,7 @@ Samples
 ============
 
 Current staging: https://pokerpocket-staging.nitramite.com  
-Current production: todo
+Current production: https://pokerpocket.nitramite.com
 
 
 Requirements
